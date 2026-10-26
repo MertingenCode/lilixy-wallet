@@ -114,6 +114,10 @@ export function WalletDashboard() {
   const currency = useSettingsStore((state) => state.currency);
   const activeChainId = useChainId();
   const customNetworks = useSettingsStore((state) => state.customNetworks);
+  const filterChain = useSettingsStore((state) => state.walletChainFilter);
+  const setFilterChain = useSettingsStore(
+    (state) => state.setWalletChainFilter,
+  );
   const customTokens = useSettingsStore((state) => state.customTokens);
   const removeCustomToken = useSettingsStore((state) => state.removeCustomToken);
   const {
@@ -127,7 +131,6 @@ export function WalletDashboard() {
   } = useWalletAssets();
 
   const [search, setSearch] = useState("");
-  const [filterChain, setFilterChain] = useState<string>("all");
   const [hidden, setHidden] = useState(false);
   const [sendOpen, setSendOpen] = useState(false);
   const [receiveOpen, setReceiveOpen] = useState(false);

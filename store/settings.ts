@@ -19,6 +19,7 @@ interface SettingsState {
   currency: FiatCurrency;
   autoLock: AutoLockOption;
   activeChainId: number;
+  walletChainFilter: string;
   customNetworks: CustomNetwork[];
   customTokens: CustomToken[];
   addressBook: AddressBookEntry[];
@@ -27,6 +28,7 @@ interface SettingsState {
   setCurrency: (currency: FiatCurrency) => void;
   setAutoLock: (autoLock: AutoLockOption) => void;
   setActiveChainId: (chainId: number) => void;
+  setWalletChainFilter: (filter: string) => void;
   addCustomNetwork: (network: CustomNetwork) => void;
   updateCustomNetwork: (network: CustomNetwork) => void;
   removeCustomNetwork: (chainId: number) => void;
@@ -45,6 +47,7 @@ const initialSettings = {
   currency: "USD" as FiatCurrency,
   autoLock: DEFAULT_AUTO_LOCK,
   activeChainId: 1,
+  walletChainFilter: "all",
   customNetworks: [] as CustomNetwork[],
   customTokens: [] as CustomToken[],
   addressBook: [] as AddressBookEntry[],
@@ -86,6 +89,7 @@ export const useSettingsStore = create<SettingsState>()(
       setCurrency: (currency) => set({ currency }),
       setAutoLock: (autoLock) => set({ autoLock }),
       setActiveChainId: (activeChainId) => set({ activeChainId }),
+      setWalletChainFilter: (walletChainFilter) => set({ walletChainFilter }),
       addCustomNetwork: (network) =>
         set((state) => ({
           customNetworks: [
@@ -109,6 +113,10 @@ export const useSettingsStore = create<SettingsState>()(
           customTokens: state.customTokens.filter(
             (token) => token.chainId !== chainId,
           ),
+          walletChainFilter:
+            state.walletChainFilter === String(chainId)
+              ? "all"
+              : state.walletChainFilter,
         })),
       addCustomToken: (token) =>
         set((state) => ({
@@ -160,6 +168,7 @@ export const useSettingsStore = create<SettingsState>()(
         currency: state.currency,
         autoLock: state.autoLock,
         activeChainId: state.activeChainId,
+        walletChainFilter: state.walletChainFilter,
         customNetworks: state.customNetworks,
         customTokens: state.customTokens,
         addressBook: state.addressBook,

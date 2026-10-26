@@ -1095,9 +1095,13 @@ export function SendDialog({
                 />
               </div>
             ) : null}
-            <div className="flex flex-col gap-2 sm:flex-row">
+            <div className="grid w-full grid-cols-1 gap-2">
               {explorerUrl ? (
-                <Button asChild variant="outline" className="flex-1">
+                <Button
+                  asChild
+                  variant="outline"
+                  className="h-auto min-h-10 w-full whitespace-normal px-3 py-2 leading-5"
+                >
                   <a
                     href={explorerUrl}
                     target="_blank"
@@ -1108,7 +1112,7 @@ export function SendDialog({
                 </Button>
               ) : null}
               <Button
-                className="flex-1"
+                className="h-auto min-h-10 w-full whitespace-normal px-3 py-2 leading-5"
                 onClick={() => {
                   setStep("form");
                   setRecipient("");
