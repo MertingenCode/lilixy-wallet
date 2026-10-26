@@ -364,6 +364,46 @@
     backdrop-filter: blur(var(--glass-blur)) saturate(1.35);
   }
 
+  .floating-nav {
+    background:
+      radial-gradient(
+        120% 100% at 18% 0%,
+        color-mix(in srgb, var(--dusk-light) 22%, transparent),
+        transparent 60%
+      ),
+      linear-gradient(
+        135deg,
+        color-mix(in srgb, var(--card) 54%, transparent),
+        color-mix(in srgb, var(--dusk-paper-2) 28%, transparent)
+      );
+    border: 1px solid color-mix(in srgb, var(--dusk-rule) 86%, transparent);
+    box-shadow:
+      0 22px 56px -22px rgba(2, 6, 23, 0.46),
+      inset 0 1px 0 color-mix(in srgb, var(--dusk-light) 42%, transparent),
+      inset 0 0 0 1px color-mix(in srgb, var(--dusk-light) 9%, transparent);
+    -webkit-backdrop-filter: blur(40px) saturate(1.7);
+    backdrop-filter: blur(40px) saturate(1.7);
+  }
+
+  .dark .floating-nav {
+    background:
+      radial-gradient(
+        120% 100% at 18% 0%,
+        rgba(147, 197, 253, 0.15),
+        transparent 60%
+      ),
+      linear-gradient(
+        135deg,
+        rgba(17, 27, 46, 0.48),
+        rgba(11, 18, 32, 0.34)
+      );
+    border-color: rgba(255, 255, 255, 0.14);
+    box-shadow:
+      0 24px 62px -20px rgba(0, 0, 0, 0.82),
+      inset 0 1px 0 rgba(255, 255, 255, 0.18),
+      inset 0 0 0 1px rgba(255, 255, 255, 0.055);
+  }
+
   .glass-nav {
     background: color-mix(in srgb, var(--card) 72%, transparent);
     border-color: color-mix(in srgb, var(--dusk-rule) 78%, transparent);

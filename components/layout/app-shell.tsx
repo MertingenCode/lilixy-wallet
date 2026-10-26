@@ -40,18 +40,27 @@ function NavLinks({ mobile = false }: { mobile?: boolean }) {
             <Link
               key={item.href}
               href={item.href}
+              aria-label={t(item.key)}
               aria-current={active ? "page" : undefined}
+              title={t(item.key)}
               className={cn(
-                "flex min-h-12 flex-1 flex-col items-center gap-1 rounded-[14px] px-1 py-1 text-[0.6875rem] font-medium transition-colors duration-[var(--dur-short)]",
-                active
-                  ? "bg-primary/10 text-primary"
-                  : "text-muted-foreground hover:bg-card/60 hover:text-foreground",
+                "group flex min-h-[58px] flex-1 flex-col items-center justify-center gap-1 rounded-full px-0.5 py-1 text-[0.625rem] font-medium transition-colors duration-[var(--dur-short)]",
+                active ? "text-primary" : "text-muted-foreground",
               )}
             >
-              <span className="flex size-7 items-center justify-center">
-                <Icon className="size-[1.375rem]" strokeWidth={1.7} />
+              <span
+                className={cn(
+                  "flex size-9 items-center justify-center rounded-full transition-colors duration-[var(--dur-short)]",
+                  active
+                    ? "bg-primary/10 text-primary"
+                    : "group-hover:bg-card/65 group-hover:text-foreground",
+                )}
+              >
+                <Icon className="size-[1.3125rem]" strokeWidth={1.7} />
               </span>
-              <span className="max-w-full truncate">{t(item.key)}</span>
+              <span className="max-w-full truncate leading-none">
+                {t(item.key)}
+              </span>
             </Link>
           );
         }
@@ -91,7 +100,7 @@ export function AppShell({ children }: { children: ReactNode }) {
         {t("a11y.skipToContent")}
       </a>
 
-      <aside className="sidebar-glass fixed inset-y-3 start-3 z-30 hidden w-[252px] flex-col lg:flex">
+      <aside className="sidebar-glass fixed inset-y-3 start-3 z-30 hidden w-[252px] flex-col xl:flex">
         <div className="flex h-[84px] items-center px-6">
           <Logo size="lg" />
         </div>
@@ -111,7 +120,7 @@ export function AppShell({ children }: { children: ReactNode }) {
         </nav>
       </aside>
 
-      <header className="glass-nav fixed inset-x-0 top-0 z-30 flex h-[60px] items-center justify-between border-b px-4 lg:hidden">
+      <header className="glass-nav fixed inset-x-0 top-0 z-30 flex h-[60px] items-center justify-between border-b px-4 xl:hidden">
         <Logo size="md" />
         <div className="flex items-center gap-1">
           <ThemeToggle />
@@ -119,21 +128,23 @@ export function AppShell({ children }: { children: ReactNode }) {
         </div>
       </header>
 
-      <div className="lg:ps-[276px]">
+      <div className="xl:ps-[276px]">
         <main
           id="main-content"
-          className="min-h-dvh pb-24 pt-[5.25rem] lg:pb-12 lg:pt-10"
+          className="min-h-dvh pb-32 pt-[5.25rem] xl:pb-12 xl:pt-10"
         >
           <div className="page-container">{children}</div>
         </main>
       </div>
 
-      <nav
-        aria-label={t("a11y.mainNavigation")}
-        className="glass-nav safe-bottom fixed inset-x-0 bottom-0 z-40 flex items-stretch border-t px-2 pt-1.5 lg:hidden"
-      >
-        <NavLinks mobile />
-      </nav>
+      <div className="pointer-events-none fixed inset-x-0 bottom-[calc(1.25rem+env(safe-area-inset-bottom))] z-40 flex justify-center px-3 xl:hidden">
+        <nav
+          aria-label={t("a11y.mainNavigation")}
+          className="floating-nav pointer-events-auto flex min-h-[72px] w-full max-w-[26rem] items-center rounded-full px-2 py-1.5"
+        >
+          <NavLinks mobile />
+        </nav>
+      </div>
     </div>
   );
 }
