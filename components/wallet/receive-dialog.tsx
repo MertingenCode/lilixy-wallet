@@ -49,7 +49,7 @@ export function ReceiveDialog({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-[440px]">
+      <DialogContent className="max-w-[440px] min-w-0 overflow-x-hidden">
         <DialogHeader>
           <DialogTitle className="text-[1.5rem]">{t("receive.title")}</DialogTitle>
           <DialogDescription className="text-[0.75rem] leading-5">
@@ -77,11 +77,12 @@ export function ReceiveDialog({
         ) : null}
 
         {address ? (
-          <div className="flex flex-col items-center">
-            <div className="bg-well border-rule overflow-hidden rounded-[1.25rem] border p-4">
+          <div className="flex w-full min-w-0 flex-col items-center">
+            <div className="bg-well border-rule w-full max-w-[242px] overflow-hidden rounded-[1.25rem] border p-4">
               <QRCodeSVG
                 value={address}
                 size={208}
+                className="h-auto max-w-full"
                 level="M"
                 marginSize={1}
                 bgColor="transparent"
@@ -89,7 +90,7 @@ export function ReceiveDialog({
                 title={t("receive.qrLabel")}
               />
             </div>
-            <div className="mt-4 flex w-full items-center gap-2 border-b border-rule pb-3">
+            <div className="mt-4 flex w-full min-w-0 items-center gap-2 border-b border-rule pb-3">
               <NetworkLogo chainId={chainId} size={26} label={networkName} />
               <code className="min-w-0 flex-1 truncate text-center font-mono text-xs">
                 {address}
@@ -103,7 +104,7 @@ export function ReceiveDialog({
           </div>
         ) : null}
 
-        <div className="text-muted-foreground flex items-start gap-2.5 border-s border-rule ps-3 text-[0.6875rem] leading-5">
+        <div className="text-muted-foreground flex min-w-0 items-start gap-2.5 border-s border-rule ps-3 text-[0.6875rem] leading-5">
           <TriangleAlertIcon className="mt-0.5 size-4 shrink-0" />
           <p>{t("receive.warning", { network: networkName })}</p>
         </div>

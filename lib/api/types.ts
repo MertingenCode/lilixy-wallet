@@ -14,6 +14,13 @@ export interface CoinPrice {
 
 export type PriceMap = Record<string, CoinPrice>;
 
+export interface TokenSearchResult {
+  id: string;
+  name: string;
+  symbol: string;
+  address: string;
+}
+
 export interface AssetPlatform {
   id: string;
   chainId: number;

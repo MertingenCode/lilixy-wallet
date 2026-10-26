@@ -232,7 +232,18 @@
     "showAllTokens": "Tümünü göster",
     "hideZeroBalances": "Sıfır bakiyeleri gizle",
     "noTokens": "Token bulunamadı.",
-    "searchToken": "Token veya ağ ara"
+    "searchToken": "Token veya ağ ara",
+    "scanQr": "QR tara",
+    "scanTitle": "Alıcı QR kodunu tara",
+    "scanDescription": "Kameranızı cüzdan adresi QR koduna doğrultun.",
+    "cameraError": "Kameraya erişilemedi. İzinleri kontrol edip tekrar deneyin.",
+    "cameraUnsupported": "Bu tarayıcıda kamera kullanılamıyor.",
+    "addressBook": "Adres defteri",
+    "addressBookTitle": "Adres defteri",
+    "addressBookDescription": "Kayıtlı bir alıcı seçin.",
+    "noSavedAddresses": "Kayıtlı adres yok",
+    "searchAddressBook": "Ad veya adres ara",
+    "addressBookHint": "Ayarlar → Adres defteri bölümünden kişi ekleyin."
   },
   "receive": {
     "title": "Kripto al",
@@ -344,7 +355,26 @@
     "fontSizeDescription": "Uygulama genelinde metin boyutunu ayarla.",
     "fontSizeSmall": "Küçük",
     "fontSizeDefault": "Varsayılan",
-    "fontSizeLarge": "Büyük"
+    "fontSizeLarge": "Büyük",
+    "dataSources": "Fiyatlar, 24 saatlik değişim, token arama ve token logoları:",
+    "addressBook": "Adres defteri",
+    "addressBookDescription": "Daha hızlı ve güvenli gönderim için alıcı adlarını ve adreslerini kaydedin.",
+    "addressBookEmpty": "Kayıtlı adres yok",
+    "addressBookEmptyDescription": "Gönder ekranında kullanmak için bir kişi ekleyin.",
+    "addAddress": "Adres ekle",
+    "editAddress": "Adresi düzenle",
+    "addAddressDescription": "Hızlı seçim için bir ad ve EVM adresi kaydedin.",
+    "editAddressDescription": "Kayıtlı adı veya adresi güncelleyin.",
+    "contactName": "Kişi adı",
+    "contactNamePlaceholder": "Örn. Ali",
+    "contactNameRequired": "Bir kişi adı girin.",
+    "addressExists": "Bu adres zaten adres defterinizde.",
+    "addressSaved": "Adres kaydedildi",
+    "addressUpdated": "Adres güncellendi",
+    "addressRemoved": "Adres silindi",
+    "deleteAddressTitle": "Kayıtlı adres silinsin mi?",
+    "deleteAddressDescription": "\"{{name}}\" adres defterinizden kaldırılacak.",
+    "savedAddressCount": "Kayıtlı adresler: {{count}}"
   },
   "networks": {
     "title": "Ağ yönetimi",
@@ -387,7 +417,7 @@
   },
   "tokens": {
     "title": "Token yönetimi",
-    "description": "Sözleşme adresine göre özel ERC-20 tokenları ekle.",
+    "description": "Özel ERC-20 tokenlarını ad veya kontrat adresiyle ekleyin.",
     "addToken": "Token ekle",
     "editToken": "Token'ı düzenle",
     "selectNetwork": "Ağ",
@@ -414,7 +444,14 @@
     "onChain": "Zincir üstü bilgiler",
     "cannotEditMetadata": "Sözleşme bilgileri salt okunurdur. Görünen adı değiştirebilirsin.",
     "manage": "Tokenları yönet",
-    "unverified": "Bu token doğrulanmamış. Herkes herhangi bir ad ve sembolle token oluşturabilir. İşlem yapmadan önce kontratı doğrulayın."
+    "unverified": "Bu token doğrulanmamış. Herkes herhangi bir ad ve sembolle token oluşturabilir. İşlem yapmadan önce kontratı doğrulayın.",
+    "searchByName": "Ada göre ara",
+    "searchByNamePlaceholder": "Bu ağda token ara",
+    "search": "Ara",
+    "searching": "Aranıyor",
+    "searchHint": "CoinGecko araması seçili ağdaki kontrat adresini getirir.",
+    "noSearchResults": "Bu ağda token bulunamadı.",
+    "searchError": "Token araması şu anda kullanılamıyor."
   },
   "pending": {
     "title": "Bekleyen işlemler",
@@ -574,5 +611,19 @@
     "description": "Bakiye, fiyat ve kontrat bilgileri.",
     "balance": "Bakiye",
     "price": "Fiyat"
+  },
+  "wallets": {
+    "title": "Cüzdanlar",
+    "description": "Cüzdanlarınızı yönetin ve aralarında geçiş yapın.",
+    "active": "Aktif",
+    "switch": "Geçiş yap",
+    "switchTitle": "Cüzdan değiştir",
+    "switchDescription": "{{name}} cüzdanına geçmek için şifresini girin.",
+    "add": "Cüzdan ekle",
+    "addDescription": "Yeni bir cüzdan oluşturun veya mevcut kurtarma ifadenizi içe aktarın.",
+    "name": "Cüzdan adı",
+    "namePlaceholder": "Örn. Ana cüzdan",
+    "added": "Cüzdan eklendi",
+    "switched": "Cüzdan değiştirildi"
   }
 }

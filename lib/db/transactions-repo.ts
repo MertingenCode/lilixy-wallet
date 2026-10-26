@@ -62,8 +62,13 @@ export async function deleteTransaction(id: string): Promise<void> {
   await db.delete(STORE, id);
 }
 
-export async function clearPendingTransactions(): Promise<number> {
-  const pending = await listPendingTransactions();
+export async function clearPendingTransactions(
+  owner?: string,
+): Promise<number> {
+  const pending = (await listPendingTransactions()).filter(
+    (item) =>
+      !owner || item.from.toLowerCase() === owner.toLowerCase(),
+  );
   const db = await getDb();
   const tx = db.transaction(STORE, "readwrite");
   await Promise.all([

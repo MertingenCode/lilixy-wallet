@@ -4,10 +4,12 @@ import { useEffect, useMemo, useState } from "react";
 import {
   AlertCircleIcon,
   ArrowRightIcon,
+  BookUserIcon,
   CheckIcon,
   ChevronDownIcon,
   ChevronLeftIcon,
   LoaderCircleIcon,
+  ScanLineIcon,
   SearchIcon,
   SendIcon,
 } from "lucide-react";
@@ -26,6 +28,8 @@ import { useChainId, useSendTransaction, useSwitchChain } from "wagmi";
 
 import { NetworkLogo } from "@/components/wallet/network-logo";
 import { CopyButton } from "@/components/common/copy-button";
+import { AddressBookPickerDialog } from "@/components/wallet/address-book-picker-dialog";
+import { QrScannerDialog } from "@/components/wallet/qr-scanner-dialog";
 import { TokenLogo } from "@/components/wallet/token-logo";
 import { Button } from "@/components/ui/button";
 import {
@@ -107,6 +111,8 @@ export function SendDialog({
   const [amount, setAmount] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [hash, setHash] = useState<Hash | null>(null);
+  const [scanOpen, setScanOpen] = useState(false);
+  const [addressBookOpen, setAddressBookOpen] = useState(false);
   const [fee, setFee] = useState<TransferFeeEstimate | null>(null);
   const [feeLoading, setFeeLoading] = useState(false);
   const [feeError, setFeeError] = useState(false);
@@ -602,21 +608,46 @@ export function SendDialog({
 
             <div className="space-y-2">
               <Label htmlFor="send-recipient" className="text-[0.75rem]">{t("send.recipient")}</Label>
-              <Input
-                id="send-recipient"
-                value={recipient}
-                onChange={(event) => {
-                  setRecipient(event.target.value.trim());
-                  if (error) setError(null);
-                }}
-                placeholder={t("send.recipientPlaceholder")}
-                autoComplete="off"
-                spellCheck={false}
-                className="font-mono text-sm"
-                aria-invalid={
-                  Boolean(recipient) && (!recipientValid || Boolean(sameAddress))
-                }
-              />
+              <div className="flex gap-2">
+                <Input
+                  id="send-recipient"
+                  value={recipient}
+                  onChange={(event) => {
+                    setRecipient(event.target.value.trim());
+                    if (error) setError(null);
+                  }}
+                  placeholder={t("send.recipientPlaceholder")}
+                  autoComplete="off"
+                  spellCheck={false}
+                  className="font-mono text-sm"
+                  aria-invalid={
+                    Boolean(recipient) &&
+                    (!recipientValid || Boolean(sameAddress))
+                  }
+                />
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="icon"
+                  onClick={() => setAddressBookOpen(true)}
+                  aria-label={t("send.addressBook")}
+                  title={t("send.addressBook")}
+                  className="shrink-0"
+                >
+                  <BookUserIcon className="size-4" />
+                </Button>
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="icon"
+                  onClick={() => setScanOpen(true)}
+                  aria-label={t("send.scanQr")}
+                  title={t("send.scanQr")}
+                  className="shrink-0 xl:hidden"
+                >
+                  <ScanLineIcon className="size-4" />
+                </Button>
+              </div>
               {recipient && !recipientValid ? (
                 <p className="text-destructive text-xs">
                   {t("send.invalidRecipient")}
@@ -1128,6 +1159,24 @@ export function SendDialog({
           </div>
         ) : null}
       </DialogContent>
+
+      <AddressBookPickerDialog
+        open={addressBookOpen}
+        onOpenChange={setAddressBookOpen}
+        onSelect={(value) => {
+          setRecipient(value);
+          if (error) setError(null);
+        }}
+      />
+
+      <QrScannerDialog
+        open={scanOpen}
+        onOpenChange={setScanOpen}
+        onResult={(value) => {
+          setRecipient(value);
+          if (error) setError(null);
+        }}
+      />
     </Dialog>
   );
 }

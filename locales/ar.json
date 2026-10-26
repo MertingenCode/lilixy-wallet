@@ -232,7 +232,18 @@
     "showAllTokens": "عرض الكل",
     "hideZeroBalances": "إخفاء الأرصدة الصفرية",
     "noTokens": "لم يتم العثور على رموز.",
-    "searchToken": "ابحث عن رمز أو شبكة"
+    "searchToken": "ابحث عن رمز أو شبكة",
+    "scanQr": "مسح QR",
+    "scanTitle": "مسح QR الخاص بالمستلم",
+    "scanDescription": "وجّه الكاميرا نحو رمز QR لعنوان المحفظة.",
+    "cameraError": "تعذّر الوصول إلى الكاميرا. تحقق من الأذونات وحاول مرة أخرى.",
+    "cameraUnsupported": "الكاميرا غير متاحة في هذا المتصفح.",
+    "addressBook": "دفتر العناوين",
+    "addressBookTitle": "دفتر العناوين",
+    "addressBookDescription": "اختر مستلمًا محفوظًا.",
+    "noSavedAddresses": "لا توجد عناوين محفوظة",
+    "searchAddressBook": "ابحث بالاسم أو العنوان",
+    "addressBookHint": "أضف جهات اتصال من الإعدادات ← دفتر العناوين."
   },
   "receive": {
     "title": "استلام العملات الرقمية",
@@ -344,7 +355,26 @@
     "fontSizeDescription": "اضبط حجم النص في التطبيق.",
     "fontSizeSmall": "صغير",
     "fontSizeDefault": "افتراضي",
-    "fontSizeLarge": "كبير"
+    "fontSizeLarge": "كبير",
+    "dataSources": "الأسعار وتغير 24 ساعة والبحث عن الرموز وشعارات الرموز:",
+    "addressBook": "دفتر العناوين",
+    "addressBookDescription": "احفظ أسماء وعناوين المستلمين لإرسال أسرع وأكثر أمانًا.",
+    "addressBookEmpty": "لا توجد عناوين محفوظة",
+    "addressBookEmptyDescription": "أضف جهة اتصال لاستخدامها في الإرسال.",
+    "addAddress": "إضافة عنوان",
+    "editAddress": "تعديل العنوان",
+    "addAddressDescription": "احفظ اسمًا وعنوان EVM للاختيار السريع.",
+    "editAddressDescription": "حدّث الاسم أو العنوان المحفوظ.",
+    "contactName": "اسم جهة الاتصال",
+    "contactNamePlaceholder": "مثال: علي",
+    "contactNameRequired": "أدخل اسم جهة الاتصال.",
+    "addressExists": "هذا العنوان موجود بالفعل في دفتر العناوين.",
+    "addressSaved": "تم حفظ العنوان",
+    "addressUpdated": "تم تحديث العنوان",
+    "addressRemoved": "تم حذف العنوان",
+    "deleteAddressTitle": "حذف العنوان المحفوظ؟",
+    "deleteAddressDescription": "ستتم إزالة \"{{name}}\" من دفتر العناوين.",
+    "savedAddressCount": "العناوين المحفوظة: {{count}}"
   },
   "networks": {
     "title": "إدارة الشبكات",
@@ -387,7 +417,7 @@
   },
   "tokens": {
     "title": "إدارة الرموز",
-    "description": "أضف رموز ERC-20 مخصصة عبر عنوان العقد.",
+    "description": "أضف رموز ERC-20 المخصصة بالاسم أو عنوان العقد.",
     "addToken": "إضافة رمز",
     "editToken": "تعديل الرمز",
     "selectNetwork": "الشبكة",
@@ -414,7 +444,14 @@
     "onChain": "بيانات وصفية من السلسلة",
     "cannotEditMetadata": "البيانات الوصفية للعقد للقراءة فقط. يمكنك تغيير اسم العرض.",
     "manage": "إدارة الرموز",
-    "unverified": "هذا الرمز غير موثّق. يمكن لأي شخص إنشاء رمز بأي اسم أو رمز. تحقق من العقد قبل التداول."
+    "unverified": "هذا الرمز غير موثّق. يمكن لأي شخص إنشاء رمز بأي اسم أو رمز. تحقق من العقد قبل التداول.",
+    "searchByName": "البحث بالاسم",
+    "searchByNamePlaceholder": "ابحث عن رمز في هذه الشبكة",
+    "search": "بحث",
+    "searching": "جارٍ البحث",
+    "searchHint": "يعيد بحث CoinGecko عنوان العقد على الشبكة المحددة.",
+    "noSearchResults": "لم يتم العثور على رموز في هذه الشبكة.",
+    "searchError": "البحث عن الرموز غير متاح حاليًا."
   },
   "pending": {
     "title": "المعاملات المعلقة",
@@ -574,5 +611,19 @@
     "description": "الرصيد والسعر ومعلومات العقد.",
     "balance": "الرصيد",
     "price": "السعر"
+  },
+  "wallets": {
+    "title": "المحافظ",
+    "description": "أدر محافظك وبدّل بينها.",
+    "active": "نشطة",
+    "switch": "تبديل",
+    "switchTitle": "تبديل المحفظة",
+    "switchDescription": "أدخل كلمة مرور {{name}} للتبديل.",
+    "add": "إضافة محفظة",
+    "addDescription": "أنشئ محفظة جديدة أو استورد عبارة استرداد موجودة.",
+    "name": "اسم المحفظة",
+    "namePlaceholder": "مثال: المحفظة الرئيسية",
+    "added": "تمت إضافة المحفظة",
+    "switched": "تم تبديل المحفظة"
   }
 }

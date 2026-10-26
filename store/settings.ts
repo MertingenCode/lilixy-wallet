@@ -6,6 +6,7 @@ import {
   type AutoLockOption,
   type CustomNetwork,
   type CustomToken,
+  type AddressBookEntry,
   type FiatCurrency,
 } from "@/lib/config/types";
 import type { LocalePreference } from "@/lib/i18n/locales";
@@ -20,6 +21,7 @@ interface SettingsState {
   activeChainId: number;
   customNetworks: CustomNetwork[];
   customTokens: CustomToken[];
+  addressBook: AddressBookEntry[];
   setLocale: (locale: LocalePreference) => void;
   setFontScale: (fontScale: FontScale) => void;
   setCurrency: (currency: FiatCurrency) => void;
@@ -31,6 +33,9 @@ interface SettingsState {
   addCustomToken: (token: CustomToken) => void;
   updateCustomToken: (token: CustomToken) => void;
   removeCustomToken: (id: string) => void;
+  addAddressBookEntry: (entry: AddressBookEntry) => void;
+  updateAddressBookEntry: (entry: AddressBookEntry) => void;
+  removeAddressBookEntry: (id: string) => void;
   resetSettings: () => void;
 }
 
@@ -42,6 +47,7 @@ const initialSettings = {
   activeChainId: 1,
   customNetworks: [] as CustomNetwork[],
   customTokens: [] as CustomToken[],
+  addressBook: [] as AddressBookEntry[],
 };
 
 const memoryStorage: StateStorage = {
@@ -121,6 +127,27 @@ export const useSettingsStore = create<SettingsState>()(
         set((state) => ({
           customTokens: state.customTokens.filter((item) => item.id !== id),
         })),
+      addAddressBookEntry: (entry) =>
+        set((state) => ({
+          addressBook: [
+            ...state.addressBook.filter(
+              (item) =>
+                item.id !== entry.id &&
+                item.address.toLowerCase() !== entry.address.toLowerCase(),
+            ),
+            entry,
+          ],
+        })),
+      updateAddressBookEntry: (entry) =>
+        set((state) => ({
+          addressBook: state.addressBook.map((item) =>
+            item.id === entry.id ? entry : item,
+          ),
+        })),
+      removeAddressBookEntry: (id) =>
+        set((state) => ({
+          addressBook: state.addressBook.filter((item) => item.id !== id),
+        })),
       resetSettings: () => set({ ...initialSettings }),
     }),
     {
@@ -135,6 +162,7 @@ export const useSettingsStore = create<SettingsState>()(
         activeChainId: state.activeChainId,
         customNetworks: state.customNetworks,
         customTokens: state.customTokens,
+        addressBook: state.addressBook,
       }),
     },
   ),

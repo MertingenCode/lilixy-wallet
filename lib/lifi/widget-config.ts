@@ -154,7 +154,6 @@ export function createWidgetConfig({
       container: {
         width: "100%",
         maxWidth: "none",
-        minHeight: "32rem",
         borderRadius: 22,
         border: `1px solid ${glassEdge}`,
         boxShadow: "0 30px 80px -42px rgba(37, 99, 235, 0.48)",

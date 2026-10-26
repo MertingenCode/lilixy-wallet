@@ -232,7 +232,18 @@
     "showAllTokens": "Mostrar todos",
     "hideZeroBalances": "Ocultar saldos cero",
     "noTokens": "No se encontraron tokens.",
-    "searchToken": "Buscar token o red"
+    "searchToken": "Buscar token o red",
+    "scanQr": "Escanear QR",
+    "scanTitle": "Escanear QR del destinatario",
+    "scanDescription": "Apunta la cámara al código QR de una dirección de cartera.",
+    "cameraError": "No se pudo acceder a la cámara. Revisa los permisos e inténtalo de nuevo.",
+    "cameraUnsupported": "La cámara no está disponible en este navegador.",
+    "addressBook": "Libreta de direcciones",
+    "addressBookTitle": "Libreta de direcciones",
+    "addressBookDescription": "Elige un destinatario guardado.",
+    "noSavedAddresses": "No hay direcciones guardadas",
+    "searchAddressBook": "Buscar nombre o dirección",
+    "addressBookHint": "Añade contactos en Ajustes → Libreta de direcciones."
   },
   "receive": {
     "title": "Recibir criptomonedas",
@@ -344,7 +355,26 @@
     "fontSizeDescription": "Ajusta el tamaño del texto en toda la aplicación.",
     "fontSizeSmall": "Pequeño",
     "fontSizeDefault": "Predeterminado",
-    "fontSizeLarge": "Grande"
+    "fontSizeLarge": "Grande",
+    "dataSources": "Precios, cambio de 24 h, búsqueda de tokens y logos de tokens:",
+    "addressBook": "Libreta de direcciones",
+    "addressBookDescription": "Guarda nombres y direcciones para envíos más rápidos y seguros.",
+    "addressBookEmpty": "No hay direcciones guardadas",
+    "addressBookEmptyDescription": "Añade un contacto para reutilizarlo en Enviar.",
+    "addAddress": "Añadir dirección",
+    "editAddress": "Editar dirección",
+    "addAddressDescription": "Guarda un nombre y una dirección EVM para seleccionarlos rápidamente.",
+    "editAddressDescription": "Actualiza el nombre o la dirección guardados.",
+    "contactName": "Nombre del contacto",
+    "contactNamePlaceholder": "p. ej. Alicia",
+    "contactNameRequired": "Introduce un nombre de contacto.",
+    "addressExists": "Esta dirección ya está en tu libreta.",
+    "addressSaved": "Dirección guardada",
+    "addressUpdated": "Dirección actualizada",
+    "addressRemoved": "Dirección eliminada",
+    "deleteAddressTitle": "¿Eliminar dirección guardada?",
+    "deleteAddressDescription": "\"{{name}}\" se eliminará de tu libreta de direcciones.",
+    "savedAddressCount": "Direcciones guardadas: {{count}}"
   },
   "networks": {
     "title": "Gestión de redes",
@@ -387,7 +417,7 @@
   },
   "tokens": {
     "title": "Gestión de tokens",
-    "description": "Añade tokens ERC-20 personalizados por dirección de contrato.",
+    "description": "Añade tokens ERC-20 personalizados por nombre o dirección de contrato.",
     "addToken": "Añadir token",
     "editToken": "Editar token",
     "selectNetwork": "Red",
@@ -414,7 +444,14 @@
     "onChain": "Metadatos en cadena",
     "cannotEditMetadata": "Los metadatos del contrato son de solo lectura. Puedes cambiar el nombre visible.",
     "manage": "Gestionar tokens",
-    "unverified": "Este token no está verificado. Cualquiera puede crear un token con cualquier nombre o símbolo. Verifica el contrato antes de operar."
+    "unverified": "Este token no está verificado. Cualquiera puede crear un token con cualquier nombre o símbolo. Verifica el contrato antes de operar.",
+    "searchByName": "Buscar por nombre",
+    "searchByNamePlaceholder": "Buscar un token en esta red",
+    "search": "Buscar",
+    "searching": "Buscando",
+    "searchHint": "La búsqueda de CoinGecko devuelve la dirección del contrato en la red seleccionada.",
+    "noSearchResults": "No se encontraron tokens en esta red.",
+    "searchError": "La búsqueda de tokens no está disponible ahora."
   },
   "pending": {
     "title": "Transacciones pendientes",
@@ -574,5 +611,19 @@
     "description": "Saldo, precio e información del contrato.",
     "balance": "Saldo",
     "price": "Precio"
+  },
+  "wallets": {
+    "title": "Carteras",
+    "description": "Gestiona y cambia entre tus carteras.",
+    "active": "Activa",
+    "switch": "Cambiar",
+    "switchTitle": "Cambiar cartera",
+    "switchDescription": "Introduce la contraseña de {{name}} para cambiar.",
+    "add": "Añadir cartera",
+    "addDescription": "Crea una cartera nueva o importa una frase de recuperación existente.",
+    "name": "Nombre de la cartera",
+    "namePlaceholder": "p. ej. Cartera principal",
+    "added": "Cartera añadida",
+    "switched": "Cartera cambiada"
   }
 }

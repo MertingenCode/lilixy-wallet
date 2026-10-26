@@ -3,6 +3,10 @@
 import { useEffect, useRef } from "react";
 
 import { lockWallet } from "@/lib/wallet/controller";
+import {
+  getPersistedActivity,
+  touchPersistedActivity,
+} from "@/lib/wallet/session-persistence";
 import { useSessionStore } from "@/store/session";
 import { useSettingsStore } from "@/store/settings";
 
@@ -20,7 +24,7 @@ export function useAutoLock() {
 
   useEffect(() => {
     if (status !== "unlocked") return;
-    lastActivity.current = Date.now();
+    lastActivity.current = getPersistedActivity() ?? Date.now();
 
     const timeoutMs =
       autoLock === "tab-close" ? null : autoLock * 60 * 1000;
@@ -34,6 +38,7 @@ export function useAutoLock() {
       if (now - lastReset.current < 500) return;
       lastReset.current = now;
       lastActivity.current = now;
+      touchPersistedActivity(now);
     }
 
     function check() {
@@ -53,9 +58,8 @@ export function useAutoLock() {
     }
 
     function onPageHide() {
-      // Closing/restoring a tab must not leave an authorized connector behind.
-      if (autoLock === "tab-close") lock();
-      else if (timeoutMs && Date.now() - lastActivity.current >= timeoutMs) {
+      // Timed sessions survive refresh; sessionStorage clears on tab close.
+      if (timeoutMs && Date.now() - lastActivity.current >= timeoutMs) {
         lock();
       }
     }

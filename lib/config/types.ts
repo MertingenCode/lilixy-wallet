@@ -14,6 +14,13 @@ export interface CustomNetwork {
   addedAt: number;
 }
 
+export interface AddressBookEntry {
+  id: string;
+  name: string;
+  address: Address;
+  createdAt: number;
+}
+
 export interface CustomToken {
   id: string;
   chainId: number;

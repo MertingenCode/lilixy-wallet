@@ -1,6 +1,10 @@
 import { NextResponse, type NextRequest } from "next/server";
 
 import type { CoinPrice, PriceMap } from "@/lib/api/types";
+import {
+  API_RATE_LIMITS,
+  enforceApiRateLimit,
+} from "@/lib/security/api-rate-limit";
 
 export const runtime = "nodejs";
 
@@ -38,6 +42,12 @@ interface SimpleRow {
 }
 
 export async function GET(request: NextRequest) {
+  const limited = await enforceApiRateLimit(
+    request,
+    API_RATE_LIMITS.prices,
+  );
+  if (limited) return limited;
+
   const rawIds = request.nextUrl.searchParams.get("ids") ?? "";
   const ids = Array.from(
     new Set(

@@ -39,13 +39,23 @@ import {
   type ReplacementMode,
 } from "@/lib/wallet/replacement";
 import { shortenAddress } from "@/lib/utils";
+import { useSessionStore } from "@/store/session";
 
 export function PendingTransactions() {
   const { t, locale } = useT();
   const queryClient = useQueryClient();
+  const address = useSessionStore((state) => state.address);
   const pendingQuery = useQuery({
-    queryKey: ["pending-transactions"],
-    queryFn: listPendingTransactions,
+    queryKey: ["pending-transactions", address],
+    queryFn: async () => {
+      const transactions = await listPendingTransactions();
+      if (!address) return [];
+      const wallet = address.toLowerCase();
+      return transactions.filter(
+        (transaction) => transaction.from.toLowerCase() === wallet,
+      );
+    },
+    enabled: Boolean(address),
     refetchInterval: 10_000,
   });
   const [replacement, setReplacement] = useState<{
@@ -82,7 +92,7 @@ export function PendingTransactions() {
   async function clearAll() {
     setWorking(true);
     try {
-      const count = await clearPendingTransactions();
+      const count = await clearPendingTransactions(address ?? undefined);
       toast.success(t("pending.cleared", { count }));
       setClearOpen(false);
       await pendingQuery.refetch();

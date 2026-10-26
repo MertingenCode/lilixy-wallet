@@ -48,7 +48,7 @@ export function proxy(request: NextRequest) {
   response.headers.set("Cross-Origin-Opener-Policy", "same-origin");
   response.headers.set(
     "Permissions-Policy",
-    "camera=(), microphone=(), geolocation=(), payment=(), usb=(), serial=(), hid=()",
+    "camera=(self), microphone=(), geolocation=(), payment=(), usb=(), serial=(), hid=()",
   );
   if (!isDev) {
     response.headers.set(

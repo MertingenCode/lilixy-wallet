@@ -8,6 +8,7 @@ import {
   ArrowDownToLineIcon,
   ArrowLeftRightIcon,
   ArrowUpFromLineIcon,
+  ChevronDownIcon,
   EyeIcon,
   EyeOffIcon,
   PlusIcon,
@@ -29,6 +30,7 @@ import { NetworkLogo } from "@/components/wallet/network-logo";
 import { ReceiveDialog } from "@/components/wallet/receive-dialog";
 import { SendDialog } from "@/components/wallet/send-dialog";
 import { TokenDetailDialog } from "@/components/wallet/token-detail-dialog";
+import { WalletManagerDialog } from "@/components/wallet/wallet-manager-dialog";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -57,6 +59,7 @@ import type { Asset } from "@/lib/wallet/assets";
 import { BUILT_IN_NETWORKS } from "@/lib/wagmi/networks";
 import { useSettingsStore } from "@/store/settings";
 import { useSessionStore } from "@/store/session";
+import { getActiveWalletId, getWallet } from "@/lib/wallet/wallets";
 import { cn, shortenAddress } from "@/lib/utils";
 
 function AssetListSkeleton() {
@@ -135,6 +138,8 @@ export function WalletDashboard() {
   const [tokenFormOpen, setTokenFormOpen] = useState(false);
   const [editingToken, setEditingToken] = useState<CustomToken | null>(null);
   const [deletingToken, setDeletingToken] = useState<CustomToken | null>(null);
+  const [walletManagerOpen, setWalletManagerOpen] = useState(false);
+  const activeWallet = getWallet(getActiveWalletId() ?? "");
 
   const networks = useMemo(() => {
     const map = new Map<number, string>();
@@ -262,18 +267,33 @@ export function WalletDashboard() {
         title={t("nav.wallet")}
         description={t("wallet.pageDescription")}
         actions={
-          <Button
-            variant="outline"
-            size="icon"
-            aria-label={t("common.refresh")}
-            title={t("common.refresh")}
-            onClick={() => refetch()}
-            disabled={isFetching}
-          >
-            <RefreshCwIcon
-              className={cn("size-4", isFetching && "animate-spin")}
-            />
-          </Button>
+          <>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => setWalletManagerOpen(true)}
+              title={activeWallet?.name ?? t("wallets.title")}
+              className="max-w-[13rem]"
+            >
+              <WalletCardsIcon />
+              <span className="max-w-[5.5rem] truncate">
+                {activeWallet?.name ?? t("wallets.title")}
+              </span>
+              <ChevronDownIcon />
+            </Button>
+            <Button
+              variant="outline"
+              size="icon"
+              aria-label={t("common.refresh")}
+              title={t("common.refresh")}
+              onClick={() => refetch()}
+              disabled={isFetching}
+            >
+              <RefreshCwIcon
+                className={cn("size-4", isFetching && "animate-spin")}
+              />
+            </Button>
+          </>
         }
       />
 
@@ -537,6 +557,11 @@ export function WalletDashboard() {
         chainId={receiveAsset?.chainId ?? activeChainId}
         asset={receiveAsset}
       />
+      <WalletManagerDialog
+        open={walletManagerOpen}
+        onOpenChange={setWalletManagerOpen}
+      />
+
       <TokenDetailDialog
         asset={detailAsset}
         open={Boolean(detailAsset)}

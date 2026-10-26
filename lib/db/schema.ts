@@ -58,6 +58,10 @@ export interface LilixyDB extends DBSchema {
     key: string;
     value: VaultRecord;
   };
+  session: {
+    key: string;
+    value: { key: CryptoKey };
+  };
   transactions: {
     key: string;
     value: StoredTransaction;
@@ -71,5 +75,5 @@ export interface LilixyDB extends DBSchema {
 }
 
 export const DB_NAME = "lilixy-wallet";
-export const DB_VERSION = 1;
+export const DB_VERSION = 2;
 export const VAULT_KEY = "primary";

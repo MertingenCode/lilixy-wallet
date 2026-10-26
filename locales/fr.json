@@ -232,7 +232,18 @@
     "showAllTokens": "Tout afficher",
     "hideZeroBalances": "Masquer les soldes nuls",
     "noTokens": "Aucun jeton trouvé.",
-    "searchToken": "Rechercher un jeton ou un réseau"
+    "searchToken": "Rechercher un jeton ou un réseau",
+    "scanQr": "Scanner un QR",
+    "scanTitle": "Scanner le QR du destinataire",
+    "scanDescription": "Pointez la caméra vers le QR code d’une adresse de portefeuille.",
+    "cameraError": "Impossible d’accéder à la caméra. Vérifiez les autorisations et réessayez.",
+    "cameraUnsupported": "La caméra n’est pas disponible dans ce navigateur.",
+    "addressBook": "Carnet d’adresses",
+    "addressBookTitle": "Carnet d’adresses",
+    "addressBookDescription": "Choisissez un destinataire enregistré.",
+    "noSavedAddresses": "Aucune adresse enregistrée",
+    "searchAddressBook": "Rechercher un nom ou une adresse",
+    "addressBookHint": "Ajoutez des contacts dans Réglages → Carnet d’adresses."
   },
   "receive": {
     "title": "Recevoir de la crypto",
@@ -344,7 +355,26 @@
     "fontSizeDescription": "Ajustez la taille du texte dans toute l’application.",
     "fontSizeSmall": "Petite",
     "fontSizeDefault": "Par défaut",
-    "fontSizeLarge": "Grande"
+    "fontSizeLarge": "Grande",
+    "dataSources": "Prix, variation sur 24 h, recherche de tokens et logos de tokens :",
+    "addressBook": "Carnet d’adresses",
+    "addressBookDescription": "Enregistrez des noms et adresses pour des envois plus rapides et sûrs.",
+    "addressBookEmpty": "Aucune adresse enregistrée",
+    "addressBookEmptyDescription": "Ajoutez un contact pour le réutiliser dans Envoyer.",
+    "addAddress": "Ajouter une adresse",
+    "editAddress": "Modifier l’adresse",
+    "addAddressDescription": "Enregistrez un nom et une adresse EVM pour une sélection rapide.",
+    "editAddressDescription": "Mettez à jour le nom ou l’adresse enregistrés.",
+    "contactName": "Nom du contact",
+    "contactNamePlaceholder": "ex. Alice",
+    "contactNameRequired": "Saisissez un nom de contact.",
+    "addressExists": "Cette adresse est déjà dans votre carnet.",
+    "addressSaved": "Adresse enregistrée",
+    "addressUpdated": "Adresse mise à jour",
+    "addressRemoved": "Adresse supprimée",
+    "deleteAddressTitle": "Supprimer l’adresse enregistrée ?",
+    "deleteAddressDescription": "« {{name}} » sera supprimé de votre carnet d’adresses.",
+    "savedAddressCount": "Adresses enregistrées : {{count}}"
   },
   "networks": {
     "title": "Gestion des réseaux",
@@ -387,7 +417,7 @@
   },
   "tokens": {
     "title": "Gestion des jetons",
-    "description": "Ajoutez des jetons ERC-20 personnalisés par adresse de contrat.",
+    "description": "Ajoutez des tokens ERC-20 personnalisés par nom ou adresse de contrat.",
     "addToken": "Ajouter un jeton",
     "editToken": "Modifier le jeton",
     "selectNetwork": "Réseau",
@@ -414,7 +444,14 @@
     "onChain": "Métadonnées on-chain",
     "cannotEditMetadata": "Les métadonnées du contrat sont en lecture seule. Vous pouvez modifier le nom affiché.",
     "manage": "Gérer les jetons",
-    "unverified": "Ce jeton n’est pas vérifié. N’importe qui peut créer un jeton avec n’importe quel nom ou symbole. Vérifiez le contrat avant de trader."
+    "unverified": "Ce jeton n’est pas vérifié. N’importe qui peut créer un jeton avec n’importe quel nom ou symbole. Vérifiez le contrat avant de trader.",
+    "searchByName": "Rechercher par nom",
+    "searchByNamePlaceholder": "Rechercher un token sur ce réseau",
+    "search": "Rechercher",
+    "searching": "Recherche",
+    "searchHint": "La recherche CoinGecko renvoie l’adresse du contrat sur le réseau sélectionné.",
+    "noSearchResults": "Aucun token trouvé sur ce réseau.",
+    "searchError": "La recherche de tokens est indisponible pour le moment."
   },
   "pending": {
     "title": "Transactions en attente",
@@ -574,5 +611,19 @@
     "description": "Solde, prix et informations de contrat.",
     "balance": "Solde",
     "price": "Prix"
+  },
+  "wallets": {
+    "title": "Portefeuilles",
+    "description": "Gérez et changez de portefeuille.",
+    "active": "Actif",
+    "switch": "Changer",
+    "switchTitle": "Changer de portefeuille",
+    "switchDescription": "Saisissez le mot de passe de {{name}} pour changer.",
+    "add": "Ajouter un portefeuille",
+    "addDescription": "Créez un nouveau portefeuille ou importez une phrase de récupération existante.",
+    "name": "Nom du portefeuille",
+    "namePlaceholder": "ex. Portefeuille principal",
+    "added": "Portefeuille ajouté",
+    "switched": "Portefeuille changé"
   }
 }

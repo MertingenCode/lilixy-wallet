@@ -25,6 +25,7 @@ import { toast } from "sonner";
 
 import { Logo } from "@/components/brand/logo";
 import { PageHeader } from "@/components/common/page-header";
+import { AddressBookSection } from "@/components/settings/address-book-section";
 import { ChangePasswordDialog } from "@/components/settings/change-password-dialog";
 import { ContactLinks } from "@/components/settings/contact-links";
 import { LegalDisclosures } from "@/components/settings/legal-disclosures";
@@ -204,7 +205,7 @@ export function SettingsPage() {
             <p className="text-muted-foreground text-xs">
               {t("settings.walletAddress")}
             </p>
-            <code className="mt-1 block truncate font-mono text-xs">
+            <code className="mt-1 block break-all font-mono text-xs leading-5">
               {address}
             </code>
           </div>
@@ -276,6 +277,8 @@ export function SettingsPage() {
             </Select>
           </SettingsRow>
         </SettingsSection>
+
+        <AddressBookSection />
 
         <SettingsSection
           icon={ShieldCheckIcon}
@@ -417,6 +420,19 @@ export function SettingsPage() {
                 })}
               </span>
             </div>
+          </div>
+          <div className="border-t px-4 pb-4 pt-3">
+            <p className="text-muted-foreground text-[0.6875rem] leading-5">
+              {t("settings.dataSources")}{" "}
+              <a
+                href="https://www.coingecko.com"
+                target="_blank"
+                rel="noreferrer noopener"
+                className="underline underline-offset-2 hover:text-foreground"
+              >
+                CoinGecko
+              </a>
+            </p>
           </div>
           <div className="border-t p-4">
             <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">

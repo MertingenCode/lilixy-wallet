@@ -31,6 +31,7 @@ import {
 } from "@/components/ui/select";
 import { useT } from "@/hooks/use-locale";
 import type { CustomToken } from "@/lib/config/types";
+import type { TokenSearchResult } from "@/lib/api/types";
 import { getTrackedTokens } from "@/lib/wallet/assets";
 import { getPublicClientForChain } from "@/lib/wagmi/rpc";
 import {
@@ -38,6 +39,7 @@ import {
   customNetworkToChain,
 } from "@/lib/wagmi/networks";
 import { useSettingsStore } from "@/store/settings";
+import { shortenAddress } from "@/lib/utils";
 
 interface TokenMetadata {
   name: string;
@@ -79,6 +81,10 @@ export function TokenFormDialog({
   const [reading, setReading] = useState(false);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [searchResults, setSearchResults] = useState<TokenSearchResult[]>([]);
+  const [searching, setSearching] = useState(false);
+  const [searchError, setSearchError] = useState<string | null>(null);
 
   const networks = useMemo(
     () => [
@@ -96,9 +102,9 @@ export function TokenFormDialog({
   );
   const chain = networks.find((item) => item.id === chainId);
 
-  async function readToken() {
+  async function readToken(value = address) {
     setError(null);
-    if (!isAddress(address)) {
+    if (!isAddress(value)) {
       setError(t("tokens.invalidContract"));
       return;
     }
@@ -112,17 +118,17 @@ export function TokenFormDialog({
       const client = getPublicClientForChain(chain);
       const [nameResult, symbolResult, decimalsResult] = await Promise.allSettled([
         client.readContract({
-          address: address as Address,
+          address: value as Address,
           abi: erc20Abi,
           functionName: "name",
         }),
         client.readContract({
-          address: address as Address,
+          address: value as Address,
           abi: erc20Abi,
           functionName: "symbol",
         }),
         client.readContract({
-          address: address as Address,
+          address: value as Address,
           abi: erc20Abi,
           functionName: "decimals",
         }),
@@ -144,7 +150,7 @@ export function TokenFormDialog({
         nameResult.status === "fulfilled"
           ? String(nameResult.value).trim().slice(0, 64) || symbol
           : symbol;
-      const lower = address.toLowerCase();
+      const lower = value.toLowerCase();
       if (
         getTrackedTokens(chainId, customTokens).some(
           (token) => token.address.toLowerCase() === lower,
@@ -159,6 +165,36 @@ export function TokenFormDialog({
     } finally {
       setReading(false);
     }
+  }
+
+  async function searchTokens() {
+    const query = searchQuery.trim();
+    if (query.length < 2 || searching) return;
+    setSearching(true);
+    setSearchError(null);
+    setSearchResults([]);
+    try {
+      const response = await fetch(
+        `/api/token-search?chainId=${chainId}&q=${encodeURIComponent(query)}`,
+        { headers: { accept: "application/json" } },
+      );
+      if (!response.ok) throw new Error("SEARCH_FAILED");
+      const json = (await response.json()) as { results?: TokenSearchResult[] };
+      setSearchResults(json.results ?? []);
+      if (!json.results?.length) setSearchError(t("tokens.noSearchResults"));
+    } catch {
+      setSearchError(t("tokens.searchError"));
+    } finally {
+      setSearching(false);
+    }
+  }
+
+  function chooseSearchResult(result: TokenSearchResult) {
+    setAddress(result.address);
+    setMetadata(null);
+    setSearchResults([]);
+    setSearchQuery(`${result.name} (${result.symbol})`);
+    void readToken(result.address);
   }
 
   async function submit(event: FormEvent<HTMLFormElement>) {
@@ -224,6 +260,8 @@ export function TokenFormDialog({
                 setChainId(Number(value));
                 setMetadata(editing ? metadata : null);
                 setError(null);
+                setSearchResults([]);
+                setSearchError(null);
               }}
               disabled={Boolean(editing)}
             >
@@ -253,6 +291,76 @@ export function TokenFormDialog({
               </SelectContent>
             </Select>
           </div>
+
+          {!editing ? (
+            <div className="space-y-2">
+              <Label htmlFor="token-search">{t("tokens.searchByName")}</Label>
+              <div className="flex gap-2">
+                <Input
+                  id="token-search"
+                  value={searchQuery}
+                  onChange={(event) => {
+                    setSearchQuery(event.target.value);
+                    setSearchError(null);
+                  }}
+                  onKeyDown={(event) => {
+                    if (event.key === "Enter") {
+                      event.preventDefault();
+                      void searchTokens();
+                    }
+                  }}
+                  placeholder={t("tokens.searchByNamePlaceholder")}
+                  autoComplete="off"
+                  className="text-sm"
+                />
+                <Button
+                  type="button"
+                  variant="secondary"
+                  onClick={() => void searchTokens()}
+                  disabled={searching || searchQuery.trim().length < 2}
+                >
+                  {searching ? (
+                    <LoaderCircleIcon className="animate-spin" />
+                  ) : (
+                    <SearchIcon />
+                  )}
+                  {searching ? t("tokens.searching") : t("tokens.search")}
+                </Button>
+              </div>
+              <p className="text-muted-foreground text-[0.6875rem] leading-5">
+                {t("tokens.searchHint")}
+              </p>
+              {searchResults.length > 0 ? (
+                <div className="divide-y divide-rule border-y border-rule" aria-live="polite">
+                  {searchResults.map((result) => (
+                    <button
+                      key={`${result.id}:${result.address}`}
+                      type="button"
+                      onClick={() => chooseSearchResult(result)}
+                      className="hover:bg-paper-2 flex w-full items-center gap-3 py-2.5 text-start transition-colors duration-[var(--dur-short)]"
+                    >
+                      <span className="bg-primary/10 text-primary flex size-8 shrink-0 items-center justify-center rounded-full text-[0.6875rem] font-semibold">
+                        {result.symbol.slice(0, 2).toUpperCase()}
+                      </span>
+                      <span className="min-w-0 flex-1">
+                        <span className="block truncate text-sm font-medium">
+                          {result.name}{" "}
+                          <span className="text-muted-foreground font-normal">
+                            ({result.symbol})
+                          </span>
+                        </span>
+                        <span className="text-muted-foreground block truncate font-mono text-[0.6875rem]">
+                          {shortenAddress(result.address, 6)}
+                        </span>
+                      </span>
+                    </button>
+                  ))}
+                </div>
+              ) : searchError ? (
+                <p className="text-muted-foreground text-xs">{searchError}</p>
+              ) : null}
+            </div>
+          ) : null}
 
           <div className="space-y-1.5">
             <Label htmlFor="token-address">{t("tokens.contractAddress")}</Label>

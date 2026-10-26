@@ -7,6 +7,7 @@ import {
   saveVault,
 } from "@/lib/crypto/vault-repository";
 import { deleteDatabase } from "@/lib/db/indexeddb";
+import { VAULT_KEY } from "@/lib/db/schema";
 import { evaluatePassword } from "@/lib/security/password-strength";
 import {
   clearUnlockFailures,
@@ -25,30 +26,84 @@ import {
 import {
   clearSessionMemory,
   getSessionAccount,
-  getSessionAddress,
   setSessionMemory,
 } from "@/lib/wallet/session-memory";
+import {
+  clearPersistedSession,
+  persistSession,
+  restoreSession,
+} from "@/lib/wallet/session-persistence";
+import {
+  clearWalletProfiles,
+  createWalletId,
+  getActiveWalletId,
+  getWallets,
+  nextWalletName,
+  setActiveWalletId,
+  upsertWallet,
+  type WalletProfile,
+} from "@/lib/wallet/wallets";
 
 let bootstrapPromise: Promise<void> | null = null;
 
+function activeVaultKey(): string {
+  return getActiveWalletId() ?? VAULT_KEY;
+}
+
 async function runBootstrap(): Promise<void> {
-  const sessionAddress = getSessionAddress();
-  if (sessionAddress && getSessionAccount()) {
-    useSessionStore.getState().setUnlocked(sessionAddress);
-    return;
+  const restored = await restoreSession();
+  if (restored) {
+    const autoLock = useSettingsStore.getState().autoLock;
+    const timeoutMs = autoLock === "tab-close" ? null : Number(autoLock) * 60_000;
+    if (timeoutMs && Date.now() - restored.lastActivity >= timeoutMs) {
+      clearPersistedSession();
+    } else if (isValidMnemonic(restored.mnemonic)) {
+      const account = deriveAccount(restored.mnemonic);
+      setSessionMemory(restored.mnemonic, account);
+      setActiveWalletId(restored.walletId);
+      const existing = getWallets().find(
+        (wallet) => wallet.id === restored.walletId,
+      );
+      upsertWallet({
+        id: restored.walletId,
+        name: existing?.name ?? nextWalletName(),
+        address: account.address,
+        createdAt: existing?.createdAt ?? Date.now(),
+      });
+      useSessionStore.getState().setUnlocked(account.address);
+      return;
+    }
   }
 
   try {
-    const exists = await hasVault();
-    if (exists) {
+    const wallets = getWallets();
+    if (wallets.length > 0) {
+      const active = getActiveWalletId();
+      const resolved = await Promise.all(
+        wallets.map(async (wallet) => ({
+          wallet,
+          exists: await hasVault(wallet.id),
+        })),
+      );
+      const selected =
+        resolved.find((item) => item.wallet.id === active && item.exists) ??
+        resolved.find((item) => item.exists);
+      if (selected) {
+        setActiveWalletId(selected.wallet.id);
+        useSessionStore.getState().setLocked();
+      } else {
+        useSessionStore.getState().setNoVault();
+      }
+      return;
+    }
+
+    if (await hasVault(VAULT_KEY)) {
       useSessionStore.getState().setLocked();
     } else {
       useSessionStore.getState().setNoVault();
     }
   } catch {
-    useSessionStore
-      .getState()
-      .setError("INDEXEDDB_UNAVAILABLE");
+    useSessionStore.getState().setError("INDEXEDDB_UNAVAILABLE");
   }
 }
 
@@ -82,10 +137,10 @@ function mapVaultError(error: unknown): WalletError {
   return new WalletError("UNKNOWN");
 }
 
-async function readVaultOrThrow(): Promise<VaultRecord> {
+async function readVaultOrThrow(key = activeVaultKey()): Promise<VaultRecord> {
   let vault: VaultRecord | undefined;
   try {
-    vault = await loadVault();
+    vault = await loadVault(key);
   } catch {
     throw new WalletError("INDEXEDDB_UNAVAILABLE");
   }
@@ -98,13 +153,17 @@ export interface OnboardingInput {
   password: string;
 }
 
+export interface CreateWalletInput extends OnboardingInput {
+  name?: string;
+}
+
 /**
- * Persists only the AES-GCM vault, then deliberately leaves the wallet locked.
- * The mnemonic is not kept in memory after setup.
+ * Creates a wallet, makes it active and unlocks it in this tab. Used by both
+ * first-run onboarding and the add-wallet flow.
  */
-export async function completeOnboarding(
-  input: OnboardingInput,
-): Promise<void> {
+export async function createWallet(
+  input: CreateWalletInput,
+): Promise<string> {
   const mnemonic = normalizeMnemonic(input.mnemonic);
   if (!isValidMnemonic(mnemonic)) {
     throw new WalletError("INVALID_MNEMONIC");
@@ -113,28 +172,51 @@ export async function completeOnboarding(
     throw new WalletError("WEAK_PASSWORD");
   }
 
+  const account = deriveAccount(mnemonic);
+  const id = createWalletId();
+  const profile: WalletProfile = {
+    id,
+    name: input.name?.trim().slice(0, 32) || nextWalletName(),
+    address: account.address,
+    createdAt: Date.now(),
+  };
+
   try {
     const vault = await encryptMnemonic(mnemonic, input.password);
-    await saveVault(vault);
+    await saveVault(vault, id);
   } catch (error) {
     if (error instanceof WalletError) throw error;
     if (error instanceof VaultError) throw mapVaultError(error);
     throw new WalletError("INDEXEDDB_UNAVAILABLE");
   }
 
-  clearSessionMemory();
+  upsertWallet(profile);
+  setActiveWalletId(id);
+  setSessionMemory(mnemonic, account);
   clearUnlockFailures();
+  await persistSession(mnemonic, id);
   forgetBootstrap();
-  useSessionStore.getState().setLocked();
+  useSessionStore.getState().setUnlocked(account.address);
+  return account.address;
 }
 
-export async function unlockWallet(password: string): Promise<string> {
+export async function completeOnboarding(
+  input: OnboardingInput,
+): Promise<void> {
+  await createWallet(input);
+}
+
+export async function unlockWallet(
+  password: string,
+  walletId?: string,
+): Promise<string> {
   const retryAfterMs = getUnlockRetryAfterMs();
   if (retryAfterMs > 0) {
     throw new WalletError("RATE_LIMITED", retryAfterMs);
   }
 
-  const vault = await readVaultOrThrow();
+  const key = walletId ?? activeVaultKey();
+  const vault = await readVaultOrThrow(key);
   let mnemonic: string;
   try {
     mnemonic = await decryptVault(vault, password);
@@ -153,14 +235,31 @@ export async function unlockWallet(password: string): Promise<string> {
   }
 
   const account = deriveAccount(mnemonic);
+  const existing = getWallets().find((wallet) => wallet.id === key);
+  upsertWallet({
+    id: key,
+    name: existing?.name ?? nextWalletName(),
+    address: account.address,
+    createdAt: existing?.createdAt ?? Date.now(),
+  });
+  setActiveWalletId(key);
   setSessionMemory(mnemonic, account);
   clearUnlockFailures();
+  await persistSession(mnemonic, key);
   useSessionStore.getState().setUnlocked(account.address);
   return account.address;
 }
 
+export async function switchWallet(
+  walletId: string,
+  password: string,
+): Promise<string> {
+  return unlockWallet(password, walletId);
+}
+
 export function lockWallet(): void {
   clearSessionMemory();
+  clearPersistedSession();
   useSessionStore.getState().setLocked();
 }
 
@@ -202,7 +301,8 @@ export async function changeWalletPassword(
     throw new WalletError("RATE_LIMITED", retryAfterMs);
   }
 
-  const vault = await readVaultOrThrow();
+  const key = activeVaultKey();
+  const vault = await readVaultOrThrow(key);
   let mnemonic: string;
   try {
     mnemonic = await decryptVault(vault, currentPassword);
@@ -218,7 +318,7 @@ export async function changeWalletPassword(
 
   try {
     const reencrypted = await encryptMnemonic(mnemonic, newPassword);
-    await saveVault(reencrypted);
+    await saveVault(reencrypted, key);
   } catch {
     throw new WalletError("VAULT_CORRUPTED");
   }
@@ -252,6 +352,7 @@ export async function revealRecoveryPhrase(
 export async function resetWallet(): Promise<void> {
   lockWallet();
   clearUnlockFailures();
+  clearWalletProfiles();
   useSettingsStore.getState().resetSettings();
   try {
     await deleteDatabase();

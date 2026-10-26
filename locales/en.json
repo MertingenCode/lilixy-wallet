@@ -232,7 +232,18 @@
     "showAllTokens": "Show all",
     "hideZeroBalances": "Hide zero balances",
     "noTokens": "No tokens found.",
-    "searchToken": "Search token or network"
+    "searchToken": "Search token or network",
+    "scanQr": "Scan QR",
+    "scanTitle": "Scan recipient QR",
+    "scanDescription": "Point your camera at a wallet address QR code.",
+    "cameraError": "Camera access failed. Check permissions and try again.",
+    "cameraUnsupported": "Camera is not available in this browser.",
+    "addressBook": "Address book",
+    "addressBookTitle": "Address book",
+    "addressBookDescription": "Choose a saved recipient.",
+    "noSavedAddresses": "No saved addresses",
+    "searchAddressBook": "Search name or address",
+    "addressBookHint": "Add contacts in Settings → Address book."
   },
   "receive": {
     "title": "Receive crypto",
@@ -344,7 +355,26 @@
     "fontSizeDescription": "Adjust text size across the app.",
     "fontSizeSmall": "Small",
     "fontSizeDefault": "Default",
-    "fontSizeLarge": "Large"
+    "fontSizeLarge": "Large",
+    "dataSources": "Prices, 24h change, token search and token logos:",
+    "addressBook": "Address book",
+    "addressBookDescription": "Save recipient names and addresses for faster, safer sends.",
+    "addressBookEmpty": "No saved addresses",
+    "addressBookEmptyDescription": "Add a contact to reuse it in Send.",
+    "addAddress": "Add address",
+    "editAddress": "Edit address",
+    "addAddressDescription": "Save a name and EVM address for quick selection.",
+    "editAddressDescription": "Update the saved name or address.",
+    "contactName": "Contact name",
+    "contactNamePlaceholder": "e.g. Alice",
+    "contactNameRequired": "Enter a contact name.",
+    "addressExists": "This address is already in your address book.",
+    "addressSaved": "Address saved",
+    "addressUpdated": "Address updated",
+    "addressRemoved": "Address removed",
+    "deleteAddressTitle": "Delete saved address?",
+    "deleteAddressDescription": "\"{{name}}\" will be removed from your address book.",
+    "savedAddressCount": "Saved addresses: {{count}}"
   },
   "networks": {
     "title": "Network management",
@@ -387,7 +417,7 @@
   },
   "tokens": {
     "title": "Token management",
-    "description": "Add custom ERC-20 tokens by contract address.",
+    "description": "Add custom ERC-20 tokens by name or contract address.",
     "addToken": "Add token",
     "editToken": "Edit token",
     "selectNetwork": "Network",
@@ -414,7 +444,14 @@
     "onChain": "On-chain metadata",
     "cannotEditMetadata": "Contract metadata is read-only. You can change the display name.",
     "manage": "Manage tokens",
-    "unverified": "This token is unverified. Anyone can create a token with any name or symbol. Verify the contract before trading."
+    "unverified": "This token is unverified. Anyone can create a token with any name or symbol. Verify the contract before trading.",
+    "searchByName": "Search by name",
+    "searchByNamePlaceholder": "Search a token on this network",
+    "search": "Search",
+    "searching": "Searching",
+    "searchHint": "CoinGecko search returns the contract address on the selected network.",
+    "noSearchResults": "No tokens found on this network.",
+    "searchError": "Token search is unavailable right now."
   },
   "pending": {
     "title": "Pending transactions",
@@ -574,5 +611,19 @@
     "description": "Balance, price and contract information.",
     "balance": "Balance",
     "price": "Price"
+  },
+  "wallets": {
+    "title": "Wallets",
+    "description": "Manage and switch between your wallets.",
+    "active": "Active",
+    "switch": "Switch",
+    "switchTitle": "Switch wallet",
+    "switchDescription": "Enter the password for {{name}} to switch.",
+    "add": "Add wallet",
+    "addDescription": "Create a new wallet or import an existing recovery phrase.",
+    "name": "Wallet name",
+    "namePlaceholder": "e.g. Main wallet",
+    "added": "Wallet added",
+    "switched": "Wallet switched"
   }
 }

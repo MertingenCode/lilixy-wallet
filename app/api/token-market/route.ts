@@ -7,6 +7,10 @@ import {
   trustWalletLogoUrl,
 } from "@/lib/api/coingecko-platforms";
 import type { ContractMarketPrice, TokenMarket } from "@/lib/api/types";
+import {
+  API_RATE_LIMITS,
+  enforceApiRateLimit,
+} from "@/lib/security/api-rate-limit";
 
 export const runtime = "nodejs";
 
@@ -72,6 +76,12 @@ function finite(value: unknown): value is number {
 }
 
 export async function GET(request: NextRequest) {
+  const limited = await enforceApiRateLimit(
+    request,
+    API_RATE_LIMITS.tokenMarket,
+  );
+  if (limited) return limited;
+
   const chainRaw = request.nextUrl.searchParams.get("chainId") ?? "";
   const address = request.nextUrl.searchParams.get("address")?.toLowerCase() ?? "";
   if (!CHAIN_PATTERN.test(chainRaw) || !ADDRESS_PATTERN.test(address)) {

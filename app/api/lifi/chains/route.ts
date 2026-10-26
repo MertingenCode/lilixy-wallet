@@ -1,10 +1,20 @@
-import { NextResponse } from "next/server";
+import { NextResponse, type NextRequest } from "next/server";
 
 import { getLifiRpcUrls, type LifiChain } from "@/lib/lifi/chains";
+import {
+  API_RATE_LIMITS,
+  enforceApiRateLimit,
+} from "@/lib/security/api-rate-limit";
 
 export const runtime = "nodejs";
 
-export async function GET() {
+export async function GET(request: NextRequest) {
+  const limited = await enforceApiRateLimit(
+    request,
+    API_RATE_LIMITS.lifiChains,
+  );
+  if (limited) return limited;
+
   try {
     const headers: Record<string, string> = { accept: "application/json" };
     if (process.env.LIFI_API_KEY) {

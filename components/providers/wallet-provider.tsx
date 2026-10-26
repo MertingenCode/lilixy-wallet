@@ -35,7 +35,8 @@ function ChainSynchronizer() {
 function LocalConnectorSync() {
   const status = useSessionStore((state) => state.status);
   const activeChainId = useSettingsStore((state) => state.activeChainId);
-  const { isConnected } = useAccount();
+  const { address: connectedAddress, isConnected } = useAccount();
+  const sessionAddress = useSessionStore((state) => state.address);
   const { connectAsync, connectors, status: connectStatus } = useConnect();
   const { disconnectAsync } = useDisconnect();
   const lastAttempt = useRef(0);
@@ -64,6 +65,19 @@ function LocalConnectorSync() {
     isConnected,
     status,
   ]);
+
+  useEffect(() => {
+    if (
+      status === "unlocked" &&
+      isConnected &&
+      sessionAddress &&
+      connectedAddress &&
+      sessionAddress.toLowerCase() !== connectedAddress.toLowerCase()
+    ) {
+      lastAttempt.current = 0;
+      void disconnectAsync().catch(() => undefined);
+    }
+  }, [connectedAddress, disconnectAsync, isConnected, sessionAddress, status]);
 
   useEffect(() => {
     if (status !== "unlocked" && isConnected) {

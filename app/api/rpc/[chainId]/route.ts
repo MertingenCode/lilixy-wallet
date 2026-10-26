@@ -1,6 +1,11 @@
 import { NextResponse, type NextRequest } from "next/server";
 
 import {
+  API_RATE_LIMITS,
+  enforceApiRateLimit,
+} from "@/lib/security/api-rate-limit";
+
+import {
   getChainRpcUrls,
   isSafeHttpUrl,
 } from "@/lib/wagmi/networks";
@@ -43,6 +48,20 @@ export async function POST(
   request: NextRequest,
   context: { params: Promise<{ chainId: string }> },
 ) {
+  const baseLimited = await enforceApiRateLimit(
+    request,
+    API_RATE_LIMITS.rpc,
+  );
+  if (baseLimited) return baseLimited;
+
+  const contentLength = Number(request.headers.get("content-length") ?? "0");
+  if (Number.isFinite(contentLength) && contentLength > 256_000) {
+    return NextResponse.json(
+      { error: "PAYLOAD_TOO_LARGE" },
+      { status: 413, headers: { "cache-control": "no-store" } },
+    );
+  }
+
   const { chainId: rawChainId } = await context.params;
   const chainId = Number(rawChainId);
   if (!Number.isSafeInteger(chainId) || chainId <= 0) {
@@ -53,9 +72,16 @@ export async function POST(
   }
 
   let payload: string;
+  let parsed: unknown;
   try {
     payload = await request.text();
-    const parsed = JSON.parse(payload) as unknown;
+    if (payload.length > 256_000) {
+      return NextResponse.json(
+        { error: "PAYLOAD_TOO_LARGE" },
+        { status: 413, headers: { "cache-control": "no-store" } },
+      );
+    }
+    parsed = JSON.parse(payload) as unknown;
     const isSingle =
       parsed &&
       typeof parsed === "object" &&
@@ -76,6 +102,35 @@ export async function POST(
       { status: 400, headers: { "cache-control": "no-store" } },
     );
   }
+
+  const calls = Array.isArray(parsed) ? parsed : [parsed];
+  if (calls.length > 20) {
+    return NextResponse.json(
+      { error: "BATCH_TOO_LARGE" },
+      { status: 413, headers: { "cache-control": "no-store" } },
+    );
+  }
+  const expensiveMethods = new Set([
+    "eth_call",
+    "eth_estimateGas",
+    "eth_getLogs",
+    "eth_sendRawTransaction",
+    "eth_getBlockByNumber",
+    "eth_getBlockReceipts",
+  ]);
+  const cost = calls.reduce((total, call) => {
+    const method =
+      call && typeof call === "object" && typeof (call as { method?: unknown }).method === "string"
+        ? (call as { method: string }).method
+        : "";
+    return total + (expensiveMethods.has(method) ? 2 : 1);
+  }, 0);
+  const weightedLimit = await enforceApiRateLimit(
+    request,
+    API_RATE_LIMITS.rpc,
+    Math.max(0, cost - 1),
+  );
+  if (weightedLimit) return weightedLimit;
 
   const urls = await targetUrls(chainId);
   if (urls.length === 0) {

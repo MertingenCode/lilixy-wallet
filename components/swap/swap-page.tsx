@@ -24,7 +24,7 @@ const LifiWidgetClient = dynamic(
 function WidgetLoading() {
   const { t } = useT();
   return (
-    <div className="glass-panel min-h-[32rem] rounded-[22px] p-5">
+    <div className="glass-panel min-h-[32rem] rounded-[22px] p-5 md:min-h-0">
       <div className="space-y-3">
         <Skeleton className="h-24 w-full rounded-[10px]" />
         <Skeleton className="h-24 w-full rounded-[10px]" />
@@ -40,7 +40,7 @@ function WidgetLoading() {
 function WidgetError({ onRetry }: { onRetry: () => void }) {
   const { t } = useT();
   return (
-    <div className="glass-panel flex min-h-[32rem] flex-col items-center justify-center rounded-[22px] p-6 text-center">
+    <div className="glass-panel flex min-h-[32rem] flex-col items-center justify-center rounded-[22px] p-6 text-center md:min-h-[22rem]">
       <AlertTriangleIcon
         className="text-destructive size-5"
         strokeWidth={1.7}

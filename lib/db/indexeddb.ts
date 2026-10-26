@@ -19,6 +19,9 @@ export function getDb(): Promise<IDBPDatabase<LilixyDB>> {
         if (!db.objectStoreNames.contains("vault")) {
           db.createObjectStore("vault");
         }
+        if (!db.objectStoreNames.contains("session")) {
+          db.createObjectStore("session");
+        }
         if (!db.objectStoreNames.contains("transactions")) {
           const store = db.createObjectStore("transactions", {
             keyPath: "id",

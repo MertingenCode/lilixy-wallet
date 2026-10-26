@@ -13,20 +13,21 @@ Lilixy Wallet, tamamen tarayıcıda imzalayan, non-custodial ve çok zincirli bi
   - Rastgele 3 kelimeyle yedek doğrulama
   - 12 kelimeyle içe aktarma ve checksum doğrulaması
   - Şifre gücü kontrolü ve şifre tekrarı
-  - Onboarding tamamlandıktan sonra doğrudan kilit ekranı
+  - Onboarding tamamlandıktan sonra cüzdan otomatik açılır
 - **Güvenlik**
   - PBKDF2-SHA-256, 600.000 iterasyon
   - AES-256-GCM, rastgele 12-byte IV
   - Yalnızca ciphertext, salt, IV, KDF parametreleri ve sürüm saklanır
   - Şifre hash'i saklanmaz; doğrulama AES-GCM authentication ile yapılır
-  - Otomatik kilit: 1/5/15/30 dk veya sekme kapanınca
+  - Otomatik kilit: 1/5/15/30 dk veya sekme kapanınca; süre sayfa yenilemesinde korunur
   - Manuel kilitleme, şifre değiştirme, kurtarma ifadesi gösterme, cüzdan sıfırlama
   - Yanlış şifrede artan gecikme
-  - Sekme kapanınca bellekten temizlik; sayfa yenilenince kilitli başlangıç
+  - Oturum, sekme kapsamlı AES-GCM kaydıyla yenilemeye dayanır; sekme kapanınca temizlenir
 - **Cüzdan**
   - Ethereum, BNB Chain, Polygon, Arbitrum, Optimism, Base, Avalanche, Sonic, zkSync Era, Robinhood Chain
   - LI.FI'nin desteklediği diğer EVM zincirleri
-  - Kullanıcı tanımlı ağlar ve ERC-20 tokenları
+  - Çoklu cüzdan oluşturma/içe aktarma ve cüzdanlar arası geçiş
+  - Kullanıcı tanımlı ağlar ve ERC-20 tokenları; CoinGecko ile ağa özel token adı araması
   - Çoklu zincir bakiyeleri, CoinGecko fiyatları ve 24 saatlik değişim
   - Native + ERC-20 gönderme, gerçek zamanlı gas tahmini ve onay ekranı
   - %25/%50/%75/Max hızlı miktar seçimi
@@ -34,7 +35,8 @@ Lilixy Wallet, tamamen tarayıcıda imzalayan, non-custodial ve çok zincirli bi
   - OP Stack L1 veri ücreti ve Arbitrum için ek gas payı
   - Gönder token listesi ağa göre gruplu; sıfır bakiyeler varsayılan gizli
   - Token satırında Gönder/Al kısayolları ve token detayı
-  - Adres ve QR ile alma
+  - Adres ve QR ile alma; mobil/tablette gönderirken kamera ile QR okuma
+  - Adres defteri: isim/adres kaydı, düzenleme, silme ve gönderimde seçme
   - Arama, ağ filtresi, skeleton ve tasarlanmış boş/hata durumları
 - **Swap ve Bridge**
   - LI.FI Widget, `subvariant: 'split'` ile iki sekme
@@ -144,6 +146,10 @@ npm test           # Vitest
 | `LIFI_API_KEY` | Hayır | Server-side chains/status/RPC proxy anahtarı. |
 | `COINGECKO_API_KEY` | Hayır | CoinGecko fiyat/logo proxy anahtarı. |
 | `COINGECKO_API_PLAN` | Hayır | `demo` veya `pro`. |
+| `UPSTASH_REDIS_REST_URL` | Hayır | API/RPC rate limit için Upstash REST URL. |
+| `UPSTASH_REDIS_REST_TOKEN` | Hayır | Upstash REST token. |
+| `KV_REST_API_URL` | Hayır | Vercel KV alternatifi. |
+| `KV_REST_API_TOKEN` | Hayır | Vercel KV token. |
 | `NEXT_PUBLIC_RPC_ETHEREUM` | Hayır | Ethereum için öncelikli RPC. |
 | `NEXT_PUBLIC_RPC_BSC` | Hayır | BNB Chain RPC. |
 | `NEXT_PUBLIC_RPC_POLYGON` | Hayır | Polygon RPC. |
@@ -222,8 +228,9 @@ VaultRecord
 | İşlem geçmişi | IndexedDB | Yalnızca cihazda |
 | Dil, para birimi, tema, yazı tipi ölçeği, auto-lock | localStorage / next-themes | Hayır |
 | Özel ağlar ve tokenlar | localStorage | Hayır (public metadata) |
+| Adres defteri | localStorage | Hayır (public metadata) |
 | Rate-limit durumu | localStorage | Hayır |
-| Mnemonic / private key | Yalnızca RAM | Evet |
+| Mnemonic / private key | RAM + sekme kapsamlı şifreli `sessionStorage` | Evet |
 
 Hiçbir analytics, takip veya harici script yoktur. Mnemonic hiçbir log satırına yazılmaz.
 
@@ -231,7 +238,8 @@ Hiçbir analytics, takip veya harici script yoktur. Mnemonic hiçbir log satır�
 
 - Auto-lock seçenekleri: 1/5/15/30 dakika, sekme kapanınca.
 - Aktivite, görünürlük ve `pagehide` izlenir.
-- Rate-limit gecikmesi kademelidir (2 sn → 5 dk). Bu yalnızca arayüz seviyesinde bir yavaşlatmadır; localStorage silinerek atlatılabilir. Gerçek koruma PBKDF2 maliyetidir.
+- Şifre denemesi gecikmesi kademelidir (2 sn → 5 dk). Bu yalnızca arayüz seviyesinde bir yavaşlatmadır; localStorage silinerek atlatılabilir. Gerçek koruma PBKDF2 maliyetidir.
+- API/RPC limitleri ayrıdır ve IP bazlıdır; Redis varsa dağıtık çalışır.
 
 ### CSP
 
@@ -243,7 +251,7 @@ CSP `proxy.ts` içinde her istek için yeni bir nonce ile üretilir:
 - `img-src 'self' data: blob: https:`
 - `object-src 'none'`, `frame-ancestors 'none'`, `base-uri 'self'`
 
-Ayrıca `X-Content-Type-Options`, `Referrer-Policy: no-referrer`, `X-Frame-Options: DENY`, `COOP`, `Permissions-Policy` ve production'da HSTS gönderilir.
+Ayrıca `X-Content-Type-Options`, `Referrer-Policy: no-referrer`, `X-Frame-Options: DENY`, `COOP`, `Permissions-Policy` (kamera yalnızca self) ve production'da HSTS gönderilir.
 
 ### RPC proxy
 
@@ -291,13 +299,25 @@ Fiyat/değişim bulunamazsa panelde `N/A` gösterilir ve tokenın fiat değeri h
 | Route | Amaç | Gizli veri |
 |---|---|---|
 | `GET /api/prices?ids=…` | CoinGecko fiyat + logo proxy | API key server-side |
-| `GET /api/asset-platforms` | CoinGecko chainId → native coin eşleşmesi | Yalnızca genel chain metadata |
 | `GET /api/token-market?chainId&address` | CoinGecko contract + DexScreener + Trust Wallet logo fallback | Yalnızca chainId ve kontrat adresi |
+| `GET /api/token-search?chainId&q` | CoinGecko token adı araması; seçili ağın kontrat adresi | Yalnızca chainId ve arama metni |
+| `GET /api/asset-platforms` | CoinGecko chainId → native coin eşleşmesi | Genel chain metadata |
 | `GET /api/lifi/chains` | LI.FI EVM zincir metadata | Opsiyonel API key server-side |
 | `GET /api/lifi/status` | Kayıtlı bridge tx hash durumu | Opsiyonel API key server-side |
 | `POST /api/rpc/[chainId]` | JSON-RPC proxy | RPC URL'leri server-side |
 
 Bu route'lar mnemonic, private key, şifre veya imzasız hassas payload almaz. Adres bazlı geçmiş route'u yoktur.
+
+### API ve RPC rate limit
+
+Tüm `/api/*` route'ları IP bazlı fixed-window limitine sahiptir:
+
+- RPC proxy: dakikada **240 ağırlıklı birim** (batch en fazla 20 çağrı; `eth_call`, `eth_estimateGas`, `eth_getLogs`, `eth_sendRawTransaction` ve block okumaları 2 birim).
+- Fiyatlar: **60/dk**; token market: **60/dk**.
+- Token arama: **20/dk**; asset platforms: **30/dk**.
+- LI.FI chains/status: **60/dk**.
+
+Limit aşımında `429` ve `Retry-After` döner. Upstash/Vercel KV env varsa limit sunucular arasında paylaşılır; yoksa warm serverless instance başına bellek içi fallback kullanılır. Üretimde Redis yapılandırılması önerilir.
 
 ---
 
@@ -306,7 +326,7 @@ Bu route'lar mnemonic, private key, şifre veya imzasız hassas payload almaz. A
 ```text
 app/
 ├─ (app)/{wallet,swap,history,settings}/page.tsx
-├─ api/{prices,token-market,rpc/[chainId],lifi/{chains,status}}/route.ts
+├─ api/{prices,token-market,token-search,asset-platforms,rpc/[chainId],lifi/{chains,status}}/route.ts
 ├─ layout.tsx, page.tsx, globals.css
 components/
 ├─ ui/            shadcn/Radix primitives
@@ -369,11 +389,14 @@ Bu yazılım “olduğu gibi” sunulur. Kripto varlık kaybı, özel anahtar ka
 **Şifremi unuttum. Kurtarabilir miyim?**  
 Hayır. Non-custodial yapıda şifre sıfırlama yoktur. Cihazı sıfırlayıp 12 kelimelik kurtarma ifadesiyle cüzdanı yeniden içe aktarabilirsiniz.
 
+**Adres defteri nerede saklanıyor?**  
+Adres defteri yalnızca bu tarayıcıdaki `lilixy.settings.v1` kaydında tutulur; herhangi bir API veya RPC’ye gönderilmez. Cüzdan sıfırlanınca temizlenir.
+
 **12 kelime nerede saklanıyor?**  
 Düz metin olarak hiçbir yerde. Yalnızca şifrenizden türetilen anahtarla şifrelenmiş vault olarak IndexedDB'de tutulur.
 
-**Sayfayı yenileyince neden şifre soruyor?**  
-Güvenlik gereği. Bellekteki mnemonic/private key sayfa yenilenmesinde temizlenir; cüzdan kilitli başlar.
+**Sayfayı yenileyince neden şifre sormuyor?**  
+Zamanlı oturumlar sayfa yenilemesinde korunur; belirlenen süre dolunca kilitlenir. Sekme kapanınca oturum kaydı silinir.
 
 **Geçmişim nereden geliyor?**  
 Yalnızca bu cihazdaki IndexedDB kayıtlarından. Adres bazlı harici geçmiş servisi kullanılmaz. Tarayıcı verilerini silerseniz geçmiş de silinir.
@@ -391,7 +414,7 @@ Evet. Cüzdan sekmesindeki **Ağları yönet** düğmesinden **Ağ ekle** ile HT
 `estimateGas` ve `estimateFeesPerGas` (EIP-1559 yoksa `gasPrice`) kullanılır. Native Max ve yüzdelerde gas için %20 güvenlik payı düşülür. OP Stack zincirlerinde `estimateL1Fee` eklenir; Arbitrum'da daha yüksek gas payı ayrılır.
 
 **Aynı anda birden fazla cüzdan destekleniyor mu?**  
-Hayır. Tek cüzdan akışı vardır. Başka bir cüzdana geçmek için sıfırlayıp yeniden içe aktarın.
+Evet. Cüzdan ekranındaki cüzdan seçicisinden yeni cüzdan oluşturabilir, mevcut kurtarma ifadesini içe aktarabilir ve şifre girerek cüzdanlar arasında geçiş yapabilirsiniz.
 
 ---
 
@@ -411,19 +434,20 @@ Konfigürasyon: `lib/config/social.ts`. Web'de bağlantılar yeni sekmede `rel="
 
 1. **Tarayıcı hot wallet**: Anahtarlar sıcak tutulur. Hardware wallet/MPC yoktur.
 2. **XSS / supply-chain**: CSP ve nonce azaltıcıdır; frontend bağımlılıklarına yönelik bir saldırı anahtarları ele geçirebilir. `npm audit`, lockfile ve bağımsız denetim önerilir.
-3. **RAM'de anahtar**: JS string'leri güvenli biçimde sıfırlanamaz. Memory dump veya kötü niyetli eklenti anahtarı okuyabilir.
+3. **RAM ve sekme deposunda anahtar**: JS string'leri güvenli biçimde sıfırlanamaz. Memory dump veya kötü niyetli eklenti anahtarı okuyabilir.
 4. **Kötü niyetli tarayıcı eklentileri**: Sayfaya erişebilen eklentiler mnemonic'i okuyabilir. Temiz profil kullanın.
 5. **Kopyalama / ekran görüntüsü**: Kurtarma ifadesi panoya kopyalanabilir; pano diğer uygulamalarca okunabilir.
 6. **Offline brute-force**: Rate limit yalnızca UI'dır. Şifreli vault kopyalanıp offline denenebilir. Güçlü ve benzersiz şifre kritiktir.
 7. **Şifre sıfırlama yoktur**: Cüzdan yalnızca 12 kelimeyle kurtarılabilir.
 8. **Üçüncü taraflar**: LI.FI adres/route bilgisini; CoinGecko/DexScreener yalnızca kontrat adresi ve chainId'yi; RPC sağlayıcıları IP ve JSON-RPC isteklerini görebilir.
 9. **Özel RPC güveni ve CORS**: Kullanıcı tanımlı RPC doğrudan çağrılır. Yalnızca güvendiğiniz HTTPS RPC'leri ekleyin.
-10. **CSP `connect-src https:`**: Özel RPC URL'leri build zamanında bilinemediği için geniştir. Script tarafı nonce + `strict-dynamic` ile kilitlidir.
-11. **`unsafe-inline` stil**: MUI/Emotion ve next-themes runtime style injection kullanır.
+10. **Sekme oturumu**: XSS, aynı kaynakta çalışan bir saldırganın oturum anahtarını kullanmasına izin verebilir. Sekme kapanınca temizlenir.
+11. **CSP `connect-src https:`: Özel RPC URL'leri build zamanında bilinemediği için geniştir. Script tarafı nonce + `strict-dynamic` ile kilitlidir.
+12. **`unsafe-inline` stil**: MUI/Emotion ve next-themes runtime style injection kullanır.
 12. **LI.FI v3 sabitlemesi**: v3 güncel bakım hattı değildir. v4'e geçiş ayrı bir migration gerektirir.
 13. **Dil sınırı**: Widget'ta Arapça/Rusça kaynak yoktur; bu iki dilde widget İngilizce görünür.
-14. **Sunucu RPC proxy'si**: Anahtarları görmez, ancak IP ve JSON-RPC isteklerini görür. Üretimde rate-limit, WAF ve kendi node sağlayıcınızı kullanın.
-15. **Yerel geçmiş**: Tarayıcı verisi silinirse kaybolur; yedeklenmez.
+15. **Sunucu RPC proxy'si**: Anahtarları görmez, ancak IP ve JSON-RPC isteklerini görür. Üretimde rate-limit, WAF ve kendi node sağlayıcınızı kullanın.
+16. **Yerel geçmiş**: Tarayıcı verisi silinirse kaybolur; yedeklenmez.
 
 ---
 
@@ -470,7 +494,7 @@ Arayüz doğrulaması aydınlık/karanlık tema ve mobil/masaüstü genişlikler
 - `proxy.ts` Node.js runtime kullanır; statik export desteklenmez.
 - API route'ları için serverless/Node hosting gerekir.
 - Ortam değişkenlerini hosting panelinde tanımlayın; `.env.local` commit etmeyin.
-- RPC proxy'sini edge'de rate-limit'leyin.
+- `/api/*` rate limitlerini Upstash/Vercel KV ile dağıtık hale getirin.
 - CSP'yi kendi domainlerinize göre daraltın.
 - Üretimde kendi CoinGecko/LI.FI anahtarlarınızı ve RPC sağlayıcınızı kullanın.
 

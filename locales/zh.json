@@ -232,7 +232,18 @@
     "showAllTokens": "显示全部",
     "hideZeroBalances": "隐藏零余额",
     "noTokens": "未找到代币。",
-    "searchToken": "搜索代币或网络"
+    "searchToken": "搜索代币或网络",
+    "scanQr": "扫描二维码",
+    "scanTitle": "扫描收款方二维码",
+    "scanDescription": "将相机对准钱包地址二维码。",
+    "cameraError": "无法访问相机。请检查权限后重试。",
+    "cameraUnsupported": "此浏览器不支持相机。",
+    "addressBook": "地址簿",
+    "addressBookTitle": "地址簿",
+    "addressBookDescription": "选择已保存的收款人。",
+    "noSavedAddresses": "没有已保存的地址",
+    "searchAddressBook": "搜索名称或地址",
+    "addressBookHint": "在设置 → 地址簿中添加联系人。"
   },
   "receive": {
     "title": "收款",
@@ -344,7 +355,26 @@
     "fontSizeDescription": "调整整个应用的文字大小。",
     "fontSizeSmall": "小",
     "fontSizeDefault": "默认",
-    "fontSizeLarge": "大"
+    "fontSizeLarge": "大",
+    "dataSources": "价格、24 小时变化、代币搜索和代币图标：",
+    "addressBook": "地址簿",
+    "addressBookDescription": "保存收款人姓名和地址，让发送更快捷、更安全。",
+    "addressBookEmpty": "没有已保存的地址",
+    "addressBookEmptyDescription": "添加联系人，以便在发送时重复使用。",
+    "addAddress": "添加地址",
+    "editAddress": "编辑地址",
+    "addAddressDescription": "保存名称和 EVM 地址以便快速选择。",
+    "editAddressDescription": "更新已保存的名称或地址。",
+    "contactName": "联系人名称",
+    "contactNamePlaceholder": "例如：Alice",
+    "contactNameRequired": "请输入联系人名称。",
+    "addressExists": "该地址已在地址簿中。",
+    "addressSaved": "地址已保存",
+    "addressUpdated": "地址已更新",
+    "addressRemoved": "地址已删除",
+    "deleteAddressTitle": "删除已保存的地址？",
+    "deleteAddressDescription": "“{{name}}”将从地址簿中移除。",
+    "savedAddressCount": "已保存地址：{{count}}"
   },
   "networks": {
     "title": "网络管理",
@@ -387,7 +417,7 @@
   },
   "tokens": {
     "title": "代币管理",
-    "description": "通过合约地址添加自定义 ERC-20 代币。",
+    "description": "按名称或合约地址添加自定义 ERC-20 代币。",
     "addToken": "添加代币",
     "editToken": "编辑代币",
     "selectNetwork": "网络",
@@ -414,7 +444,14 @@
     "onChain": "链上元数据",
     "cannotEditMetadata": "合约元数据为只读。你可以修改显示名称。",
     "manage": "管理代币",
-    "unverified": "此代币未经验证。任何人都可以创建任意名称和符号的代币。交易前请验证合约。"
+    "unverified": "此代币未经验证。任何人都可以创建任意名称和符号的代币。交易前请验证合约。",
+    "searchByName": "按名称搜索",
+    "searchByNamePlaceholder": "在此网络上搜索代币",
+    "search": "搜索",
+    "searching": "搜索中",
+    "searchHint": "CoinGecko 搜索会返回所选网络上的合约地址。",
+    "noSearchResults": "此网络上未找到代币。",
+    "searchError": "代币搜索目前不可用。"
   },
   "pending": {
     "title": "待处理交易",
@@ -574,5 +611,19 @@
     "description": "余额、价格和合约信息。",
     "balance": "余额",
     "price": "价格"
+  },
+  "wallets": {
+    "title": "钱包",
+    "description": "管理和切换你的钱包。",
+    "active": "当前",
+    "switch": "切换",
+    "switchTitle": "切换钱包",
+    "switchDescription": "输入 {{name}} 的密码以切换。",
+    "add": "添加钱包",
+    "addDescription": "创建新钱包或导入现有恢复短语。",
+    "name": "钱包名称",
+    "namePlaceholder": "例如：主钱包",
+    "added": "钱包已添加",
+    "switched": "钱包已切换"
   }
 }

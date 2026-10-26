@@ -1,6 +1,10 @@
-import { NextResponse } from "next/server";
+import { NextResponse, type NextRequest } from "next/server";
 
 import type { AssetPlatform } from "@/lib/api/types";
+import {
+  API_RATE_LIMITS,
+  enforceApiRateLimit,
+} from "@/lib/security/api-rate-limit";
 
 export const runtime = "nodejs";
 
@@ -26,7 +30,13 @@ function apiConfig() {
   return { base, headers };
 }
 
-export async function GET() {
+export async function GET(request: NextRequest) {
+  const limited = await enforceApiRateLimit(
+    request,
+    API_RATE_LIMITS.assetPlatforms,
+  );
+  if (limited) return limited;
+
   const { base, headers } = apiConfig();
   try {
     const response = await fetch(`${base}/asset_platforms`, {

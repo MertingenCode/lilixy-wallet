@@ -232,7 +232,18 @@
     "showAllTokens": "すべて表示",
     "hideZeroBalances": "残高ゼロを隠す",
     "noTokens": "トークンが見つかりません。",
-    "searchToken": "トークンまたはネットワークを検索"
+    "searchToken": "トークンまたはネットワークを検索",
+    "scanQr": "QRをスキャン",
+    "scanTitle": "受取人のQRをスキャン",
+    "scanDescription": "カメラをウォレットアドレスのQRコードに向けてください。",
+    "cameraError": "カメラにアクセスできませんでした。権限を確認して再試行してください。",
+    "cameraUnsupported": "このブラウザではカメラを利用できません。",
+    "addressBook": "アドレス帳",
+    "addressBookTitle": "アドレス帳",
+    "addressBookDescription": "保存済みの受取人を選択してください。",
+    "noSavedAddresses": "保存済みアドレスはありません",
+    "searchAddressBook": "名前またはアドレスを検索",
+    "addressBookHint": "設定 → アドレス帳で連絡先を追加してください。"
   },
   "receive": {
     "title": "暗号資産を受け取る",
@@ -344,7 +355,26 @@
     "fontSizeDescription": "アプリ全体の文字サイズを調整します。",
     "fontSizeSmall": "小",
     "fontSizeDefault": "標準",
-    "fontSizeLarge": "大"
+    "fontSizeLarge": "大",
+    "dataSources": "価格、24時間変動、トークン検索、トークンロゴ：",
+    "addressBook": "アドレス帳",
+    "addressBookDescription": "受取人の名前とアドレスを保存して、送金をすばやく安全にします。",
+    "addressBookEmpty": "保存済みアドレスはありません",
+    "addressBookEmptyDescription": "送信画面で再利用する連絡先を追加してください。",
+    "addAddress": "アドレスを追加",
+    "editAddress": "アドレスを編集",
+    "addAddressDescription": "名前とEVMアドレスを保存してすばやく選択できます。",
+    "editAddressDescription": "保存した名前またはアドレスを更新します。",
+    "contactName": "連絡先名",
+    "contactNamePlaceholder": "例: Alice",
+    "contactNameRequired": "連絡先名を入力してください。",
+    "addressExists": "このアドレスはすでにアドレス帳にあります。",
+    "addressSaved": "アドレスを保存しました",
+    "addressUpdated": "アドレスを更新しました",
+    "addressRemoved": "アドレスを削除しました",
+    "deleteAddressTitle": "保存したアドレスを削除しますか？",
+    "deleteAddressDescription": "「{{name}}」をアドレス帳から削除します。",
+    "savedAddressCount": "保存済みアドレス: {{count}}"
   },
   "networks": {
     "title": "ネットワーク管理",
@@ -387,7 +417,7 @@
   },
   "tokens": {
     "title": "トークン管理",
-    "description": "コントラクトアドレスでカスタム ERC-20 トークンを追加します。",
+    "description": "名前またはコントラクトアドレスでカスタムERC-20トークンを追加します。",
     "addToken": "トークンを追加",
     "editToken": "トークンを編集",
     "selectNetwork": "ネットワーク",
@@ -414,7 +444,14 @@
     "onChain": "オンチェーンのメタデータ",
     "cannotEditMetadata": "コントラクトのメタデータは読み取り専用です。表示名は変更できます。",
     "manage": "トークンを管理",
-    "unverified": "このトークンは未検証です。誰でも任意の名前とシンボルでトークンを作成できます。取引前にコントラクトを確認してください。"
+    "unverified": "このトークンは未検証です。誰でも任意の名前とシンボルでトークンを作成できます。取引前にコントラクトを確認してください。",
+    "searchByName": "名前で検索",
+    "searchByNamePlaceholder": "このネットワークのトークンを検索",
+    "search": "検索",
+    "searching": "検索中",
+    "searchHint": "CoinGecko検索は選択したネットワークのコントラクトアドレスを返します。",
+    "noSearchResults": "このネットワークにトークンが見つかりません。",
+    "searchError": "トークン検索は現在利用できません。"
   },
   "pending": {
     "title": "保留中のトランザクション",
@@ -574,5 +611,19 @@
     "description": "残高、価格、コントラクト情報。",
     "balance": "残高",
     "price": "価格"
+  },
+  "wallets": {
+    "title": "ウォレット",
+    "description": "ウォレットを管理して切り替えます。",
+    "active": "使用中",
+    "switch": "切り替え",
+    "switchTitle": "ウォレットを切り替え",
+    "switchDescription": "{{name}} のパスワードを入力して切り替えます。",
+    "add": "ウォレットを追加",
+    "addDescription": "新しいウォレットを作成するか、既存のリカバリーフレーズをインポートします。",
+    "name": "ウォレット名",
+    "namePlaceholder": "例: メインウォレット",
+    "added": "ウォレットを追加しました",
+    "switched": "ウォレットを切り替えました"
   }
 }

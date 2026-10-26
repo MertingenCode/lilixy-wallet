@@ -232,7 +232,18 @@
     "showAllTokens": "Alle anzeigen",
     "hideZeroBalances": "Nullbestände ausblenden",
     "noTokens": "Keine Token gefunden.",
-    "searchToken": "Token oder Netzwerk suchen"
+    "searchToken": "Token oder Netzwerk suchen",
+    "scanQr": "QR scannen",
+    "scanTitle": "Empfänger-QR scannen",
+    "scanDescription": "Richte die Kamera auf den QR-Code einer Wallet-Adresse.",
+    "cameraError": "Kamerazugriff fehlgeschlagen. Prüfe die Berechtigungen und versuche es erneut.",
+    "cameraUnsupported": "Die Kamera ist in diesem Browser nicht verfügbar.",
+    "addressBook": "Adressbuch",
+    "addressBookTitle": "Adressbuch",
+    "addressBookDescription": "Wähle einen gespeicherten Empfänger.",
+    "noSavedAddresses": "Keine gespeicherten Adressen",
+    "searchAddressBook": "Name oder Adresse suchen",
+    "addressBookHint": "Füge Kontakte unter Einstellungen → Adressbuch hinzu."
   },
   "receive": {
     "title": "Krypto empfangen",
@@ -344,7 +355,26 @@
     "fontSizeDescription": "Textgröße in der gesamten App anpassen.",
     "fontSizeSmall": "Klein",
     "fontSizeDefault": "Standard",
-    "fontSizeLarge": "Groß"
+    "fontSizeLarge": "Groß",
+    "dataSources": "Preise, 24h-Änderung, Tokensuche und Token-Logos:",
+    "addressBook": "Adressbuch",
+    "addressBookDescription": "Speichere Empfängernamen und -adressen für schnellere, sicherere Überweisungen.",
+    "addressBookEmpty": "Keine gespeicherten Adressen",
+    "addressBookEmptyDescription": "Füge einen Kontakt hinzu, um ihn beim Senden wiederzuverwenden.",
+    "addAddress": "Adresse hinzufügen",
+    "editAddress": "Adresse bearbeiten",
+    "addAddressDescription": "Speichere einen Namen und eine EVM-Adresse für die schnelle Auswahl.",
+    "editAddressDescription": "Aktualisiere den gespeicherten Namen oder die Adresse.",
+    "contactName": "Kontaktname",
+    "contactNamePlaceholder": "z. B. Alice",
+    "contactNameRequired": "Gib einen Kontaktnamen ein.",
+    "addressExists": "Diese Adresse ist bereits in deinem Adressbuch.",
+    "addressSaved": "Adresse gespeichert",
+    "addressUpdated": "Adresse aktualisiert",
+    "addressRemoved": "Adresse entfernt",
+    "deleteAddressTitle": "Gespeicherte Adresse löschen?",
+    "deleteAddressDescription": "\"{{name}}\" wird aus deinem Adressbuch entfernt.",
+    "savedAddressCount": "Gespeicherte Adressen: {{count}}"
   },
   "networks": {
     "title": "Netzwerkverwaltung",
@@ -387,7 +417,7 @@
   },
   "tokens": {
     "title": "Token-Verwaltung",
-    "description": "Fügen Sie benutzerdefinierte ERC-20-Token per Vertragsadresse hinzu.",
+    "description": "Füge benutzerdefinierte ERC-20-Token nach Name oder Vertragsadresse hinzu.",
     "addToken": "Token hinzufügen",
     "editToken": "Token bearbeiten",
     "selectNetwork": "Netzwerk",
@@ -414,7 +444,14 @@
     "onChain": "On-Chain-Metadaten",
     "cannotEditMetadata": "Vertragsmetadaten sind schreibgeschützt. Sie können den Anzeigenamen ändern.",
     "manage": "Token verwalten",
-    "unverified": "Dieser Token ist nicht verifiziert. Jeder kann einen Token mit beliebigem Namen und Symbol erstellen. Prüfe den Vertrag vor dem Handel."
+    "unverified": "Dieser Token ist nicht verifiziert. Jeder kann einen Token mit beliebigem Namen und Symbol erstellen. Prüfe den Vertrag vor dem Handel.",
+    "searchByName": "Nach Name suchen",
+    "searchByNamePlaceholder": "Token in diesem Netzwerk suchen",
+    "search": "Suchen",
+    "searching": "Wird gesucht",
+    "searchHint": "Die CoinGecko-Suche liefert die Vertragsadresse im ausgewählten Netzwerk.",
+    "noSearchResults": "Keine Token in diesem Netzwerk gefunden.",
+    "searchError": "Die Tokensuche ist derzeit nicht verfügbar."
   },
   "pending": {
     "title": "Ausstehende Transaktionen",
@@ -574,5 +611,19 @@
     "description": "Guthaben, Preis und Vertragsinformationen.",
     "balance": "Guthaben",
     "price": "Preis"
+  },
+  "wallets": {
+    "title": "Wallets",
+    "description": "Verwalte und wechsle zwischen deinen Wallets.",
+    "active": "Aktiv",
+    "switch": "Wechseln",
+    "switchTitle": "Wallet wechseln",
+    "switchDescription": "Gib das Passwort für {{name}} ein, um zu wechseln.",
+    "add": "Wallet hinzufügen",
+    "addDescription": "Erstelle eine neue Wallet oder importiere eine vorhandene Wiederherstellungsphrase.",
+    "name": "Wallet-Name",
+    "namePlaceholder": "z. B. Haupt-Wallet",
+    "added": "Wallet hinzugefügt",
+    "switched": "Wallet gewechselt"
   }
 }

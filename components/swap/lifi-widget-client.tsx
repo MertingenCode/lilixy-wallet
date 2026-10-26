@@ -48,7 +48,7 @@ function WidgetEventBridge() {
 export default function LifiWidgetClient() {
   const { t, locale } = useT();
   const { resolvedTheme } = useTheme();
-  const { isConnected } = useAccount();
+  const { address, isConnected } = useAccount();
   const appearance = resolvedTheme === "dark" ? "dark" : "light";
 
   const config = useMemo(
@@ -67,9 +67,13 @@ export default function LifiWidgetClient() {
   if (!isConnected) return null;
 
   return (
-    <div className="lifi-widget-shell w-full">
+    <div className="lifi-widget-shell min-h-[32rem] w-full md:min-h-0">
       <WidgetEventBridge />
-      <LiFiWidget integrator="lilixy" config={config} />
+      <LiFiWidget
+        key={address ?? "local"}
+        integrator="lilixy"
+        config={config}
+      />
     </div>
   );
 }
