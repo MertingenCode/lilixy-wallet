@@ -11,6 +11,7 @@ import {
 import type { HDAccount } from "viem/accounts";
 
 import { getChainRpcUrls } from "@/lib/wagmi/networks";
+import { getBuiltInRpcOverride } from "@/lib/wagmi/rpc-overrides";
 import { isProxyChain } from "@/lib/wagmi/proxy-chains";
 
 const transportCache = new Map<string, Transport>();
@@ -18,14 +19,19 @@ const publicClientCache = new Map<string, PublicClient>();
 const walletClientCache = new Map<string, WalletClient>();
 
 export function createFallbackTransport(chain: Chain): Transport {
+  const override = getBuiltInRpcOverride(chain.id);
   const urls = getChainRpcUrls(chain);
   const safeUrls =
-    urls.length > 0 ? urls : ["https://ethereum-rpc.publicnode.com"];
+    override
+      ? [override, ...urls]
+      : urls.length > 0
+        ? urls
+        : ["https://ethereum-rpc.publicnode.com"];
 
   // A same-origin RPC proxy removes third-party CORS differences and keeps the
   // browser's CSP connect-src surface small. Private keys never touch it: only
   // already-signed transactions and read calls are forwarded.
-  if (typeof window !== "undefined" && isProxyChain(chain.id)) {
+  if (typeof window !== "undefined" && !override && isProxyChain(chain.id)) {
     const proxyKey = `proxy:${chain.id}`;
     const cachedProxy = transportCache.get(proxyKey);
     if (cachedProxy) return cachedProxy;
@@ -37,7 +43,7 @@ export function createFallbackTransport(chain: Chain): Transport {
     return proxyTransport;
   }
 
-  const key = `${chain.id}:${safeUrls.join("|")}`;
+  const key = `${chain.id}:${override ?? ""}:${safeUrls.join("|")}`;
   const cached = transportCache.get(key);
   if (cached) return cached;
 
@@ -59,7 +65,8 @@ export function createFallbackTransport(chain: Chain): Transport {
 
 export function getPublicClientForChain(chain: Chain): PublicClient {
   const urls = getChainRpcUrls(chain);
-  const key = `${chain.id}:${urls.join("|")}`;
+  const override = getBuiltInRpcOverride(chain.id);
+  const key = `${chain.id}:${override ?? ""}:${urls.join("|")}`;
   const cached = publicClientCache.get(key);
   if (cached) return cached;
   const client = createPublicClient({
@@ -75,7 +82,8 @@ export function getWalletClientForAccount(
   chain: Chain,
 ): WalletClient {
   const urls = getChainRpcUrls(chain);
-  const key = `${account.address}:${chain.id}:${urls.join("|")}`;
+  const override = getBuiltInRpcOverride(chain.id);
+  const key = `${account.address}:${chain.id}:${override ?? ""}:${urls.join("|")}`;
   const cached = walletClientCache.get(key);
   if (cached) return cached;
   const client = createWalletClient({

@@ -6,11 +6,13 @@ import {
   MoreHorizontalIcon,
   PencilIcon,
   PlusIcon,
+  SlidersHorizontalIcon,
   Trash2Icon,
 } from "lucide-react";
 import { toast } from "sonner";
 import { useChainId, useSwitchChain } from "wagmi";
 
+import { BuiltInRpcDialog } from "@/components/network/built-in-rpc-dialog";
 import { NetworkFormDialog } from "@/components/network/network-form-dialog";
 import { NetworkLogo } from "@/components/wallet/network-logo";
 import {
@@ -42,7 +44,10 @@ import { useT } from "@/hooks/use-locale";
 import type { CustomNetwork } from "@/lib/config/types";
 import { deleteTransactionsByChain } from "@/lib/db/transactions-repo";
 import { clearRpcCache } from "@/lib/wagmi/rpc";
-import { BUILT_IN_NETWORKS } from "@/lib/wagmi/networks";
+import {
+  BUILT_IN_NETWORKS,
+  type SupportedNetwork,
+} from "@/lib/wagmi/networks";
 import { useSettingsStore } from "@/store/settings";
 
 export function NetworkManagerDialog({
@@ -63,7 +68,11 @@ export function NetworkManagerDialog({
     (state) => state.setActiveChainId,
   );
   const { switchChainAsync } = useSwitchChain();
+  const builtInRpcOverrides = useSettingsStore(
+    (state) => state.builtInRpcOverrides,
+  );
   const [formOpen, setFormOpen] = useState(false);
+  const [rpcNetwork, setRpcNetwork] = useState<SupportedNetwork | null>(null);
   const [editing, setEditing] = useState<CustomNetwork | null>(null);
   const [deleting, setDeleting] = useState<CustomNetwork | null>(null);
 
@@ -118,7 +127,22 @@ export function NetworkManagerDialog({
                 <span className="min-w-0 flex-1 truncate text-[0.8125rem]">
                   {item.chain.name}
                 </span>
-                <Badge variant="outline">{t("networks.builtIn")}</Badge>
+                {builtInRpcOverrides[item.chain.id] ? (
+                  <Badge variant="secondary">
+                    {t("networks.customRpcBadge")}
+                  </Badge>
+                ) : (
+                  <Badge variant="outline">{t("networks.builtIn")}</Badge>
+                )}
+                <Button
+                  variant="ghost"
+                  size="iconSm"
+                  onClick={() => setRpcNetwork(item)}
+                  aria-label={t("networks.rpc")}
+                  title={t("networks.rpc")}
+                >
+                  <SlidersHorizontalIcon className="size-3.5" />
+                </Button>
               </div>
             ))}
 
@@ -173,6 +197,12 @@ export function NetworkManagerDialog({
           </div>
         </DialogContent>
       </Dialog>
+
+      <BuiltInRpcDialog
+        network={rpcNetwork}
+        open={Boolean(rpcNetwork)}
+        onOpenChange={(next) => !next && setRpcNetwork(null)}
+      />
 
       {formOpen ? (
         <NetworkFormDialog

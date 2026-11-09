@@ -413,7 +413,19 @@
     "chainIdLocked": "Die Chain-ID kann nach dem Erstellen nicht geändert werden.",
     "manage": "Netzwerke verwalten",
     "explorer": "Explorer",
-    "connected": "Verbunden"
+    "connected": "Verbunden",
+    "rpc": "RPC",
+    "rpcTitle": "{{network}} RPC",
+    "rpcDescription": "Wähle die Standard-Endpunkte oder einen eigenen RPC für dieses Netzwerk.",
+    "defaultRpc": "Standard-RPC",
+    "customRpc": "Benutzerdefinierter RPC",
+    "customRpcShort": "Eigener Endpunkt",
+    "customRpcUrl": "RPC-URL",
+    "customRpcHint": "Der Browser verbindet sich direkt. HTTPS und CORS sind erforderlich. Localhost-HTTP ist erlaubt.",
+    "defaultRpcHint": "Nutzt die sortierten öffentlichen Lilixy-RPC-Endpunkte über den App-Proxy.",
+    "rpcInvalid": "Gib eine gültige HTTPS-RPC-URL ein. Localhost-HTTP ist erlaubt.",
+    "rpcSaved": "RPC-Einstellung gespeichert",
+    "customRpcBadge": "Eigener RPC"
   },
   "tokens": {
     "title": "Token-Verwaltung",

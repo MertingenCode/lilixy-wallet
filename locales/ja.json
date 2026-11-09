@@ -413,7 +413,19 @@
     "chainIdLocked": "作成後にチェーン ID は変更できません。",
     "manage": "ネットワークを管理",
     "explorer": "エクスプローラー",
-    "connected": "接続済み"
+    "connected": "接続済み",
+    "rpc": "RPC",
+    "rpcTitle": "{{network}} RPC",
+    "rpcDescription": "このネットワークのデフォルトEndpointまたは独自RPCを選択します。",
+    "defaultRpc": "デフォルトRPC",
+    "customRpc": "カスタムRPC",
+    "customRpcShort": "独自Endpoint",
+    "customRpcUrl": "RPC URL",
+    "customRpcHint": "ブラウザが直接接続します。HTTPSとCORSが必要です。localhostのHTTPは許可されます。",
+    "defaultRpcHint": "アプリプロキシ経由でLilixyの順位付けされた公開RPCを使用します。",
+    "rpcInvalid": "有効なHTTPS RPC URLを入力してください。localhostのHTTPは許可されます。",
+    "rpcSaved": "RPC設定を保存しました",
+    "customRpcBadge": "カスタムRPC"
   },
   "tokens": {
     "title": "トークン管理",

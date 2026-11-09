@@ -30,44 +30,21 @@ export async function fetchChainBalances(
     return { chainId: chain.id, native: nativeResult, tokens: balances, partialError };
   }
 
-  try {
-    const results = await client.multicall({
-      allowFailure: true,
-      contracts: tokens.map((token) => ({
+  for (const token of tokens) {
+    try {
+      const balance = await client.readContract({
         address: token.address,
         abi: erc20Abi,
-        functionName: "balanceOf" as const,
-        args: [address] as const,
-      })),
-    });
-    results.forEach((result, index) => {
-      const token = tokens[index];
-      if (!token) return;
-      if (result.status === "success" && typeof result.result === "bigint") {
-        balances[token.address.toLowerCase()] = result.result;
-      } else {
-        partialError = true;
+        functionName: "balanceOf",
+        args: [address],
+      });
+      if (typeof balance === "bigint") {
+        balances[token.address.toLowerCase()] = balance;
       }
-    });
-  } catch {
-    partialError = true;
-    const results = await Promise.allSettled(
-      tokens.map((token) =>
-        client.readContract({
-          address: token.address,
-          abi: erc20Abi,
-          functionName: "balanceOf",
-          args: [address],
-        }),
-      ),
-    );
-    results.forEach((result, index) => {
-      const token = tokens[index];
-      if (!token) return;
-      if (result.status === "fulfilled" && typeof result.value === "bigint") {
-        balances[token.address.toLowerCase()] = result.value;
-      }
-    });
+    } catch {
+      // A single bad/rate-limited token must not hide the others.
+      partialError = true;
+    }
   }
 
   return {

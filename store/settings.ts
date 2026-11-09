@@ -20,6 +20,7 @@ interface SettingsState {
   autoLock: AutoLockOption;
   activeChainId: number;
   walletChainFilter: string;
+  builtInRpcOverrides: Record<number, string>;
   customNetworks: CustomNetwork[];
   customTokens: CustomToken[];
   addressBook: AddressBookEntry[];
@@ -29,6 +30,7 @@ interface SettingsState {
   setAutoLock: (autoLock: AutoLockOption) => void;
   setActiveChainId: (chainId: number) => void;
   setWalletChainFilter: (filter: string) => void;
+  setBuiltInRpcOverride: (chainId: number, rpcUrl: string | null) => void;
   addCustomNetwork: (network: CustomNetwork) => void;
   updateCustomNetwork: (network: CustomNetwork) => void;
   removeCustomNetwork: (chainId: number) => void;
@@ -48,6 +50,7 @@ const initialSettings = {
   autoLock: DEFAULT_AUTO_LOCK,
   activeChainId: 1,
   walletChainFilter: "all",
+  builtInRpcOverrides: {} as Record<number, string>,
   customNetworks: [] as CustomNetwork[],
   customTokens: [] as CustomToken[],
   addressBook: [] as AddressBookEntry[],
@@ -90,6 +93,13 @@ export const useSettingsStore = create<SettingsState>()(
       setAutoLock: (autoLock) => set({ autoLock }),
       setActiveChainId: (activeChainId) => set({ activeChainId }),
       setWalletChainFilter: (walletChainFilter) => set({ walletChainFilter }),
+      setBuiltInRpcOverride: (chainId, rpcUrl) =>
+        set((state) => {
+          const next = { ...state.builtInRpcOverrides };
+          if (rpcUrl) next[chainId] = rpcUrl;
+          else delete next[chainId];
+          return { builtInRpcOverrides: next };
+        }),
       addCustomNetwork: (network) =>
         set((state) => ({
           customNetworks: [
@@ -169,6 +179,7 @@ export const useSettingsStore = create<SettingsState>()(
         autoLock: state.autoLock,
         activeChainId: state.activeChainId,
         walletChainFilter: state.walletChainFilter,
+        builtInRpcOverrides: state.builtInRpcOverrides,
         customNetworks: state.customNetworks,
         customTokens: state.customTokens,
         addressBook: state.addressBook,

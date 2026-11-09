@@ -413,7 +413,19 @@
     "chainIdLocked": "El ID de cadena no se puede cambiar después de crearla.",
     "manage": "Gestionar redes",
     "explorer": "Explorador",
-    "connected": "Conectada"
+    "connected": "Conectada",
+    "rpc": "RPC",
+    "rpcTitle": "RPC de {{network}}",
+    "rpcDescription": "Elige los endpoints predeterminados o usa tu propio RPC para esta red.",
+    "defaultRpc": "RPC predeterminado",
+    "customRpc": "RPC personalizado",
+    "customRpcShort": "Tu endpoint",
+    "customRpcUrl": "URL del RPC",
+    "customRpcHint": "El navegador se conecta directamente. Se requieren HTTPS y CORS. Se permite HTTP en localhost.",
+    "defaultRpcHint": "Usa los endpoints públicos clasificados de Lilixy a través del proxy.",
+    "rpcInvalid": "Introduce una URL RPC HTTPS válida. Se permite HTTP en localhost.",
+    "rpcSaved": "Preferencia de RPC guardada",
+    "customRpcBadge": "RPC personalizado"
   },
   "tokens": {
     "title": "Gestión de tokens",

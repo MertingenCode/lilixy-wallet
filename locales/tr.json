@@ -413,7 +413,19 @@
     "chainIdLocked": "Zincir kimliği oluşturulduktan sonra değiştirilemez.",
     "manage": "Ağları yönet",
     "explorer": "Gezgin",
-    "connected": "Bağlı"
+    "connected": "Bağlı",
+    "rpc": "RPC",
+    "rpcTitle": "{{network}} RPC",
+    "rpcDescription": "Bu ağ için varsayılan uç noktaları veya kendi RPC adresinizi seçin.",
+    "defaultRpc": "Varsayılan RPC",
+    "customRpc": "Özel RPC",
+    "customRpcShort": "Kendi uç noktanız",
+    "customRpcUrl": "RPC adresi",
+    "customRpcHint": "Tarayıcı doğrudan bu adrese bağlanır. HTTPS ve CORS gerekir. Localhost HTTP desteklenir.",
+    "defaultRpcHint": "Uygulama proxy’si üzerinden Lilixy’nin sıralı public RPC uç noktalarını kullanır.",
+    "rpcInvalid": "Geçerli bir HTTPS RPC adresi girin. Localhost HTTP desteklenir.",
+    "rpcSaved": "RPC tercihi kaydedildi",
+    "customRpcBadge": "Özel RPC"
   },
   "tokens": {
     "title": "Token yönetimi",

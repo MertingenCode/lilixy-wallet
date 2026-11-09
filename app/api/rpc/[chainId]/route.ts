@@ -36,6 +36,22 @@ async function lifiRpcUrls(chainId: number): Promise<string[]> {
   }
 }
 
+function hasJsonRpcError(value: unknown): boolean {
+  if (Array.isArray(value)) {
+    return value.some(
+      (item) =>
+        item &&
+        typeof item === "object" &&
+        "error" in (item as Record<string, unknown>),
+    );
+  }
+  return Boolean(
+    value &&
+      typeof value === "object" &&
+      "error" in (value as Record<string, unknown>),
+  );
+}
+
 async function targetUrls(chainId: number): Promise<string[]> {
   const builtIn = BUILT_IN_NETWORKS.find(
     (item) => item.chain.id === chainId,
@@ -140,6 +156,8 @@ export async function POST(
     );
   }
 
+  let lastRpcError: string | null = null;
+
   for (const url of urls) {
     try {
       const response = await fetch(url, {
@@ -154,9 +172,17 @@ export async function POST(
       });
       if (!response.ok) continue;
       const text = await response.text();
+      let parsedResponse: unknown;
       try {
-        JSON.parse(text);
+        parsedResponse = JSON.parse(text);
       } catch {
+        continue;
+      }
+      if (hasJsonRpcError(parsedResponse)) {
+        // Try the next ranked RPC. A JSON-RPC error can be provider-specific
+        // (rate limits, unsupported eth_call, stale state); returning the first
+        // error would hide working fallbacks from viem.
+        lastRpcError = text;
         continue;
       }
       return new NextResponse(text, {
@@ -169,6 +195,16 @@ export async function POST(
     } catch {
       // Try the next ranked RPC endpoint.
     }
+  }
+
+  if (lastRpcError) {
+    return new NextResponse(lastRpcError, {
+      status: 200,
+      headers: {
+        "content-type": "application/json",
+        "cache-control": "no-store",
+      },
+    });
   }
 
   return NextResponse.json(

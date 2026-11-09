@@ -413,7 +413,19 @@
     "chainIdLocked": "L'ID de chaîne ne peut plus être modifié après la création.",
     "manage": "Gérer les réseaux",
     "explorer": "Explorateur",
-    "connected": "Connecté"
+    "connected": "Connecté",
+    "rpc": "RPC",
+    "rpcTitle": "RPC {{network}}",
+    "rpcDescription": "Choisissez les endpoints par défaut ou votre propre RPC pour ce réseau.",
+    "defaultRpc": "RPC par défaut",
+    "customRpc": "RPC personnalisé",
+    "customRpcShort": "Votre endpoint",
+    "customRpcUrl": "URL du RPC",
+    "customRpcHint": "Le navigateur se connecte directement. HTTPS et CORS sont requis. HTTP localhost est autorisé.",
+    "defaultRpcHint": "Utilise les endpoints publics classés de Lilixy via le proxy de l’application.",
+    "rpcInvalid": "Saisissez une URL RPC HTTPS valide. HTTP localhost est autorisé.",
+    "rpcSaved": "Préférence RPC enregistrée",
+    "customRpcBadge": "RPC personnalisé"
   },
   "tokens": {
     "title": "Gestion des jetons",

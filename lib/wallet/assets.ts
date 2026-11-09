@@ -1,4 +1,4 @@
-import type { Address } from "viem";
+import { getAddress, type Address } from "viem";
 
 import type { CustomToken } from "@/lib/config/types";
 import { BUILT_IN_NETWORKS } from "@/lib/wagmi/networks";
@@ -48,7 +48,7 @@ export const POPULAR_TOKENS: Record<number, TokenDefinition[]> = {
   1: [
     {
       chainId: 1,
-      address: "0xA0b86991c6218b36c1d19d4a2e9Eb0cE3606eB48",
+      address: "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
       name: "USD Coin",
       symbol: "USDC",
       decimals: 6,
@@ -274,9 +274,16 @@ export function getPopularTokens(chainId: number): TokenDefinition[] {
 }
 
 export function customTokenToDefinition(token: CustomToken): TokenDefinition {
+  let address = token.address;
+  try {
+    address = getAddress(token.address);
+  } catch {
+    // Keep legacy/malformed entries readable; the balance call will fail for
+    // only that token instead of poisoning the whole multicall batch.
+  }
   return {
     chainId: token.chainId,
-    address: token.address,
+    address,
     name: token.label?.trim() || token.name,
     symbol: token.symbol,
     decimals: token.decimals,

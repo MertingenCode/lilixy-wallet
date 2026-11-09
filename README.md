@@ -28,6 +28,7 @@ Lilixy Wallet, tamamen tarayıcıda imzalayan, non-custodial ve çok zincirli bi
   - LI.FI'nin desteklediği diğer EVM zincirleri
   - Çoklu cüzdan oluşturma/içe aktarma ve cüzdanlar arası geçiş
   - Kullanıcı tanımlı ağlar ve ERC-20 tokenları; CoinGecko ile ağa özel token adı araması
+  - Yerleşik ağlarda varsayılan veya özel RPC seçimi
   - Çoklu zincir bakiyeleri, CoinGecko fiyatları ve 24 saatlik değişim
   - Native + ERC-20 gönderme, gerçek zamanlı gas tahmini ve onay ekranı
   - %25/%50/%75/Max hızlı miktar seçimi
@@ -357,6 +358,8 @@ Ağ ve token ekleme akışları Cüzdan sekmesindedir:
 
 - Varlık listesindeki **Ağları yönet** düğmesiyle ağ yöneticisi
 - Yöneticide **Ağ ekle**; özel ağ satırındaki `⋯` menüsünde düzenle/sil
+- Yerleşik ağ satırındaki **RPC** düğmesiyle varsayılan veya özel RPC seçimi
+- Özel RPC tarayıcıdan doğrudan çağrılır; HTTPS ve CORS gerekir. Varsayılan seçenek uygulama proxy’sini kullanır.
 - Token listesinin başlığında **Token ekle**
 - Özel token satırındaki `⋯` menüsünde düzenle/sil
 - Mobilde bottom sheet, masaüstünde modal

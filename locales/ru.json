@@ -413,7 +413,19 @@
     "chainIdLocked": "ID сети нельзя изменить после создания.",
     "manage": "Управление сетями",
     "explorer": "Обозреватель",
-    "connected": "Подключено"
+    "connected": "Подключено",
+    "rpc": "RPC",
+    "rpcTitle": "RPC {{network}}",
+    "rpcDescription": "Выберите стандартные endpoint’ы или собственный RPC для этой сети.",
+    "defaultRpc": "RPC по умолчанию",
+    "customRpc": "Свой RPC",
+    "customRpcShort": "Ваш endpoint",
+    "customRpcUrl": "URL RPC",
+    "customRpcHint": "Браузер подключается напрямую. Требуются HTTPS и CORS. HTTP localhost разрешён.",
+    "defaultRpcHint": "Использует ранжированные публичные RPC Lilixy через прокси приложения.",
+    "rpcInvalid": "Введите корректный HTTPS RPC URL. HTTP localhost разрешён.",
+    "rpcSaved": "Настройка RPC сохранена",
+    "customRpcBadge": "Свой RPC"
   },
   "tokens": {
     "title": "Управление токенами",

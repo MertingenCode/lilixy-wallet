@@ -413,7 +413,19 @@
     "chainIdLocked": "لا يمكن تغيير معرّف السلسلة بعد الإنشاء.",
     "manage": "إدارة الشبكات",
     "explorer": "المستكشف",
-    "connected": "متصل"
+    "connected": "متصل",
+    "rpc": "RPC",
+    "rpcTitle": "RPC {{network}}",
+    "rpcDescription": "اختر نقاط النهاية الافتراضية أو RPC خاصًا لهذه الشبكة.",
+    "defaultRpc": "RPC الافتراضي",
+    "customRpc": "RPC مخصص",
+    "customRpcShort": "نقطة النهاية الخاصة بك",
+    "customRpcUrl": "عنوان RPC",
+    "customRpcHint": "يتصل المتصفح مباشرة. يلزم HTTPS وCORS. يُسمح بـ HTTP على localhost.",
+    "defaultRpcHint": "يستخدم نقاط نهاية RPC العامة المرتبة من Lilixy عبر وكيل التطبيق.",
+    "rpcInvalid": "أدخل عنوان RPC HTTPS صالحًا. يُسمح بـ HTTP على localhost.",
+    "rpcSaved": "تم حفظ تفضيل RPC",
+    "customRpcBadge": "RPC مخصص"
   },
   "tokens": {
     "title": "إدارة الرموز",

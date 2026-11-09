@@ -8,7 +8,7 @@ import {
   TriangleAlertIcon,
 } from "lucide-react";
 import { toast } from "sonner";
-import { erc20Abi, isAddress, type Address } from "viem";
+import { erc20Abi, getAddress, isAddress, type Address } from "viem";
 
 import { NetworkLogo } from "@/components/wallet/network-logo";
 import { Button } from "@/components/ui/button";
@@ -227,7 +227,7 @@ export function TokenFormDialog({
     const token: CustomToken = {
       id: `${chainId}:${address.toLowerCase()}`,
       chainId,
-      address: address as Address,
+      address: getAddress(address),
       name: metadata.name,
       symbol: metadata.symbol,
       decimals: metadata.decimals,

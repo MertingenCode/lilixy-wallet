@@ -413,7 +413,19 @@
     "chainIdLocked": "创建后无法更改链 ID。",
     "manage": "管理网络",
     "explorer": "区块浏览器",
-    "connected": "已连接"
+    "connected": "已连接",
+    "rpc": "RPC",
+    "rpcTitle": "{{network}} RPC",
+    "rpcDescription": "选择默认端点或为此网络使用自定义 RPC。",
+    "defaultRpc": "默认 RPC",
+    "customRpc": "自定义 RPC",
+    "customRpcShort": "你的端点",
+    "customRpcUrl": "RPC URL",
+    "customRpcHint": "浏览器将直接连接。需要 HTTPS 和 CORS。允许 localhost HTTP。",
+    "defaultRpcHint": "通过应用代理使用 Lilixy 的排序公共 RPC 端点。",
+    "rpcInvalid": "请输入有效的 HTTPS RPC URL。允许 localhost HTTP。",
+    "rpcSaved": "RPC 偏好已保存",
+    "customRpcBadge": "自定义 RPC"
   },
   "tokens": {
     "title": "代币管理",

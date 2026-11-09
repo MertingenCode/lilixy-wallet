@@ -52,11 +52,7 @@ const CUSTOM_ENV_RPCS: Record<number, string | undefined> = {
  * ranked endpoints and lets viem fall through on failure.
  */
 const PUBLIC_RPCS: Record<number, string[]> = {
-  1: [
-    "https://ethereum-rpc.publicnode.com",
-    "https://cloudflare-eth.com",
-    "https://eth.llamarpc.com",
-  ],
+  1: ["https://ethereum-rpc.publicnode.com"],
   56: [
     "https://bsc-rpc.publicnode.com",
     "https://binance.llamarpc.com",
@@ -113,7 +109,10 @@ export function getBuiltInNetwork(chainId: number) {
 export function getChainRpcUrls(chain: Chain): string[] {
   const envRpc = CUSTOM_ENV_RPCS[chain.id];
   const publicRpcs = PUBLIC_RPCS[chain.id] ?? [];
-  const defaults = chain.rpcUrls.default.http ?? [];
+  // Bundled ranked endpoints are preferred. Only fall back to the viem chain
+  // defaults when the network has no bundled list, because some defaults are
+  // unreliable for eth_call (e.g. a provider that reverts Multicall3).
+  const defaults = publicRpcs.length > 0 ? [] : (chain.rpcUrls.default.http ?? []);
   return Array.from(
     new Set(
       [envRpc, ...publicRpcs, ...defaults].filter(
