@@ -49,15 +49,18 @@ function DialogContent({
   className,
   children,
   showCloseButton = true,
+  contentRef,
   ...props
 }: React.ComponentProps<typeof DialogPrimitive.Content> & {
   showCloseButton?: boolean;
+  contentRef?: React.Ref<HTMLDivElement>;
 }) {
   const { t } = useTranslation();
   return (
     <DialogPortal>
       <DialogOverlay />
       <DialogPrimitive.Content
+        ref={contentRef}
         data-slot="dialog-content"
         className={cn(
           "bg-card text-card-foreground fixed top-1/2 left-1/2 z-50 grid max-h-[92dvh] w-[calc(100%-1.5rem)] max-w-lg -translate-x-1/2 -translate-y-1/2 gap-4 min-w-0 overflow-x-hidden overflow-y-auto rounded-[18px] border border-rule p-4 sm:p-5",

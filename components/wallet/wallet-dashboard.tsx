@@ -486,7 +486,7 @@ export function WalletDashboard() {
           </Select>
         </div>
 
-        <div className="flex flex-wrap items-center justify-between gap-2 border-b border-rule pb-3">
+        <div className="flex min-h-10 items-center border-b border-rule py-3">
           <label className="flex cursor-pointer items-center gap-2 text-xs">
             <Switch
               checked={hideSmallBalances}
@@ -495,9 +495,6 @@ export function WalletDashboard() {
             />
             <span>{t("wallet.hideSmallBalances")}</span>
           </label>
-          <span className="text-muted-foreground text-[0.6875rem]">
-            {t("wallet.smallBalanceThreshold")}
-          </span>
         </div>
 
         {isLoading && assets.length === 0 ? (

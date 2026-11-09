@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
   AlertCircleIcon,
   ArrowRightIcon,
@@ -111,6 +111,7 @@ export function SendDialog({
   const [amount, setAmount] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [hash, setHash] = useState<Hash | null>(null);
+  const dialogContentRef = useRef<HTMLDivElement>(null);
   const [scanOpen, setScanOpen] = useState(false);
   const [addressBookOpen, setAddressBookOpen] = useState(false);
   const [fee, setFee] = useState<TransferFeeEstimate | null>(null);
@@ -273,6 +274,12 @@ export function SendDialog({
         return a.name.localeCompare(b.name);
       });
   }, [assets, chainNames, pickerChain, pickerSearch, showAll]);
+
+  useEffect(() => {
+    if (open && (step === "success" || step === "error")) {
+      dialogContentRef.current?.scrollTo({ top: 0 });
+    }
+  }, [open, step]);
 
   useEffect(() => {
     if (!open) {
@@ -544,11 +551,20 @@ export function SendDialog({
         if (!isPending) onOpenChange(next);
       }}
     >
-      <DialogContent className="max-w-[560px]">
-        <DialogHeader>
-          <DialogTitle className="text-[1.5rem] leading-tight">{title}</DialogTitle>
-          <DialogDescription className="text-[0.75rem] leading-5">{description}</DialogDescription>
-        </DialogHeader>
+      <DialogContent
+        className="max-w-[560px]"
+        contentRef={dialogContentRef}
+      >
+        {step === "success" ? (
+          <DialogHeader className="sr-only">
+            <DialogTitle>{t("send.sent")}</DialogTitle>
+          </DialogHeader>
+        ) : (
+          <DialogHeader>
+            <DialogTitle className="text-[1.5rem] leading-tight">{title}</DialogTitle>
+            <DialogDescription className="text-[0.75rem] leading-5">{description}</DialogDescription>
+          </DialogHeader>
+        )}
 
         {step === "form" ? (
           <div className="space-y-4">
@@ -1069,21 +1085,21 @@ export function SendDialog({
         ) : null}
 
         {step === "success" && selected ? (
-          <div className="space-y-4 text-center">
+          <div className="space-y-3 text-center">
             <div className="text-success flex justify-center">
-              <CheckIcon className="size-6" />
+              <CheckIcon className="size-5" />
             </div>
             <div>
-              <h3 className="text-[1.25rem]">{t("send.sent")}</h3>
-              <p className="text-muted-foreground mt-1 text-sm">
+              <h3 className="text-[1.125rem] leading-tight">{t("send.sent")}</h3>
+              <p className="text-muted-foreground mt-1 text-xs leading-5">
                 {t("send.sentDescription")}
               </p>
-              <p className="mt-3 font-semibold">
+              <p className="mt-2 text-sm font-semibold">
                 {amountFormatted} {selected.symbol}
               </p>
             </div>
             {hash ? (
-              <div className="flex items-center gap-2 border-y border-rule px-3 py-2">
+              <div className="flex items-center gap-2 border-y border-rule px-3 py-1.5">
                 <code className="min-w-0 flex-1 truncate font-mono text-[0.6875rem]">
                   {hash}
                 </code>
