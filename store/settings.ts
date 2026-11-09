@@ -20,6 +20,7 @@ interface SettingsState {
   autoLock: AutoLockOption;
   activeChainId: number;
   walletChainFilter: string;
+  hideSmallBalances: boolean;
   builtInRpcOverrides: Record<number, string>;
   customNetworks: CustomNetwork[];
   customTokens: CustomToken[];
@@ -30,6 +31,7 @@ interface SettingsState {
   setAutoLock: (autoLock: AutoLockOption) => void;
   setActiveChainId: (chainId: number) => void;
   setWalletChainFilter: (filter: string) => void;
+  setHideSmallBalances: (hide: boolean) => void;
   setBuiltInRpcOverride: (chainId: number, rpcUrl: string | null) => void;
   addCustomNetwork: (network: CustomNetwork) => void;
   updateCustomNetwork: (network: CustomNetwork) => void;
@@ -50,6 +52,7 @@ const initialSettings = {
   autoLock: DEFAULT_AUTO_LOCK,
   activeChainId: 1,
   walletChainFilter: "all",
+  hideSmallBalances: false,
   builtInRpcOverrides: {} as Record<number, string>,
   customNetworks: [] as CustomNetwork[],
   customTokens: [] as CustomToken[],
@@ -93,6 +96,7 @@ export const useSettingsStore = create<SettingsState>()(
       setAutoLock: (autoLock) => set({ autoLock }),
       setActiveChainId: (activeChainId) => set({ activeChainId }),
       setWalletChainFilter: (walletChainFilter) => set({ walletChainFilter }),
+      setHideSmallBalances: (hideSmallBalances) => set({ hideSmallBalances }),
       setBuiltInRpcOverride: (chainId, rpcUrl) =>
         set((state) => {
           const next = { ...state.builtInRpcOverrides };
@@ -179,6 +183,7 @@ export const useSettingsStore = create<SettingsState>()(
         autoLock: state.autoLock,
         activeChainId: state.activeChainId,
         walletChainFilter: state.walletChainFilter,
+        hideSmallBalances: state.hideSmallBalances,
         builtInRpcOverrides: state.builtInRpcOverrides,
         customNetworks: state.customNetworks,
         customTokens: state.customTokens,

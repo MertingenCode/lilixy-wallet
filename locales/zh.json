@@ -183,7 +183,12 @@
     "walletReady": "你的钱包已就绪",
     "quickActions": "快捷操作",
     "connectError": "无法恢复钱包连接。请锁定后重新解锁以重试。",
-    "pageDescription": "管理你的资产、网络和代币。"
+    "pageDescription": "管理你的资产、网络和代币。",
+    "hideSmallBalances": "隐藏低于 5 美元的余额",
+    "smallBalanceThreshold": "低于 5 美元",
+    "noVisibleBalances": "没有高于 5 美元的余额",
+    "noVisibleBalancesDescription": "所有余额为零或低于 5 美元。请重新显示或添加其他代币。",
+    "showAllBalances": "显示所有余额"
   },
   "send": {
     "title": "转账",

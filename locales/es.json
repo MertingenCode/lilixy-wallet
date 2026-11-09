@@ -183,7 +183,12 @@
     "walletReady": "Tu cartera está lista",
     "quickActions": "Acciones rápidas",
     "connectError": "No se pudo restaurar la conexión de la cartera. Bloquéala y desbloquéala para intentarlo de nuevo.",
-    "pageDescription": "Gestiona tus activos, redes y tokens."
+    "pageDescription": "Gestiona tus activos, redes y tokens.",
+    "hideSmallBalances": "Ocultar saldos inferiores a 5 $",
+    "smallBalanceThreshold": "Menos de 5 $",
+    "noVisibleBalances": "No hay saldos superiores a 5 $",
+    "noVisibleBalancesDescription": "Todos los saldos son cero o inferiores a 5 $. Muéstralos de nuevo o añade otro token.",
+    "showAllBalances": "Mostrar todos los saldos"
   },
   "send": {
     "title": "Enviar criptomonedas",

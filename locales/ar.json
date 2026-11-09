@@ -183,7 +183,12 @@
     "walletReady": "محفظتك جاهزة",
     "quickActions": "إجراءات سريعة",
     "connectError": "تعذّرت استعادة اتصال المحفظة. اقفل المحفظة وافتحها للمحاولة مرة أخرى.",
-    "pageDescription": "أدر أصولك وشبكاتك ورموزك."
+    "pageDescription": "أدر أصولك وشبكاتك ورموزك.",
+    "hideSmallBalances": "إخفاء الأرصدة أقل من 5 دولارات",
+    "smallBalanceThreshold": "أقل من 5 دولارات",
+    "noVisibleBalances": "لا توجد أرصدة أعلى من 5 دولارات",
+    "noVisibleBalancesDescription": "جميع الأرصدة صفر أو أقل من 5 دولارات. أظهرها مرة أخرى أو أضف رمزًا آخر.",
+    "showAllBalances": "إظهار جميع الأرصدة"
   },
   "send": {
     "title": "إرسال العملات الرقمية",

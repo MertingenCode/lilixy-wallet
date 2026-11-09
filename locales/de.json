@@ -183,7 +183,12 @@
     "walletReady": "Ihre Wallet ist bereit",
     "quickActions": "Schnellaktionen",
     "connectError": "Die Wallet-Verbindung konnte nicht wiederhergestellt werden. Sperren und entsperren Sie die Wallet, um es erneut zu versuchen.",
-    "pageDescription": "Verwalte deine Assets, Netzwerke und Token."
+    "pageDescription": "Verwalte deine Assets, Netzwerke und Token.",
+    "hideSmallBalances": "Guthaben unter 5 $ ausblenden",
+    "smallBalanceThreshold": "Unter 5 $",
+    "noVisibleBalances": "Keine Guthaben über 5 $",
+    "noVisibleBalancesDescription": "Alle Guthaben sind null oder unter 5 $. Zeige sie wieder an oder füge einen weiteren Token hinzu.",
+    "showAllBalances": "Alle Guthaben anzeigen"
   },
   "send": {
     "title": "Krypto senden",

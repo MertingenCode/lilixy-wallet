@@ -183,7 +183,12 @@
     "walletReady": "Votre portefeuille est prêt",
     "quickActions": "Actions rapides",
     "connectError": "La connexion du portefeuille n'a pas pu être rétablie. Verrouillez puis déverrouillez pour réessayer.",
-    "pageDescription": "Gérez vos actifs, vos réseaux et vos jetons."
+    "pageDescription": "Gérez vos actifs, vos réseaux et vos jetons.",
+    "hideSmallBalances": "Masquer les soldes inférieurs à 5 $",
+    "smallBalanceThreshold": "Moins de 5 $",
+    "noVisibleBalances": "Aucun solde supérieur à 5 $",
+    "noVisibleBalancesDescription": "Tous les soldes sont nuls ou inférieurs à 5 $. Affichez-les à nouveau ou ajoutez un autre token.",
+    "showAllBalances": "Afficher tous les soldes"
   },
   "send": {
     "title": "Envoyer de la crypto",

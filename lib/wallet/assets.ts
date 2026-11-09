@@ -28,8 +28,11 @@ export interface Asset {
   price?: number;
   change24h?: number;
   fiatValue?: number;
+  usdValue?: number;
   balanceUnavailable?: boolean;
 }
+
+export const SMALL_BALANCE_USD = 5;
 
 export const NATIVE_COINGECKO_IDS: Record<number, string> = {
   1: "ethereum",

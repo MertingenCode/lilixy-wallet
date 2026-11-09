@@ -183,7 +183,12 @@
     "walletReady": "ウォレットの準備ができました",
     "quickActions": "クイック操作",
     "connectError": "ウォレットの接続を復元できませんでした。ロックしてから再度ロック解除してお試しください。",
-    "pageDescription": "資産、ネットワーク、トークンを管理します。"
+    "pageDescription": "資産、ネットワーク、トークンを管理します。",
+    "hideSmallBalances": "5ドル未満の残高を非表示",
+    "smallBalanceThreshold": "5ドル未満",
+    "noVisibleBalances": "5ドル以上の残高はありません",
+    "noVisibleBalancesDescription": "すべての残高がゼロまたは5ドル未満です。再表示するか、別のトークンを追加してください。",
+    "showAllBalances": "すべての残高を表示"
   },
   "send": {
     "title": "暗号資産を送金",

@@ -183,7 +183,12 @@
     "walletReady": "Your wallet is ready",
     "quickActions": "Quick actions",
     "connectError": "Wallet connection could not be restored. Lock and unlock to try again.",
-    "pageDescription": "Manage your assets, networks, and tokens."
+    "pageDescription": "Manage your assets, networks, and tokens.",
+    "hideSmallBalances": "Hide balances under $5",
+    "smallBalanceThreshold": "Under $5",
+    "noVisibleBalances": "No balances above $5",
+    "noVisibleBalancesDescription": "All balances are zero or below $5. Show them again or add another token.",
+    "showAllBalances": "Show all balances"
   },
   "send": {
     "title": "Send crypto",

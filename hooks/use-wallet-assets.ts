@@ -133,6 +133,11 @@ export function useWalletAssets(): WalletAssetsResult {
         : undefined;
       const nativeBalance = data?.native ?? 0n;
       const nativeDecimals = chain.nativeCurrency.decimals;
+      const nativeAmount = Number(formatUnits(nativeBalance, nativeDecimals));
+      const nativeUsdValue =
+        typeof nativePriceEntry?.usd === "number"
+          ? nativeAmount * nativePriceEntry.usd
+          : undefined;
       result.push({
         key: tokenKey(chain.id),
         chainId: chain.id,
@@ -148,10 +153,8 @@ export function useWalletAssets(): WalletAssetsResult {
         price: nativePrice,
         change24h: nativePriceEntry?.change24h,
         fiatValue:
-          nativePrice !== undefined
-            ? Number(formatUnits(nativeBalance, nativeDecimals)) *
-              nativePrice
-            : undefined,
+          nativePrice !== undefined ? nativeAmount * nativePrice : undefined,
+        usdValue: nativeUsdValue,
         balanceUnavailable: data?.native === null,
       });
 
@@ -183,6 +186,11 @@ export function useWalletAssets(): WalletAssetsResult {
           : undefined;
         const price =
           priceForToken(token, priceQuery.data, currency) ?? marketPrice;
+        const usdPrice = priceEntry?.usd ?? market?.price?.usd;
+        const tokenUsdValue =
+          typeof usdPrice === "number"
+            ? Number(formatUnits(tokenBalance, token.decimals)) * usdPrice
+            : undefined;
         result.push({
           key: tokenKey(chain.id, token.address),
           chainId: chain.id,
@@ -208,6 +216,7 @@ export function useWalletAssets(): WalletAssetsResult {
             price !== undefined
               ? Number(formatUnits(tokenBalance, token.decimals)) * price
               : undefined,
+          usdValue: tokenUsdValue,
           balanceUnavailable: !data && query?.isError,
         });
       }

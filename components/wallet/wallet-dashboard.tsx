@@ -42,6 +42,7 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
+import { Switch } from "@/components/ui/switch";
 import { Input } from "@/components/ui/input";
 import {
   Select,
@@ -55,7 +56,10 @@ import { useT } from "@/hooks/use-locale";
 import { useWalletAssets } from "@/hooks/use-wallet-assets";
 import type { CustomToken, FiatCurrency } from "@/lib/config/types";
 import { formatCurrency } from "@/lib/i18n/format";
-import type { Asset } from "@/lib/wallet/assets";
+import {
+  SMALL_BALANCE_USD,
+  type Asset,
+} from "@/lib/wallet/assets";
 import { BUILT_IN_NETWORKS } from "@/lib/wagmi/networks";
 import { useSettingsStore } from "@/store/settings";
 import { useSessionStore } from "@/store/session";
@@ -118,6 +122,12 @@ export function WalletDashboard() {
   const setFilterChain = useSettingsStore(
     (state) => state.setWalletChainFilter,
   );
+  const hideSmallBalances = useSettingsStore(
+    (state) => state.hideSmallBalances,
+  );
+  const setHideSmallBalances = useSettingsStore(
+    (state) => state.setHideSmallBalances,
+  );
   const customTokens = useSettingsStore((state) => state.customTokens);
   const removeCustomToken = useSettingsStore((state) => state.removeCustomToken);
   const {
@@ -173,20 +183,36 @@ export function WalletDashboard() {
     });
   }, [assets, filterChain, networks, search]);
 
+  const visibleAssets = useMemo(() => {
+    if (!hideSmallBalances) return filteredAssets;
+    return filteredAssets.filter((asset) => {
+      if (asset.balance === 0n) return false;
+      if (asset.usdValue !== undefined && asset.usdValue < SMALL_BALANCE_USD) {
+        return false;
+      }
+      return true;
+    });
+  }, [filteredAssets, hideSmallBalances]);
+
   const heldAssets = useMemo(
     () =>
-      filteredAssets
+      visibleAssets
         .filter((asset) => asset.balance > 0n)
         .sort((a, b) => (b.fiatValue ?? 0) - (a.fiatValue ?? 0)),
-    [filteredAssets],
+    [visibleAssets],
   );
   const otherAssets = useMemo(
     () =>
-      filteredAssets
+      visibleAssets
         .filter((asset) => asset.balance === 0n)
         .sort((a, b) => Number(b.isPopular) - Number(a.isPopular)),
-    [filteredAssets],
+    [visibleAssets],
   );
+
+  const hasHiddenDust =
+    hideSmallBalances &&
+    filteredAssets.length > 0 &&
+    visibleAssets.length === 0;
 
   const displayedTotal = useMemo(() => {
     if (filterChain === "all") return totalFiat;
@@ -460,33 +486,61 @@ export function WalletDashboard() {
           </Select>
         </div>
 
+        <div className="flex flex-wrap items-center justify-between gap-2 border-b border-rule pb-3">
+          <label className="flex cursor-pointer items-center gap-2 text-xs">
+            <Switch
+              checked={hideSmallBalances}
+              onCheckedChange={setHideSmallBalances}
+              aria-label={t("wallet.hideSmallBalances")}
+            />
+            <span>{t("wallet.hideSmallBalances")}</span>
+          </label>
+          <span className="text-muted-foreground text-[0.6875rem]">
+            {t("wallet.smallBalanceThreshold")}
+          </span>
+        </div>
+
         {isLoading && assets.length === 0 ? (
           <AssetListSkeleton />
-        ) : filteredAssets.length === 0 ? (
+        ) : visibleAssets.length === 0 ? (
           <EmptyState
             icon={WalletCardsIcon}
             title={
-              search || filterChain !== "all"
-                ? t("wallet.noResults")
-                : t("wallet.noAssets")
+              hasHiddenDust
+                ? t("wallet.noVisibleBalances")
+                : search || filterChain !== "all"
+                  ? t("wallet.noResults")
+                  : t("wallet.noAssets")
             }
             description={
-              search || filterChain !== "all"
-                ? t("wallet.noResultsDescription")
-                : t("wallet.noAssetsDescription")
+              hasHiddenDust
+                ? t("wallet.noVisibleBalancesDescription")
+                : search || filterChain !== "all"
+                  ? t("wallet.noResultsDescription")
+                  : t("wallet.noAssetsDescription")
             }
             action={
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => {
-                  setEditingToken(null);
-                  setTokenFormOpen(true);
-                }}
-              >
-                <PlusIcon />
-                {t("tokens.addToken")}
-              </Button>
+              hasHiddenDust ? (
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setHideSmallBalances(false)}
+                >
+                  {t("wallet.showAllBalances")}
+                </Button>
+              ) : (
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => {
+                    setEditingToken(null);
+                    setTokenFormOpen(true);
+                  }}
+                >
+                  <PlusIcon />
+                  {t("tokens.addToken")}
+                </Button>
+              )
             }
           />
         ) : (

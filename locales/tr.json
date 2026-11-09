@@ -183,7 +183,12 @@
     "walletReady": "Cüzdanın hazır",
     "quickActions": "Hızlı işlemler",
     "connectError": "Cüzdan bağlantısı geri yüklenemedi. Kilitleyip açarak tekrar dene.",
-    "pageDescription": "Varlıklarını, ağlarını ve tokenlarını yönet."
+    "pageDescription": "Varlıklarını, ağlarını ve tokenlarını yönet.",
+    "hideSmallBalances": "5 $ altı bakiyeleri gizle",
+    "smallBalanceThreshold": "5 $ altı",
+    "noVisibleBalances": "5 $ üzerinde bakiye yok",
+    "noVisibleBalancesDescription": "Tüm bakiyeler sıfır veya 5 $ altında. Tekrar gösterin veya yeni bir token ekleyin.",
+    "showAllBalances": "Tüm bakiyeleri göster"
   },
   "send": {
     "title": "Kripto gönder",
