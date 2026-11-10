@@ -137,7 +137,7 @@ export function AppShell({ children }: { children: ReactNode }) {
         </main>
       </div>
 
-      <div className="pointer-events-none fixed inset-x-0 bottom-[calc(1.25rem+env(safe-area-inset-bottom))] z-40 flex justify-center px-3 xl:hidden">
+      <div className="pointer-events-none fixed inset-x-0 bottom-[calc(0.75rem+env(safe-area-inset-bottom))] z-40 flex justify-center px-3 xl:hidden">
         <nav
           aria-label={t("a11y.mainNavigation")}
           className="floating-nav pointer-events-auto flex min-h-[72px] w-full max-w-[26rem] items-center rounded-full px-2 py-1.5"

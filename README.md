@@ -88,7 +88,7 @@ Arayüz mavi/beyaz ürün diline döndü; cam yüzeyler artık bilgi mimarisinin
 - Sidebar nav butonları ve token satırları **16px** yuvarlak; kartlar **18px**, kontroller **10px**, primary butonlar **pill**.
 - Contact butonları X, Discord ve e-posta için tema mavisinde; marka dışı sabit renk yok.
 - Pozitif fiyat mavi, hata/negatif kiremit; iki sinyal ailesi korunur.
-- Mobilde tam genişlik + glass alt navigasyon; masaüstünde 252px yüzen glass rail + ortalanmış içerik.
+- Mobil/tablette alt kenardan 12px + safe-area yukarıda duran yüzen cam pill navigasyon; masaüstünde 252px yüzen glass rail + ortalanmış içerik.
 - Karşılama ekranında gizlilik/koşullar ve iletişim sayfa footer’ında yer alır; LI.FI widget cam yüzeylidir.
 - Tema değerleri `lib/design/tokens.ts` ve `app/globals.css` içinde tek yerde tanımlıdır.
 
