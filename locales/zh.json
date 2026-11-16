@@ -75,7 +75,8 @@
     "settings": "设置",
     "lock": "锁定钱包",
     "openMenu": "打开菜单",
-    "closeMenu": "关闭菜单"
+    "closeMenu": "关闭菜单",
+    "markets": "市场"
   },
   "onboarding": {
     "welcomeTitle": "真正属于你的钱包",
@@ -151,7 +152,10 @@
     "forgotPassword": "忘记密码？",
     "forgotDescription": "非托管钱包无法找回你的密码。你可以重置此设备，并使用助记词恢复。",
     "resetDevice": "重置此设备",
-    "securityNote": "钱包解锁期间，助记词仅在内存中解密。"
+    "securityNote": "钱包解锁期间，助记词仅在内存中解密。",
+    "biometricUnlock": "使用指纹或面容解锁",
+    "biometricUnlocking": "正在等待生物识别",
+    "biometricFailed": "生物识别解锁失败。请使用密码。"
   },
   "wallet": {
     "totalBalance": "总余额",
@@ -379,7 +383,15 @@
     "addressRemoved": "地址已删除",
     "deleteAddressTitle": "删除已保存的地址？",
     "deleteAddressDescription": "“{{name}}”将从地址簿中移除。",
-    "savedAddressCount": "已保存地址：{{count}}"
+    "savedAddressCount": "已保存地址：{{count}}",
+    "biometric": "生物识别解锁",
+    "biometricDescription": "使用指纹或面容识别解锁此钱包。",
+    "biometricEnabledDescription": "此钱包已启用指纹或面容解锁。",
+    "biometricUnsupported": "此设备或浏览器不支持本地生物识别解锁。",
+    "biometricEnabled": "已启用生物识别解锁",
+    "biometricDisabled": "已关闭生物识别解锁",
+    "biometricFailed": "无法启用生物识别解锁。",
+    "biometricNoSession": "请先用密码解锁钱包，再启用生物识别。"
   },
   "networks": {
     "title": "网络管理",
@@ -642,5 +654,10 @@
     "namePlaceholder": "例如：主钱包",
     "added": "钱包已添加",
     "switched": "钱包已切换"
+  },
+  "markets": {
+    "title": "市场",
+    "description": "无需离开 Lilixy 即可关注市场和衍生品。",
+    "embedded": "嵌入式视图"
   }
 }

@@ -301,6 +301,7 @@ export function WalletDashboard() {
               variant="outline"
               size="sm"
               onClick={() => setWalletManagerOpen(true)}
+              aria-label={`${t("wallets.title")}: ${activeWallet?.name ?? ""}`}
               title={activeWallet?.name ?? t("wallets.title")}
               className="max-w-[13rem]"
             >

@@ -75,7 +75,8 @@
     "settings": "設定",
     "lock": "ウォレットをロック",
     "openMenu": "メニューを開く",
-    "closeMenu": "メニューを閉じる"
+    "closeMenu": "メニューを閉じる",
+    "markets": "マーケット"
   },
   "onboarding": {
     "welcomeTitle": "ずっとあなたのものになるウォレット",
@@ -151,7 +152,10 @@
     "forgotPassword": "パスワードをお忘れですか？",
     "forgotDescription": "ノンカストディアルウォレットではパスワードを復元できません。このデバイスをリセットし、リカバリーフレーズで復元できます。",
     "resetDevice": "このデバイスをリセット",
-    "securityNote": "ウォレットのロック解除中のみ、リカバリーフレーズはメモリ上で復号されます。"
+    "securityNote": "ウォレットのロック解除中のみ、リカバリーフレーズはメモリ上で復号されます。",
+    "biometricUnlock": "指紋または顔でロック解除",
+    "biometricUnlocking": "生体認証を待機中",
+    "biometricFailed": "生体認証に失敗しました。パスワードを使用してください。"
   },
   "wallet": {
     "totalBalance": "総残高",
@@ -379,7 +383,15 @@
     "addressRemoved": "アドレスを削除しました",
     "deleteAddressTitle": "保存したアドレスを削除しますか？",
     "deleteAddressDescription": "「{{name}}」をアドレス帳から削除します。",
-    "savedAddressCount": "保存済みアドレス: {{count}}"
+    "savedAddressCount": "保存済みアドレス: {{count}}",
+    "biometric": "生体認証ロック解除",
+    "biometricDescription": "指紋または顔認証でこのウォレットのロックを解除します。",
+    "biometricEnabledDescription": "このウォレットでは指紋または顔認証が有効です。",
+    "biometricUnsupported": "このデバイスまたはブラウザはローカル生体認証に対応していません。",
+    "biometricEnabled": "生体認証を有効にしました",
+    "biometricDisabled": "生体認証を無効にしました",
+    "biometricFailed": "生体認証を有効にできませんでした。",
+    "biometricNoSession": "生体認証を有効にする前にパスワードでウォレットを開いてください。"
   },
   "networks": {
     "title": "ネットワーク管理",
@@ -642,5 +654,10 @@
     "namePlaceholder": "例: メインウォレット",
     "added": "ウォレットを追加しました",
     "switched": "ウォレットを切り替えました"
+  },
+  "markets": {
+    "title": "マーケット",
+    "description": "Lilixyを離れずに市場とデリバティブを確認できます。",
+    "embedded": "埋め込み表示"
   }
 }

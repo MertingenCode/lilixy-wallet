@@ -75,7 +75,8 @@
     "settings": "Settings",
     "lock": "Lock wallet",
     "openMenu": "Open menu",
-    "closeMenu": "Close menu"
+    "closeMenu": "Close menu",
+    "markets": "Markets"
   },
   "onboarding": {
     "welcomeTitle": "A wallet that stays yours",
@@ -151,7 +152,10 @@
     "forgotPassword": "Forgot password?",
     "forgotDescription": "A non-custodial wallet cannot recover your password. You can reset this device and restore with your recovery phrase.",
     "resetDevice": "Reset this device",
-    "securityNote": "Your recovery phrase is decrypted only in memory while the wallet is unlocked."
+    "securityNote": "Your recovery phrase is decrypted only in memory while the wallet is unlocked.",
+    "biometricUnlock": "Unlock with fingerprint or face",
+    "biometricUnlocking": "Waiting for biometrics",
+    "biometricFailed": "Biometric unlock failed. Use your password."
   },
   "wallet": {
     "totalBalance": "Total balance",
@@ -379,7 +383,15 @@
     "addressRemoved": "Address removed",
     "deleteAddressTitle": "Delete saved address?",
     "deleteAddressDescription": "\"{{name}}\" will be removed from your address book.",
-    "savedAddressCount": "Saved addresses: {{count}}"
+    "savedAddressCount": "Saved addresses: {{count}}",
+    "biometric": "Biometric unlock",
+    "biometricDescription": "Use fingerprint or face recognition to unlock this wallet.",
+    "biometricEnabledDescription": "Fingerprint or face unlock is enabled for this wallet.",
+    "biometricUnsupported": "This device or browser does not support local biometric unlock.",
+    "biometricEnabled": "Biometric unlock enabled",
+    "biometricDisabled": "Biometric unlock disabled",
+    "biometricFailed": "Could not enable biometric unlock.",
+    "biometricNoSession": "Unlock the wallet with your password before enabling biometrics."
   },
   "networks": {
     "title": "Network management",
@@ -642,5 +654,10 @@
     "namePlaceholder": "e.g. Main wallet",
     "added": "Wallet added",
     "switched": "Wallet switched"
+  },
+  "markets": {
+    "title": "Markets",
+    "description": "Track markets and derivatives without leaving Lilixy.",
+    "embedded": "Embedded view"
   }
 }

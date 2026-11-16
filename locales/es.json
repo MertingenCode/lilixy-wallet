@@ -75,7 +75,8 @@
     "settings": "Ajustes",
     "lock": "Bloquear cartera",
     "openMenu": "Abrir menú",
-    "closeMenu": "Cerrar menú"
+    "closeMenu": "Cerrar menú",
+    "markets": "Mercados"
   },
   "onboarding": {
     "welcomeTitle": "Una cartera que sigue siendo tuya",
@@ -151,7 +152,10 @@
     "forgotPassword": "¿Olvidaste tu contraseña?",
     "forgotDescription": "Una cartera sin custodia no puede recuperar tu contraseña. Puedes restablecer este dispositivo y restaurar la cartera con tu frase de recuperación.",
     "resetDevice": "Restablecer este dispositivo",
-    "securityNote": "Tu frase de recuperación solo se descifra en memoria mientras la cartera está desbloqueada."
+    "securityNote": "Tu frase de recuperación solo se descifra en memoria mientras la cartera está desbloqueada.",
+    "biometricUnlock": "Desbloquear con huella o rostro",
+    "biometricUnlocking": "Esperando biometría",
+    "biometricFailed": "El desbloqueo biométrico falló. Usa tu contraseña."
   },
   "wallet": {
     "totalBalance": "Saldo total",
@@ -379,7 +383,15 @@
     "addressRemoved": "Dirección eliminada",
     "deleteAddressTitle": "¿Eliminar dirección guardada?",
     "deleteAddressDescription": "\"{{name}}\" se eliminará de tu libreta de direcciones.",
-    "savedAddressCount": "Direcciones guardadas: {{count}}"
+    "savedAddressCount": "Direcciones guardadas: {{count}}",
+    "biometric": "Desbloqueo biométrico",
+    "biometricDescription": "Usa huella o reconocimiento facial para desbloquear esta cartera.",
+    "biometricEnabledDescription": "El desbloqueo con huella o rostro está activo para esta cartera.",
+    "biometricUnsupported": "Este dispositivo o navegador no admite desbloqueo biométrico local.",
+    "biometricEnabled": "Desbloqueo biométrico activado",
+    "biometricDisabled": "Desbloqueo biométrico desactivado",
+    "biometricFailed": "No se pudo activar el desbloqueo biométrico.",
+    "biometricNoSession": "Desbloquea la cartera con tu contraseña antes de activar la biometría."
   },
   "networks": {
     "title": "Gestión de redes",
@@ -642,5 +654,10 @@
     "namePlaceholder": "p. ej. Cartera principal",
     "added": "Cartera añadida",
     "switched": "Cartera cambiada"
+  },
+  "markets": {
+    "title": "Mercados",
+    "description": "Sigue mercados y derivados sin salir de Lilixy.",
+    "embedded": "Vista integrada"
   }
 }

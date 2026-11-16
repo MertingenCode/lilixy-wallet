@@ -26,6 +26,7 @@ import { toast } from "sonner";
 import { Logo } from "@/components/brand/logo";
 import { PageHeader } from "@/components/common/page-header";
 import { AddressBookSection } from "@/components/settings/address-book-section";
+import { BiometricSetting } from "@/components/settings/biometric-setting";
 import { ChangePasswordDialog } from "@/components/settings/change-password-dialog";
 import { ContactLinks } from "@/components/settings/contact-links";
 import { LegalDisclosures } from "@/components/settings/legal-disclosures";
@@ -317,6 +318,7 @@ export function SettingsPage() {
               </SelectContent>
             </Select>
           </SettingsRow>
+          <BiometricSetting address={address} />
           <SettingsRow
             label={t("settings.changePassword")}
             description={t("settings.changePasswordDescription")}

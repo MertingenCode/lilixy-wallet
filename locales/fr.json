@@ -75,7 +75,8 @@
     "settings": "Paramètres",
     "lock": "Verrouiller le portefeuille",
     "openMenu": "Ouvrir le menu",
-    "closeMenu": "Fermer le menu"
+    "closeMenu": "Fermer le menu",
+    "markets": "Marchés"
   },
   "onboarding": {
     "welcomeTitle": "Un portefeuille qui reste le vôtre",
@@ -151,7 +152,10 @@
     "forgotPassword": "Mot de passe oublié ?",
     "forgotDescription": "Un portefeuille non dépositaire ne peut pas récupérer votre mot de passe. Vous pouvez réinitialiser cet appareil et le restaurer avec votre phrase de récupération.",
     "resetDevice": "Réinitialiser cet appareil",
-    "securityNote": "Votre phrase de récupération n'est déchiffrée qu'en mémoire, tant que le portefeuille est déverrouillé."
+    "securityNote": "Votre phrase de récupération n'est déchiffrée qu'en mémoire, tant que le portefeuille est déverrouillé.",
+    "biometricUnlock": "Déverrouiller par empreinte ou visage",
+    "biometricUnlocking": "En attente de la biométrie",
+    "biometricFailed": "Le déverrouillage biométrique a échoué. Utilisez votre mot de passe."
   },
   "wallet": {
     "totalBalance": "Solde total",
@@ -379,7 +383,15 @@
     "addressRemoved": "Adresse supprimée",
     "deleteAddressTitle": "Supprimer l’adresse enregistrée ?",
     "deleteAddressDescription": "« {{name}} » sera supprimé de votre carnet d’adresses.",
-    "savedAddressCount": "Adresses enregistrées : {{count}}"
+    "savedAddressCount": "Adresses enregistrées : {{count}}",
+    "biometric": "Déverrouillage biométrique",
+    "biometricDescription": "Utilisez l’empreinte ou la reconnaissance faciale pour déverrouiller ce portefeuille.",
+    "biometricEnabledDescription": "Le déverrouillage par empreinte ou visage est actif pour ce portefeuille.",
+    "biometricUnsupported": "Cet appareil ou navigateur ne prend pas en charge le déverrouillage biométrique local.",
+    "biometricEnabled": "Déverrouillage biométrique activé",
+    "biometricDisabled": "Déverrouillage biométrique désactivé",
+    "biometricFailed": "Impossible d’activer le déverrouillage biométrique.",
+    "biometricNoSession": "Déverrouillez le portefeuille avec votre mot de passe avant d’activer la biométrie."
   },
   "networks": {
     "title": "Gestion des réseaux",
@@ -642,5 +654,10 @@
     "namePlaceholder": "ex. Portefeuille principal",
     "added": "Portefeuille ajouté",
     "switched": "Portefeuille changé"
+  },
+  "markets": {
+    "title": "Marchés",
+    "description": "Suivez les marchés et les dérivés sans quitter Lilixy.",
+    "embedded": "Vue intégrée"
   }
 }

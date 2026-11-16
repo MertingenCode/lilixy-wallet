@@ -1,7 +1,12 @@
 "use client";
 
 import { useEffect, useMemo, useState, type FormEvent } from "react";
-import { LockKeyholeIcon, ShieldCheckIcon, TimerIcon } from "lucide-react";
+import {
+  FingerprintIcon,
+  LockKeyholeIcon,
+  ShieldCheckIcon,
+  TimerIcon,
+} from "lucide-react";
 
 import { AuthScene } from "@/components/auth/auth-scene";
 import { PasswordInput } from "@/components/common/password-input";
@@ -10,7 +15,16 @@ import { Button } from "@/components/ui/button";
 import { useT } from "@/hooks/use-locale";
 import { getUnlockRetryAfterMs } from "@/lib/security/rate-limit";
 import { isWalletError } from "@/lib/wallet/errors";
-import { unlockWallet } from "@/lib/wallet/controller";
+import {
+  hasBiometricEnrollment,
+  isBiometricAvailable,
+  unlockWithBiometric,
+} from "@/lib/wallet/biometric";
+import { getActiveWalletId } from "@/lib/wallet/wallets";
+import {
+  unlockWallet,
+  unlockWithMnemonic,
+} from "@/lib/wallet/controller";
 import { formatCountdown } from "@/lib/i18n/format";
 
 export function LockScreen() {
@@ -22,6 +36,15 @@ export function LockScreen() {
     getUnlockRetryAfterMs(),
   );
   const [resetOpen, setResetOpen] = useState(false);
+  const [biometricAvailable, setBiometricAvailable] = useState(false);
+  const [biometricEnrolled, setBiometricEnrolled] = useState(false);
+  const [biometricBusy, setBiometricBusy] = useState(false);
+  const walletId = getActiveWalletId() ?? "primary";
+
+  useEffect(() => {
+    setBiometricEnrolled(hasBiometricEnrollment(walletId));
+    void isBiometricAvailable().then(setBiometricAvailable);
+  }, [walletId]);
 
   useEffect(() => {
     if (retryAfterMs <= 0) return;
@@ -40,6 +63,20 @@ export function LockScreen() {
     () => formatCountdown(retryAfterMs),
     [retryAfterMs],
   );
+
+  async function handleBiometric() {
+    if (biometricBusy) return;
+    setError(null);
+    setBiometricBusy(true);
+    try {
+      const mnemonic = await unlockWithBiometric(walletId);
+      await unlockWithMnemonic(mnemonic, walletId);
+    } catch {
+      setError(t("lock.biometricFailed"));
+    } finally {
+      setBiometricBusy(false);
+    }
+  }
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -142,6 +179,22 @@ export function LockScreen() {
               {unlocking ? t("lock.unlocking") : t("lock.unlock")}
             </Button>
           </form>
+
+          {biometricAvailable && biometricEnrolled ? (
+            <Button
+              type="button"
+              variant="outline"
+              size="lg"
+              className="mt-3 w-full"
+              onClick={() => void handleBiometric()}
+              disabled={biometricBusy || unlocking}
+            >
+              <FingerprintIcon />
+              {biometricBusy
+                ? t("lock.biometricUnlocking")
+                : t("lock.biometricUnlock")}
+            </Button>
+          ) : null}
 
           <div className="text-muted-foreground mt-5 flex items-start gap-2 text-[0.6875rem] leading-5">
             <ShieldCheckIcon className="mt-0.5 size-4 shrink-0" />

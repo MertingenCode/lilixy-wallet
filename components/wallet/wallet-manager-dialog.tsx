@@ -5,6 +5,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { ArrowRightIcon, PlusIcon, WalletCardsIcon } from "lucide-react";
 import { toast } from "sonner";
 
+import { CopyButton } from "@/components/common/copy-button";
 import { AddWalletDialog } from "@/components/wallet/add-wallet-dialog";
 import { Button } from "@/components/ui/button";
 import {
@@ -173,8 +174,14 @@ export function WalletManagerDialog({
                         <p className="truncate text-sm font-medium">
                           {wallet.name}
                         </p>
-                        <p className="text-muted-foreground mt-0.5 truncate font-mono text-xs">
-                          {shortenAddress(wallet.address, 6)}
+                        <p className="text-muted-foreground mt-0.5 flex items-center gap-1 truncate font-mono text-xs">
+                          <span>{shortenAddress(wallet.address, 6)}</span>
+                          <CopyButton
+                            value={wallet.address}
+                            label={t("wallet.copyAddress")}
+                            size="iconSm"
+                            iconClassName="size-3.5"
+                          />
                         </p>
                       </div>
                       {active ? (

@@ -33,6 +33,7 @@ import {
   persistSession,
   restoreSession,
 } from "@/lib/wallet/session-persistence";
+import { clearBiometricRecords } from "@/lib/wallet/biometric";
 import {
   clearWalletProfiles,
   createWalletId,
@@ -250,6 +251,32 @@ export async function unlockWallet(
   return account.address;
 }
 
+export async function unlockWithMnemonic(
+  mnemonicInput: string,
+  walletId?: string,
+): Promise<string> {
+  const mnemonic = normalizeMnemonic(mnemonicInput);
+  if (!isValidMnemonic(mnemonic)) {
+    throw new WalletError("INVALID_MNEMONIC");
+  }
+  const key = walletId ?? activeVaultKey();
+  const account = deriveAccount(mnemonic);
+  const existing = getWallets().find((wallet) => wallet.id === key);
+  upsertWallet({
+    id: key,
+    name: existing?.name ?? nextWalletName(),
+    address: account.address,
+    createdAt: existing?.createdAt ?? Date.now(),
+  });
+  setActiveWalletId(key);
+  setSessionMemory(mnemonic, account);
+  clearUnlockFailures();
+  await persistSession(mnemonic, key);
+  forgetBootstrap();
+  useSessionStore.getState().setUnlocked(account.address);
+  return account.address;
+}
+
 export async function switchWallet(
   walletId: string,
   password: string,
@@ -353,6 +380,7 @@ export async function resetWallet(): Promise<void> {
   lockWallet();
   clearUnlockFailures();
   clearWalletProfiles();
+  clearBiometricRecords();
   useSettingsStore.getState().resetSettings();
   try {
     await deleteDatabase();

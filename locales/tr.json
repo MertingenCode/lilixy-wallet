@@ -75,7 +75,8 @@
     "settings": "Ayarlar",
     "lock": "Cüzdanı kilitle",
     "openMenu": "Menüyü aç",
-    "closeMenu": "Menüyü kapat"
+    "closeMenu": "Menüyü kapat",
+    "markets": "Piyasalar"
   },
   "onboarding": {
     "welcomeTitle": "Hep senin kalan bir cüzdan",
@@ -151,7 +152,10 @@
     "forgotPassword": "Şifreni mi unuttun?",
     "forgotDescription": "Emanetsiz bir cüzdan şifreni kurtaramaz. Bu cihazı sıfırlayıp kurtarma ifadenle geri yükleyebilirsin.",
     "resetDevice": "Bu cihazı sıfırla",
-    "securityNote": "Kurtarma ifaden yalnızca cüzdan açıkken bellekte çözülür."
+    "securityNote": "Kurtarma ifaden yalnızca cüzdan açıkken bellekte çözülür.",
+    "biometricUnlock": "Parmak izi veya yüz ile aç",
+    "biometricUnlocking": "Biyometri bekleniyor",
+    "biometricFailed": "Biyometrik açılış başarısız. Şifrenizi kullanın."
   },
   "wallet": {
     "totalBalance": "Toplam bakiye",
@@ -379,7 +383,15 @@
     "addressRemoved": "Adres silindi",
     "deleteAddressTitle": "Kayıtlı adres silinsin mi?",
     "deleteAddressDescription": "\"{{name}}\" adres defterinizden kaldırılacak.",
-    "savedAddressCount": "Kayıtlı adresler: {{count}}"
+    "savedAddressCount": "Kayıtlı adresler: {{count}}",
+    "biometric": "Biyometrik açılış",
+    "biometricDescription": "Bu cüzdanı açmak için parmak izi veya yüz tanımayı kullanın.",
+    "biometricEnabledDescription": "Bu cüzdan için parmak izi veya yüz ile açılış etkin.",
+    "biometricUnsupported": "Bu cihaz veya tarayıcı yerel biyometrik açılışı desteklemiyor.",
+    "biometricEnabled": "Biyometrik açılış etkinleştirildi",
+    "biometricDisabled": "Biyometrik açılış kapatıldı",
+    "biometricFailed": "Biyometrik açılış etkinleştirilemedi.",
+    "biometricNoSession": "Biyometriyi etkinleştirmeden önce cüzdanı şifrenizle açın."
   },
   "networks": {
     "title": "Ağ yönetimi",
@@ -642,5 +654,10 @@
     "namePlaceholder": "Örn. Ana cüzdan",
     "added": "Cüzdan eklendi",
     "switched": "Cüzdan değiştirildi"
+  },
+  "markets": {
+    "title": "Piyasalar",
+    "description": "Lilixy’den ayrılmadan piyasaları ve türev verilerini takip edin.",
+    "embedded": "Gömülü görünüm"
   }
 }

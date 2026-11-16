@@ -75,7 +75,8 @@
     "settings": "الإعدادات",
     "lock": "قفل المحفظة",
     "openMenu": "فتح القائمة",
-    "closeMenu": "إغلاق القائمة"
+    "closeMenu": "إغلاق القائمة",
+    "markets": "الأسواق"
   },
   "onboarding": {
     "welcomeTitle": "محفظة تبقى ملكك",
@@ -151,7 +152,10 @@
     "forgotPassword": "نسيت كلمة المرور؟",
     "forgotDescription": "لا يمكن للمحفظة غير الاحتجازية استرداد كلمة المرور. يمكنك إعادة تعيين هذا الجهاز والاستعادة بعبارة الاسترداد.",
     "resetDevice": "إعادة تعيين هذا الجهاز",
-    "securityNote": "تُفكّ تشفير عبارة الاسترداد في الذاكرة فقط أثناء فتح المحفظة."
+    "securityNote": "تُفكّ تشفير عبارة الاسترداد في الذاكرة فقط أثناء فتح المحفظة.",
+    "biometricUnlock": "فتح بالبصمة أو الوجه",
+    "biometricUnlocking": "بانتظار البصمة",
+    "biometricFailed": "فشل الفتح البيومتري. استخدم كلمة المرور."
   },
   "wallet": {
     "totalBalance": "إجمالي الرصيد",
@@ -379,7 +383,15 @@
     "addressRemoved": "تم حذف العنوان",
     "deleteAddressTitle": "حذف العنوان المحفوظ؟",
     "deleteAddressDescription": "ستتم إزالة \"{{name}}\" من دفتر العناوين.",
-    "savedAddressCount": "العناوين المحفوظة: {{count}}"
+    "savedAddressCount": "العناوين المحفوظة: {{count}}",
+    "biometric": "فتح بيومتري",
+    "biometricDescription": "استخدم بصمة الإصبع أو التعرف على الوجه لفتح هذه المحفظة.",
+    "biometricEnabledDescription": "فتح المحفظة بالبصمة أو الوجه مفعّل.",
+    "biometricUnsupported": "هذا الجهاز أو المتصفح لا يدعم الفتح البيومتري المحلي.",
+    "biometricEnabled": "تم تفعيل الفتح البيومتري",
+    "biometricDisabled": "تم إيقاف الفتح البيومتري",
+    "biometricFailed": "تعذّر تفعيل الفتح البيومتري.",
+    "biometricNoSession": "افتح المحفظة بكلمة المرور أولًا قبل تفعيل البصمة."
   },
   "networks": {
     "title": "إدارة الشبكات",
@@ -642,5 +654,10 @@
     "namePlaceholder": "مثال: المحفظة الرئيسية",
     "added": "تمت إضافة المحفظة",
     "switched": "تم تبديل المحفظة"
+  },
+  "markets": {
+    "title": "الأسواق",
+    "description": "تابع الأسواق والمشتقات دون مغادرة Lilixy.",
+    "embedded": "عرض مضمّن"
   }
 }

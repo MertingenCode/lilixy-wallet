@@ -75,7 +75,8 @@
     "settings": "Einstellungen",
     "lock": "Wallet sperren",
     "openMenu": "Menü öffnen",
-    "closeMenu": "Menü schließen"
+    "closeMenu": "Menü schließen",
+    "markets": "Märkte"
   },
   "onboarding": {
     "welcomeTitle": "Eine Wallet, die Ihnen gehört",
@@ -151,7 +152,10 @@
     "forgotPassword": "Passwort vergessen?",
     "forgotDescription": "Eine Wallet ohne Verwahrung kann Ihr Passwort nicht wiederherstellen. Sie können dieses Gerät zurücksetzen und mit Ihrer Wiederherstellungsphrase wiederherstellen.",
     "resetDevice": "Dieses Gerät zurücksetzen",
-    "securityNote": "Ihre Wiederherstellungsphrase wird nur im Arbeitsspeicher entschlüsselt, solange die Wallet entsperrt ist."
+    "securityNote": "Ihre Wiederherstellungsphrase wird nur im Arbeitsspeicher entschlüsselt, solange die Wallet entsperrt ist.",
+    "biometricUnlock": "Mit Fingerabdruck oder Gesicht entsperren",
+    "biometricUnlocking": "Warte auf Biometrie",
+    "biometricFailed": "Biometrische Entsperrung fehlgeschlagen. Verwende dein Passwort."
   },
   "wallet": {
     "totalBalance": "Gesamtguthaben",
@@ -379,7 +383,15 @@
     "addressRemoved": "Adresse entfernt",
     "deleteAddressTitle": "Gespeicherte Adresse löschen?",
     "deleteAddressDescription": "\"{{name}}\" wird aus deinem Adressbuch entfernt.",
-    "savedAddressCount": "Gespeicherte Adressen: {{count}}"
+    "savedAddressCount": "Gespeicherte Adressen: {{count}}",
+    "biometric": "Biometrische Entsperrung",
+    "biometricDescription": "Entsperre diese Wallet per Fingerabdruck oder Gesichtserkennung.",
+    "biometricEnabledDescription": "Fingerabdruck- oder Gesichtserkennung ist für diese Wallet aktiv.",
+    "biometricUnsupported": "Dieses Gerät oder dieser Browser unterstützt keine lokale biometrische Entsperrung.",
+    "biometricEnabled": "Biometrische Entsperrung aktiviert",
+    "biometricDisabled": "Biometrische Entsperrung deaktiviert",
+    "biometricFailed": "Biometrische Entsperrung konnte nicht aktiviert werden.",
+    "biometricNoSession": "Entsperre die Wallet zuerst mit dem Passwort, bevor du Biometrie aktivierst."
   },
   "networks": {
     "title": "Netzwerkverwaltung",
@@ -642,5 +654,10 @@
     "namePlaceholder": "z. B. Haupt-Wallet",
     "added": "Wallet hinzugefügt",
     "switched": "Wallet gewechselt"
+  },
+  "markets": {
+    "title": "Märkte",
+    "description": "Verfolge Märkte und Derivate, ohne Lilixy zu verlassen.",
+    "embedded": "Eingebettete Ansicht"
   }
 }

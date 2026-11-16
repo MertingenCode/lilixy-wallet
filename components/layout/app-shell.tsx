@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import type { ReactNode } from "react";
 import {
   ArrowLeftRightIcon,
+  CandlestickChartIcon,
   HistoryIcon,
   SettingsIcon,
   WalletCardsIcon,
@@ -22,6 +23,7 @@ import { useSettingsStore } from "@/store/settings";
 const NAV = [
   { href: "/wallet", key: "nav.wallet", icon: WalletCardsIcon },
   { href: "/swap", key: "nav.swap", icon: ArrowLeftRightIcon },
+  { href: "/markets", key: "nav.markets", icon: CandlestickChartIcon },
   { href: "/history", key: "nav.history", icon: HistoryIcon },
   { href: "/settings", key: "nav.settings", icon: SettingsIcon },
 ] as const;
