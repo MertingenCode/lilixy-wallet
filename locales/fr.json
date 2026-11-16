@@ -75,8 +75,7 @@
     "settings": "Paramètres",
     "lock": "Verrouiller le portefeuille",
     "openMenu": "Ouvrir le menu",
-    "closeMenu": "Fermer le menu",
-    "markets": "Marchés"
+    "closeMenu": "Fermer le menu"
   },
   "onboarding": {
     "welcomeTitle": "Un portefeuille qui reste le vôtre",
@@ -391,7 +390,8 @@
     "biometricEnabled": "Déverrouillage biométrique activé",
     "biometricDisabled": "Déverrouillage biométrique désactivé",
     "biometricFailed": "Impossible d’activer le déverrouillage biométrique.",
-    "biometricNoSession": "Déverrouillez le portefeuille avec votre mot de passe avant d’activer la biométrie."
+    "biometricNoSession": "Déverrouillez le portefeuille avec votre mot de passe avant d’activer la biométrie.",
+    "biometricAuto": "Le déverrouillage biométrique est actif et sera configuré automatiquement."
   },
   "networks": {
     "title": "Gestion des réseaux",
@@ -654,10 +654,5 @@
     "namePlaceholder": "ex. Portefeuille principal",
     "added": "Portefeuille ajouté",
     "switched": "Portefeuille changé"
-  },
-  "markets": {
-    "title": "Marchés",
-    "description": "Suivez les marchés et les dérivés sans quitter Lilixy.",
-    "embedded": "Vue intégrée"
   }
 }

@@ -24,7 +24,7 @@ export function proxy(request: NextRequest) {
     "connect-src 'self' https: wss: http://localhost:* http://127.0.0.1:* ws://localhost:* ws://127.0.0.1:*",
     "media-src 'none'",
     "object-src 'none'",
-    "frame-src https://dexscreener.com https://www.dexscreener.com https://coinmarketcap.com https://www.coinmarketcap.com https://coinglass.com https://www.coinglass.com",
+    "frame-src 'none'",
     "worker-src 'self' blob:",
     "manifest-src 'self'",
     "base-uri 'self'",

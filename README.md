@@ -21,7 +21,7 @@ Lilixy Wallet, tamamen tarayıcıda imzalayan, non-custodial ve çok zincirli bi
   - Şifre hash'i saklanmaz; doğrulama AES-GCM authentication ile yapılır
   - Otomatik kilit: 1/5/15/30 dk veya sekme kapanınca; süre sayfa yenilemesinde korunur
   - Manuel kilitleme, şifre değiştirme, kurtarma ifadesi gösterme, cüzdan sıfırlama
-  - WebAuthn PRF ile yerel parmak izi/yüz ile açılış (Ayarlar’dan etkinleştirilir)
+  - WebAuthn PRF ile yerel parmak izi/yüz açılışı; varsayılan açık, kilit ekranında otomatik tetiklenir
   - Yanlış şifrede artan gecikme
   - Oturum, sekme kapsamlı AES-GCM kaydıyla yenilemeye dayanır; sekme kapanınca temizlenir
 - **Cüzdan**
@@ -40,9 +40,6 @@ Lilixy Wallet, tamamen tarayıcıda imzalayan, non-custodial ve çok zincirli bi
   - Adres ve QR ile alma; alma ekranında ağ seçimi; mobil/tablette gönderirken kamera ile QR okuma
   - Adres defteri: isim/adres kaydı, düzenleme, silme ve gönderimde seçme
   - Arama, ağ filtresi, skeleton ve tasarlanmış boş/hata durumları
-- **Piyasalar**
-  - DexScreener, CoinMarketCap ve CoinGlass sekmeleri
-  - Uygulama içi gömülü görünüm
 - **Swap ve Bridge**
   - LI.FI Widget, `subvariant: 'split'` ile iki sekme
   - Uygulamanın wagmi config'ini kullanan local connector
@@ -330,7 +327,7 @@ Limit aşımında `429` ve `Retry-After` döner. Upstash/Vercel KV env varsa lim
 
 ```text
 app/
-├─ (app)/{wallet,swap,markets,history,settings}/page.tsx
+├─ (app)/{wallet,swap,history,settings}/page.tsx
 ├─ api/{prices,token-market,token-search,asset-platforms,rpc/[chainId],lifi/{chains,status}}/route.ts
 ├─ layout.tsx, page.tsx, globals.css
 components/

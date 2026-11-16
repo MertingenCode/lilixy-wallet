@@ -75,8 +75,7 @@
     "settings": "设置",
     "lock": "锁定钱包",
     "openMenu": "打开菜单",
-    "closeMenu": "关闭菜单",
-    "markets": "市场"
+    "closeMenu": "关闭菜单"
   },
   "onboarding": {
     "welcomeTitle": "真正属于你的钱包",
@@ -391,7 +390,8 @@
     "biometricEnabled": "已启用生物识别解锁",
     "biometricDisabled": "已关闭生物识别解锁",
     "biometricFailed": "无法启用生物识别解锁。",
-    "biometricNoSession": "请先用密码解锁钱包，再启用生物识别。"
+    "biometricNoSession": "请先用密码解锁钱包，再启用生物识别。",
+    "biometricAuto": "生物识别解锁已启用，将自动完成设置。"
   },
   "networks": {
     "title": "网络管理",
@@ -654,10 +654,5 @@
     "namePlaceholder": "例如：主钱包",
     "added": "钱包已添加",
     "switched": "钱包已切换"
-  },
-  "markets": {
-    "title": "市场",
-    "description": "无需离开 Lilixy 即可关注市场和衍生品。",
-    "embedded": "嵌入式视图"
   }
 }

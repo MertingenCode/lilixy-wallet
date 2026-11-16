@@ -75,8 +75,7 @@
     "settings": "Ayarlar",
     "lock": "Cüzdanı kilitle",
     "openMenu": "Menüyü aç",
-    "closeMenu": "Menüyü kapat",
-    "markets": "Piyasalar"
+    "closeMenu": "Menüyü kapat"
   },
   "onboarding": {
     "welcomeTitle": "Hep senin kalan bir cüzdan",
@@ -391,7 +390,8 @@
     "biometricEnabled": "Biyometrik açılış etkinleştirildi",
     "biometricDisabled": "Biyometrik açılış kapatıldı",
     "biometricFailed": "Biyometrik açılış etkinleştirilemedi.",
-    "biometricNoSession": "Biyometriyi etkinleştirmeden önce cüzdanı şifrenizle açın."
+    "biometricNoSession": "Biyometriyi etkinleştirmeden önce cüzdanı şifrenizle açın.",
+    "biometricAuto": "Biyometrik açılış etkin; otomatik olarak kurulacak."
   },
   "networks": {
     "title": "Ağ yönetimi",
@@ -654,10 +654,5 @@
     "namePlaceholder": "Örn. Ana cüzdan",
     "added": "Cüzdan eklendi",
     "switched": "Cüzdan değiştirildi"
-  },
-  "markets": {
-    "title": "Piyasalar",
-    "description": "Lilixy’den ayrılmadan piyasaları ve türev verilerini takip edin.",
-    "embedded": "Gömülü görünüm"
   }
 }

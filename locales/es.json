@@ -75,8 +75,7 @@
     "settings": "Ajustes",
     "lock": "Bloquear cartera",
     "openMenu": "Abrir menú",
-    "closeMenu": "Cerrar menú",
-    "markets": "Mercados"
+    "closeMenu": "Cerrar menú"
   },
   "onboarding": {
     "welcomeTitle": "Una cartera que sigue siendo tuya",
@@ -391,7 +390,8 @@
     "biometricEnabled": "Desbloqueo biométrico activado",
     "biometricDisabled": "Desbloqueo biométrico desactivado",
     "biometricFailed": "No se pudo activar el desbloqueo biométrico.",
-    "biometricNoSession": "Desbloquea la cartera con tu contraseña antes de activar la biometría."
+    "biometricNoSession": "Desbloquea la cartera con tu contraseña antes de activar la biometría.",
+    "biometricAuto": "El desbloqueo biométrico está activo y se configurará automáticamente."
   },
   "networks": {
     "title": "Gestión de redes",
@@ -654,10 +654,5 @@
     "namePlaceholder": "p. ej. Cartera principal",
     "added": "Cartera añadida",
     "switched": "Cartera cambiada"
-  },
-  "markets": {
-    "title": "Mercados",
-    "description": "Sigue mercados y derivados sin salir de Lilixy.",
-    "embedded": "Vista integrada"
   }
 }

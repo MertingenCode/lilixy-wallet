@@ -1,6 +1,13 @@
 "use client";
 
-import { useEffect, useMemo, useState, type FormEvent } from "react";
+import {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  type FormEvent,
+} from "react";
 import {
   FingerprintIcon,
   LockKeyholeIcon,
@@ -39,6 +46,7 @@ export function LockScreen() {
   const [biometricAvailable, setBiometricAvailable] = useState(false);
   const [biometricEnrolled, setBiometricEnrolled] = useState(false);
   const [biometricBusy, setBiometricBusy] = useState(false);
+  const autoAttempted = useRef(false);
   const walletId = getActiveWalletId() ?? "primary";
 
   useEffect(() => {
@@ -64,7 +72,7 @@ export function LockScreen() {
     [retryAfterMs],
   );
 
-  async function handleBiometric() {
+  const handleBiometric = useCallback(async (auto = false) => {
     if (biometricBusy) return;
     setError(null);
     setBiometricBusy(true);
@@ -72,11 +80,24 @@ export function LockScreen() {
       const mnemonic = await unlockWithBiometric(walletId);
       await unlockWithMnemonic(mnemonic, walletId);
     } catch {
-      setError(t("lock.biometricFailed"));
+      if (!auto) setError(t("lock.biometricFailed"));
     } finally {
       setBiometricBusy(false);
     }
-  }
+  }, [biometricBusy, t, walletId]);
+
+  useEffect(() => {
+    if (
+      autoAttempted.current ||
+      !biometricAvailable ||
+      !biometricEnrolled
+    ) {
+      return;
+    }
+    autoAttempted.current = true;
+    const timer = window.setTimeout(() => void handleBiometric(true), 450);
+    return () => window.clearTimeout(timer);
+  }, [biometricAvailable, biometricEnrolled, handleBiometric]);
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();

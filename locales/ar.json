@@ -75,8 +75,7 @@
     "settings": "الإعدادات",
     "lock": "قفل المحفظة",
     "openMenu": "فتح القائمة",
-    "closeMenu": "إغلاق القائمة",
-    "markets": "الأسواق"
+    "closeMenu": "إغلاق القائمة"
   },
   "onboarding": {
     "welcomeTitle": "محفظة تبقى ملكك",
@@ -391,7 +390,8 @@
     "biometricEnabled": "تم تفعيل الفتح البيومتري",
     "biometricDisabled": "تم إيقاف الفتح البيومتري",
     "biometricFailed": "تعذّر تفعيل الفتح البيومتري.",
-    "biometricNoSession": "افتح المحفظة بكلمة المرور أولًا قبل تفعيل البصمة."
+    "biometricNoSession": "افتح المحفظة بكلمة المرور أولًا قبل تفعيل البصمة.",
+    "biometricAuto": "الفتح البيومتري مفعّل وسيتم إعداده تلقائيًا."
   },
   "networks": {
     "title": "إدارة الشبكات",
@@ -654,10 +654,5 @@
     "namePlaceholder": "مثال: المحفظة الرئيسية",
     "added": "تمت إضافة المحفظة",
     "switched": "تم تبديل المحفظة"
-  },
-  "markets": {
-    "title": "الأسواق",
-    "description": "تابع الأسواق والمشتقات دون مغادرة Lilixy.",
-    "embedded": "عرض مضمّن"
   }
 }

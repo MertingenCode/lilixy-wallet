@@ -21,6 +21,7 @@ interface SettingsState {
   activeChainId: number;
   walletChainFilter: string;
   hideSmallBalances: boolean;
+  biometricEnabled: boolean;
   builtInRpcOverrides: Record<number, string>;
   customNetworks: CustomNetwork[];
   customTokens: CustomToken[];
@@ -32,6 +33,7 @@ interface SettingsState {
   setActiveChainId: (chainId: number) => void;
   setWalletChainFilter: (filter: string) => void;
   setHideSmallBalances: (hide: boolean) => void;
+  setBiometricEnabled: (enabled: boolean) => void;
   setBuiltInRpcOverride: (chainId: number, rpcUrl: string | null) => void;
   addCustomNetwork: (network: CustomNetwork) => void;
   updateCustomNetwork: (network: CustomNetwork) => void;
@@ -53,6 +55,7 @@ const initialSettings = {
   activeChainId: 1,
   walletChainFilter: "all",
   hideSmallBalances: false,
+  biometricEnabled: true,
   builtInRpcOverrides: {} as Record<number, string>,
   customNetworks: [] as CustomNetwork[],
   customTokens: [] as CustomToken[],
@@ -97,6 +100,7 @@ export const useSettingsStore = create<SettingsState>()(
       setActiveChainId: (activeChainId) => set({ activeChainId }),
       setWalletChainFilter: (walletChainFilter) => set({ walletChainFilter }),
       setHideSmallBalances: (hideSmallBalances) => set({ hideSmallBalances }),
+      setBiometricEnabled: (biometricEnabled) => set({ biometricEnabled }),
       setBuiltInRpcOverride: (chainId, rpcUrl) =>
         set((state) => {
           const next = { ...state.builtInRpcOverrides };
@@ -184,6 +188,7 @@ export const useSettingsStore = create<SettingsState>()(
         activeChainId: state.activeChainId,
         walletChainFilter: state.walletChainFilter,
         hideSmallBalances: state.hideSmallBalances,
+        biometricEnabled: state.biometricEnabled,
         builtInRpcOverrides: state.builtInRpcOverrides,
         customNetworks: state.customNetworks,
         customTokens: state.customTokens,

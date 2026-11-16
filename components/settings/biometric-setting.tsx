@@ -14,10 +14,15 @@ import {
 } from "@/lib/wallet/biometric";
 import { getSessionMemory } from "@/lib/wallet/session-memory";
 import { getActiveWalletId } from "@/lib/wallet/wallets";
+import { useSettingsStore } from "@/store/settings";
 
 export function BiometricSetting({ address }: { address: string | null }) {
   const { t } = useT();
   const walletId = getActiveWalletId() ?? "primary";
+  const enabled = useSettingsStore((state) => state.biometricEnabled);
+  const setBiometricEnabled = useSettingsStore(
+    (state) => state.setBiometricEnabled,
+  );
   const [available, setAvailable] = useState(false);
   const [enrolled, setEnrolled] = useState(false);
   const [working, setWorking] = useState(false);
@@ -38,11 +43,14 @@ export function BiometricSetting({ address }: { address: string | null }) {
     if (working) return;
     setError(null);
     if (!checked) {
+      setBiometricEnabled(false);
       removeBiometric(walletId);
       setEnrolled(false);
       toast.success(t("settings.biometricDisabled"));
       return;
     }
+
+    setBiometricEnabled(true);
 
     const session = getSessionMemory();
     if (!session) {
@@ -66,7 +74,9 @@ export function BiometricSetting({ address }: { address: string | null }) {
     ? t("settings.biometricUnsupported")
     : enrolled
       ? t("settings.biometricEnabledDescription")
-      : t("settings.biometricDescription");
+      : enabled
+        ? t("settings.biometricAuto")
+        : t("settings.biometricDescription");
 
   return (
     <SettingsRow
@@ -75,7 +85,7 @@ export function BiometricSetting({ address }: { address: string | null }) {
     >
       <div className="flex flex-col items-end gap-1">
         <Switch
-          checked={enrolled}
+          checked={enabled}
           onCheckedChange={(checked) => void toggle(checked)}
           disabled={!available || working || !address}
           aria-label={t("settings.biometric")}

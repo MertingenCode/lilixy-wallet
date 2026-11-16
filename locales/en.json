@@ -75,8 +75,7 @@
     "settings": "Settings",
     "lock": "Lock wallet",
     "openMenu": "Open menu",
-    "closeMenu": "Close menu",
-    "markets": "Markets"
+    "closeMenu": "Close menu"
   },
   "onboarding": {
     "welcomeTitle": "A wallet that stays yours",
@@ -391,7 +390,8 @@
     "biometricEnabled": "Biometric unlock enabled",
     "biometricDisabled": "Biometric unlock disabled",
     "biometricFailed": "Could not enable biometric unlock.",
-    "biometricNoSession": "Unlock the wallet with your password before enabling biometrics."
+    "biometricNoSession": "Unlock the wallet with your password before enabling biometrics.",
+    "biometricAuto": "Biometric unlock is enabled and will be set up automatically."
   },
   "networks": {
     "title": "Network management",
@@ -654,10 +654,5 @@
     "namePlaceholder": "e.g. Main wallet",
     "added": "Wallet added",
     "switched": "Wallet switched"
-  },
-  "markets": {
-    "title": "Markets",
-    "description": "Track markets and derivatives without leaving Lilixy.",
-    "embedded": "Embedded view"
   }
 }

@@ -75,8 +75,7 @@
     "settings": "設定",
     "lock": "ウォレットをロック",
     "openMenu": "メニューを開く",
-    "closeMenu": "メニューを閉じる",
-    "markets": "マーケット"
+    "closeMenu": "メニューを閉じる"
   },
   "onboarding": {
     "welcomeTitle": "ずっとあなたのものになるウォレット",
@@ -391,7 +390,8 @@
     "biometricEnabled": "生体認証を有効にしました",
     "biometricDisabled": "生体認証を無効にしました",
     "biometricFailed": "生体認証を有効にできませんでした。",
-    "biometricNoSession": "生体認証を有効にする前にパスワードでウォレットを開いてください。"
+    "biometricNoSession": "生体認証を有効にする前にパスワードでウォレットを開いてください。",
+    "biometricAuto": "生体認証は有効です。自動的に設定されます。"
   },
   "networks": {
     "title": "ネットワーク管理",
@@ -654,10 +654,5 @@
     "namePlaceholder": "例: メインウォレット",
     "added": "ウォレットを追加しました",
     "switched": "ウォレットを切り替えました"
-  },
-  "markets": {
-    "title": "マーケット",
-    "description": "Lilixyを離れずに市場とデリバティブを確認できます。",
-    "embedded": "埋め込み表示"
   }
 }

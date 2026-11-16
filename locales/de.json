@@ -75,8 +75,7 @@
     "settings": "Einstellungen",
     "lock": "Wallet sperren",
     "openMenu": "Menü öffnen",
-    "closeMenu": "Menü schließen",
-    "markets": "Märkte"
+    "closeMenu": "Menü schließen"
   },
   "onboarding": {
     "welcomeTitle": "Eine Wallet, die Ihnen gehört",
@@ -391,7 +390,8 @@
     "biometricEnabled": "Biometrische Entsperrung aktiviert",
     "biometricDisabled": "Biometrische Entsperrung deaktiviert",
     "biometricFailed": "Biometrische Entsperrung konnte nicht aktiviert werden.",
-    "biometricNoSession": "Entsperre die Wallet zuerst mit dem Passwort, bevor du Biometrie aktivierst."
+    "biometricNoSession": "Entsperre die Wallet zuerst mit dem Passwort, bevor du Biometrie aktivierst.",
+    "biometricAuto": "Biometrische Entsperrung ist aktiv und wird automatisch eingerichtet."
   },
   "networks": {
     "title": "Netzwerkverwaltung",
@@ -654,10 +654,5 @@
     "namePlaceholder": "z. B. Haupt-Wallet",
     "added": "Wallet hinzugefügt",
     "switched": "Wallet gewechselt"
-  },
-  "markets": {
-    "title": "Märkte",
-    "description": "Verfolge Märkte und Derivate, ohne Lilixy zu verlassen.",
-    "embedded": "Eingebettete Ansicht"
   }
 }
